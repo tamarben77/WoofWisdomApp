@@ -61,5 +61,13 @@ public class MainActivity extends AppCompatActivity {
             );
             startActivity(secondActivityIntent);
         });
+
+        Button login = (Button) findViewById(R.id.buttonLogin);
+        login.setOnClickListener(view -> {
+            Intent secondActivityIntent = new Intent(
+                    getApplicationContext(), login.class
+            );
+            startActivity(secondActivityIntent);
+        });
     }
 }

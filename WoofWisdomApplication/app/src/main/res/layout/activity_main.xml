@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -194,5 +195,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/forums"
         app:layout_constraintTop_toBottomOf="@+id/dogBreedsInfoBtn" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="199dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="50dp"
+        android:background="#FEE4E5"
+        android:backgroundTint="#FEE4E5"
+        android:backgroundTintMode="add"
+        android:drawableTint="#FEE4E5"
+        android:foregroundTint="#FEE4E5"
+        android:text="Login"
+        app:iconTint="#FEE4E5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forums"
+        app:rippleColor="#FEE4E5"
+        app:strokeColor="#FEE4E5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
