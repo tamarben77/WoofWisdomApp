@@ -1,58 +1,56 @@
 package com.example.woofwisdomapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
-import android.widget.Button;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.woofwisdomapplication.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.security.KeyStore;
-import java.util.Locale;
+import okhttp3.Headers;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewListOfVets extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private Double latitude, longitude;
+    private static String URL = "http://192.168.1.11:8091/getNearestVet";
+    private ProgressBar loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list_of_vets);
 
-        try {
-            KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            InputStream keyStoreStream = getResources().openRawResource(R.raw.keystore);
-            keyStore.load(keyStoreStream, "secret".toCharArray());
-            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("X509");
-            keyManagerFactory.init(keyStore, "secret".toCharArray());
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(keyManagerFactory.getKeyManagers(), null, null);
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loader=(ProgressBar)findViewById(R.id.loader);
+        loader.setVisibility(View.VISIBLE);
+
         // Initialize fusedLocationClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -72,54 +70,68 @@ public class ViewListOfVets extends AppCompatActivity {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
                         // Do something with latitude and longitude
-                        new FetchNearestVetTask().execute(latitude, longitude);
+                        String requestBody = "{\"client_latitude\": \"" + latitude + "\", \"client_longitude\": \"" + longitude + "\"}";
+                        JSONObject jsonRequestBody = null;
+                        try {
+                            jsonRequestBody = new JSONObject(requestBody);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/json"));
+
+                        // Run the network call in an AsyncTask
+                        new NetworkCallAsyncTask(headers, body).execute(URL);
                     }
                 }
             }, Looper.getMainLooper());
+        } else {
+            // Request location permission
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
     }
 
-    private class FetchNearestVetTask extends AsyncTask<Double, Void, String> {
+    private class NetworkCallAsyncTask extends AsyncTask<String, Void, String> {
+        private Map<String, String> headers;
+        private RequestBody requestBody;
 
-        @Override
-        protected String doInBackground(Double... doubles) {
-            Double latitude = doubles[0];
-            Double longitude = doubles[1];
-            try {
-                URL url = new URL("https://192.168.1.224:8091/getNearestVet");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; utf-8");
-                conn.setRequestProperty("Accept", "application/json");
-                conn.setDoOutput(true);
-
-                String jsonInputString = "{\"client_latitude\": \"" + latitude + "\", \"client_longitude\": \"" + longitude + "\"}";
-
-                try (OutputStream os = conn.getOutputStream()) {
-                    byte[] input = jsonInputString.getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                }
-
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-                    StringBuilder response = new StringBuilder();
-                    String responseLine = null;
-                    while ((responseLine = br.readLine()) != null) {
-                        response.append(responseLine.trim());
-                    }
-                    return response.toString();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+        public NetworkCallAsyncTask(Map<String, String> headers, RequestBody requestBody) {
+            this.headers = headers;
+            this.requestBody = requestBody;
         }
 
         @Override
-        protected void onPostExecute(String response) {
-            if (response != null) {
-                TextView listOfVets = (TextView) findViewById(R.id.listOfVets);
-                listOfVets.setText(response);
+        protected String doInBackground(String... urls) {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(urls[0])
+                    .headers(Headers.of(headers))
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+                TextView listOfVets = findViewById(R.id.listOfVets);
+                listOfVets.setText(result);
+                loader.setVisibility(View.GONE);
+            } else {
+                TextView listOfVets = findViewById(R.id.listOfVets);
+                listOfVets.setText("failure");
+                loader.setVisibility(View.GONE);
             }
         }
     }
 }
+
