@@ -6,7 +6,9 @@
 	<modules>
 		<module>Calendar</module>
 		<module>Maps</module>
-	</modules>
+		<module>DBManager</module>
+        <module>Users</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -98,7 +100,19 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>WoofWisdom</groupId>
+			<artifactId>DBManager</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>WoofWisdom</groupId>
+            <artifactId>Users</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
