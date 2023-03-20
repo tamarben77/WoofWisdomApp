@@ -5,10 +5,9 @@ import AddToCalender.GoogleCalendarEvent;
 import ManagmentDB.MySQLConnector;
 import SearchGoogleMaps.ClientLocation;
 import SearchGoogleMaps.VetFinder;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.gson.Gson;
-import com.google.maps.errors.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,21 +16,22 @@ import woofWisdom.auth.UserObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.text.ParseException;
 
 @Controller
 public class WoofWisdomController {
     private static final Logger log = LoggerFactory.getLogger(WoofWisdomController.class);
     @PostMapping(value = "/addToCalender")
-    public ResponseEntity AddToGoogleCalender(@RequestBody String googleCalendarEvent) throws IOException, GeneralSecurityException {
+    public ResponseEntity AddToGoogleCalender(@RequestBody String googleCalendarEvent) throws IOException, GeneralSecurityException, ParseException {
         Gson gson = new Gson();
         GoogleCalendarEvent Event = gson.fromJson(googleCalendarEvent, GoogleCalendarEvent.class);
-        AddEventToGoogleCalendar add = new AddEventToGoogleCalendar(Event);
-        add.AddEvent();
+        AddEventToGoogleCalendar add = new AddEventToGoogleCalendar();
+        AddEventToGoogleCalendar.addEventToGoogleCalendar(Event.getSummary(), Event.getDescription(), Event.getLocation(), Event.getStartDate(), Event.getEndDate(), Event.getUserEmail());
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/getNearestVet")
-    public ResponseEntity GetNearestVet(@RequestBody String client_location) throws InterruptedException, ApiException, IOException {
+    public ResponseEntity GetNearestVet(@RequestBody String client_location) throws Exception {
         Gson gson = new Gson();
         ClientLocation clientLocation = gson.fromJson(client_location, ClientLocation.class);
         String response = VetFinder.getVetLocations(Double.valueOf(clientLocation.getClient_latitude()), Double.valueOf(clientLocation.getClient_longitude()));

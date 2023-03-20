@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Event"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/summaryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Summary" />
+
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description" />
+
+    <EditText
+        android:id="@+id/locationEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location" />
+
+
+    <EditText
+        android:id="@+id/startDateEditText"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:hint="Start Date and Time (yyyy-mm-dd hh:mm:ss)"
+        android:inputType="datetime" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/startDateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Start Date"
+            android:onClick="showStartDatePicker" />
+
+        <Button
+            android:id="@+id/startTimeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Start Time"
+            android:onClick="showStartTimePicker" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/endDateEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Date and Time (yyyy-mm-dd hh:mm:ss)"
+        android:inputType="datetime" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/endDateButton"
+                android:layout_width="189dp"
+                android:layout_height="wrap_content"
+                android:onClick="showEndDatePicker"
+                android:text="Select End Date" />
+
+            <Button
+                android:id="@+id/endTimeButton"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:onClick="showEndTimePicker"
+                android:text="Select End Time" />
+        </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/userEmailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="User Email" />
+
+    <Button
+        android:id="@+id/saveEventBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Event" />
+
+</LinearLayout>

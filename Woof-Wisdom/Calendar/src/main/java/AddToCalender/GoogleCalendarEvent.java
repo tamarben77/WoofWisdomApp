@@ -1,21 +1,21 @@
 package AddToCalender;
 
 public class GoogleCalendarEvent {
-    private String userId;
+    private String userEmail;
     private String startDate;
     private String endDate;
     private String summary;
     private String location;
     private String description;
-    private String start;
-    private String end;
+    //private String start;
+    //private String end;
 
-    public String getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getStartDate() {
@@ -34,7 +34,7 @@ public class GoogleCalendarEvent {
         this.endDate = endDate;
     }
 
-    public String getSummary() {
+   public String getSummary() {
         return summary;
     }
 
@@ -58,7 +58,7 @@ public class GoogleCalendarEvent {
         this.description = description;
     }
 
-    public String getStart() {
+    /*public String getStart() {
         return start;
     }
 
@@ -72,5 +72,5 @@ public class GoogleCalendarEvent {
 
     public void setEnd(String end) {
         this.end = end;
-    }
+    }*/
 }

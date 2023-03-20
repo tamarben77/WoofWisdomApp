@@ -6,19 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".immunizationsRecordActivity">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="265dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="117dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="552dp"
-        android:text="Immunization Record Screen"
-        android:textAlignment="center"
-        android:textSize="20sp"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="133dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="204dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/saveEventBtn"
+        android:layout_width="317dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="12dp"
+        android:autoText="true"
+        android:text="Add New Calendar Event"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
