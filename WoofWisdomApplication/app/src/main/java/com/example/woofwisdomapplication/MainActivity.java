@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
         vaccinations.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), immunizationsRecordActivity.class
+                    getApplicationContext(), vaccinations.class
             );
             startActivity(secondActivityIntent);
         });

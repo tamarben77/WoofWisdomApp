@@ -2,10 +2,8 @@ package WoofWisdom.Woof.Wisdom;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"WoofWisdom.Woof.Wisdom", "HandleBreedRequest"})
 public class WoofWisdomApplication {
 
 	public static void main(String[] args) {

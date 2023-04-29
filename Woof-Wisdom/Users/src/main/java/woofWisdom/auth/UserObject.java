@@ -1,4 +1,4 @@
-package Objects;
+package woofWisdom.auth;
 
 public class UserObject {
     private String firstName;
