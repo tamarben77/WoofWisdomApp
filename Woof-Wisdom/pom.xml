@@ -8,7 +8,8 @@
 		<module>Maps</module>
 		<module>DBManager</module>
         <module>Users</module>
-    </modules>
+		<module>Vaccinations</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -112,6 +113,18 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+		<dependency>
+			<groupId>WoofWisdom</groupId>
+			<artifactId>Vaccinations</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.27</version>
+		</dependency>
     </dependencies>
 
 	<build>

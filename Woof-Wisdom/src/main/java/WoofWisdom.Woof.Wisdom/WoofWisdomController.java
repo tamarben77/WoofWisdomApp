@@ -5,18 +5,20 @@ import AddToCalender.GoogleCalendarEvent;
 import ManagmentDB.MySQLConnector;
 import SearchGoogleMaps.ClientLocation;
 import SearchGoogleMaps.VetFinder;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.gson.Gson;
-import com.google.maps.errors.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import vaccinations.VaccinationDetails;
+import vaccinations.VaccinationsManager;
 import woofWisdom.auth.UserObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.sql.SQLException;
 
 @Controller
 public class WoofWisdomController {
@@ -31,12 +33,26 @@ public class WoofWisdomController {
     }
 
     @PostMapping("/getNearestVet")
-    public ResponseEntity GetNearestVet(@RequestBody String client_location) throws InterruptedException, ApiException, IOException {
+    public ResponseEntity GetNearestVet(@RequestBody String client_location) throws Exception {
         Gson gson = new Gson();
         ClientLocation clientLocation = gson.fromJson(client_location, ClientLocation.class);
         String response = VetFinder.getVetLocations(Double.valueOf(clientLocation.getClient_latitude()), Double.valueOf(clientLocation.getClient_longitude()));
         ResponseEntity res = new ResponseEntity<>(response, HttpStatus.OK);
         return res;
+    }
+
+    @GetMapping ("/showVaccinations")
+    public ResponseEntity showVaccinations() throws SQLException {
+        return VaccinationsManager.showAllVaccinations();
+    }
+
+    @PostMapping("/addVaccination")
+    public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException {
+        Gson gson = new Gson();
+        VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
+        VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
+                vaccinationDetails.getDate(), vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
+        return VaccinationsManager.showAllVaccinations();
     }
 
 /*    @PostMapping("/signIn")
