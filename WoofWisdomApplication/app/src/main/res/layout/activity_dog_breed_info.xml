@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Breed name -->
+
+    <TextView
+        android:id="@+id/breed_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Breed name: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/breed_name_value_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/breed_name_textview"/>
+
+    <!-- Breed type -->
+
+    <TextView
+        android:id="@+id/breed_type_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breed_name_textview"
+        android:layout_marginTop="80dp"
+        android:text="Breed type: "
+        android:textSize="16sp" />
+
+    <!-- Breed description -->
+
+    <TextView
+        android:id="@+id/breed_type_value_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breed_name_textview"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="82dp"
+        android:layout_toRightOf="@+id/breed_type_textview"
+        android:text=""
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/breed_description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breed_type_textview"
+        android:layout_marginTop="80dp"
+        android:text="Breed description: "
+        android:textSize="16sp" />
+
+    <!-- Fur color -->
+
+    <TextView
+        android:id="@+id/breed_description_value_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breed_type_textview"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="79dp"
+        android:layout_toRightOf="@+id/breed_description_textview"
+        android:text=""
+        android:textSize="16sp" />
+
+    <!-- Origin -->
+
+    <TextView
+        android:id="@+id/fur_color_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breed_description_textview"
+        android:layout_marginTop="104dp"
+        android:text="Fur color: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/fur_color_value_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/breed_description_textview"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="104dp"
+        android:layout_toRightOf="@+id/fur_color_textview"
+        android:text=""
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/origin_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fur_color_value_textview"
+        android:layout_marginTop="109dp"
+        android:text="Origin: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/origin_value_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/origin_textview"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="-23dp"
+        android:layout_toRightOf="@+id/origin_textview"
+        android:text=""
+        android:textSize="16sp" />
+
+</RelativeLayout>

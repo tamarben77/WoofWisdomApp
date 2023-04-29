@@ -1,6 +1,7 @@
-package HandleBreedRequest;
-
+package HandleBreedRequests;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/dogBreed")
@@ -29,8 +33,8 @@ public class BreedController {
         String url = API_BASE_URL;
         ResponseEntity<String> response = getDataFromApi(url);
         List<String> responseBody = GetBreedsInfo.extractBreedNames(response.getBody());
-        // do something with the response
-        return ResponseEntity.ok(responseBody);
+        List<String> breedList = extractBreedNames(responseBody);
+        return ResponseEntity.ok(breedList);
     }
 
     @GetMapping("/breedsInfo/{breedName}")
@@ -48,5 +52,14 @@ public class BreedController {
         return restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
     }
 
-
+    public static List<String> extractBreedNames(List<String> responseBody) {
+        List<String> breedNames = new ArrayList<>();
+        for (String breedName : responseBody) {
+            if (breedName.startsWith("\"") && breedName.endsWith("\"")) {
+                breedName = breedName.substring(1, breedName.length() - 1);
+            }
+            breedNames.add(breedName);
+        }
+        return breedNames;
+    }
 }

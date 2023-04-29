@@ -1,25 +1,25 @@
-package HandleBreedRequest;
+package com.example.woofwisdomapplication;
 
 public class DogObject {
+    private String breedName;
+    private String breedType;
+    private String breedDescription;
+    private String furColor;
+    private String origin;
+    private String avgWeight;
+    private String maxLifeSpan;
+    private String avgHeight;
     public DogObject(String breedName, String breedType, String breedDescription,
-                     String furColor, String origin, String minHeightInches, String maxHeightInches,String minWeightPounds,
-                     String maxWeightPounds, String maxLifeSpan) {
+                     String furColor, String origin,String avgWeight,String maxLifeSpan,String avgHeight) {
         this.breedName = breedName;
         this.breedType = breedType;
         this.breedDescription = breedDescription;
         this.furColor = furColor;
         this.origin = origin;
-        double minHeightCentimeters = Double.parseDouble(minHeightInches) * 2.54;
-        double maxHeightCentimeters = Double.parseDouble(maxHeightInches) * 2.54;
-        double avgHeightCentimeters = minHeightCentimeters + maxHeightCentimeters / 2;
-        this.avgHeightCentimeters = String.valueOf(avgHeightCentimeters);
-        double minWeightKilos = Double.parseDouble(minWeightPounds) * 0.453592;
-        double maxWeightKilos = Double.parseDouble(maxWeightPounds) * 0.453592;
-        double avgWeightKilos = (minWeightKilos + maxWeightKilos) / 2;
-        this.avgWeight = String.valueOf(avgWeightKilos);
+        this.avgWeight = avgWeight;
         this.maxLifeSpan = maxLifeSpan;
+        this.avgHeight = avgHeight;
     }
-
 
     public String getBreedName() {
         return breedName;
@@ -61,14 +61,6 @@ public class DogObject {
         this.origin = origin;
     }
 
-    public String getAvgHeight() {
-        return avgHeightCentimeters;
-    }
-
-    public void setAvgHeight(String avgHeight) {
-        this.avgHeightCentimeters = avgHeight;
-    }
-
     public String getAvgWeight() {
         return avgWeight;
     }
@@ -85,12 +77,5 @@ public class DogObject {
         this.maxLifeSpan = maxLifeSpan;
     }
 
-    private String breedName;
-    private String breedType;
-    private String breedDescription;
-    private String furColor;
-    private String origin;
-    private String avgHeightCentimeters;
-    private String avgWeight;
-    private String maxLifeSpan;
+
 }
