@@ -5,6 +5,7 @@ import AddToCalender.GoogleCalendarEvent;
 import ManagmentDB.MySQLConnector;
 import SearchGoogleMaps.ClientLocation;
 import SearchGoogleMaps.VetFinder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,12 +43,12 @@ public class WoofWisdomController {
     }
 
     @GetMapping ("/showVaccinations")
-    public ResponseEntity showVaccinations() throws SQLException {
+    public ResponseEntity showVaccinations() throws SQLException, JsonProcessingException {
         return VaccinationsManager.showAllVaccinations();
     }
 
     @PostMapping("/addVaccination")
-    public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException {
+    public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException, JsonProcessingException {
         Gson gson = new Gson();
         VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
         VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),

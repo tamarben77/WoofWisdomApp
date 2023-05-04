@@ -5,7 +5,7 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import java.sql.*;
-import java.util.Collections;
+import java.util.*;
 
 
 public class MySQLConnector {
@@ -53,6 +53,62 @@ public class MySQLConnector {
             System.out.println("Data inserted successfully");
         } catch (SQLException | JSchException ex) {
             ex.printStackTrace();
+        }
+    }
+
+/*    public static TableEntity getTable(String tableName){
+        try (Connection conn = getConnection()) {
+            Statement stmt = conn.createStatement();
+            String query = "SELECT * FROM " + tableName;
+
+            TableEntity table = new TableEntity();
+            table.setResultSet(stmt.executeQuery(query));
+
+            table.setResultSetMetaData(table.getResultSet().getMetaData());
+            return table;
+        }catch(SQLException | JSchException ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }*/
+
+    public static List<Map<String, Object>> getTable(String tableName) {
+        List<Map<String, Object>> data = new ArrayList<>();
+        try (Connection conn = getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName)) {
+            ResultSetMetaData meta = rs.getMetaData();
+            int numColumns = meta.getColumnCount();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= numColumns; i++) {
+                    String columnName = meta.getColumnName(i);
+                    Object value = rs.getObject(i);
+                    row.put(columnName, value);
+                }
+                data.add(row);
+            }
+        } catch (SQLException e) {
+            // handle exception
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
+        }
+        return data;
+    }
+
+    public static int getMaxId(String tableName, String columnName){
+        try (Connection conn = getConnection()) {
+            Statement stmt = conn.createStatement();
+            String query = "SELECT MAX(" + columnName + ") AS max_id FROM " + tableName;
+            ResultSet maxId = stmt.executeQuery(query);
+            int currId = 1;
+            if (maxId.next()) {
+                currId = maxId.getInt("max_id") + 1;
+            }
+            return currId;
+        }catch(SQLException | JSchException ex){
+            ex.printStackTrace();
+            return 1;
         }
     }
 

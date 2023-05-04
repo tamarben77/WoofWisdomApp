@@ -17,7 +17,9 @@ import com.example.woofwisdomapplication.DTO.Vaccination;
 import com.example.woofwisdomapplication.views.VaccinationAdapter;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,8 +52,14 @@ public class vaccinations extends AppCompatActivity {
         adapter = new VaccinationAdapter();
         recyclerView.setAdapter(adapter);
 
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.connectTimeout(60, TimeUnit.SECONDS);
+        builder.readTimeout(60, TimeUnit.SECONDS);
+        OkHttpClient client = builder.build();
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.14:8091/showVaccinations/")
+                .baseUrl("http://192.168.1.11:8091/showVaccinations/")
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
