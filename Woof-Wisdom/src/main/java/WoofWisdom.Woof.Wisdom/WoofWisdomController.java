@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vaccinations.VaccinationDetails;
 import vaccinations.VaccinationsManager;
-import woofWisdom.auth.UserObject;
+import auth.UserObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

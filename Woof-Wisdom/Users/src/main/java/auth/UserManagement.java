@@ -1,6 +1,5 @@
-package woofWisdom.auth;
+package auth;
 
-import org.apache.catalina.User;
 
 public class UserManagement {
     private String username;
