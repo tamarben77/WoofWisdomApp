@@ -9,7 +9,8 @@
 		<module>DBManager</module>
 		<module>Vaccinations</module>
         <module>Users</module>
-    </modules>
+		<module>Breeds</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
