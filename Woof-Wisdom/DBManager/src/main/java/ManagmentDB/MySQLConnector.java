@@ -56,22 +56,6 @@ public class MySQLConnector {
         }
     }
 
-/*    public static TableEntity getTable(String tableName){
-        try (Connection conn = getConnection()) {
-            Statement stmt = conn.createStatement();
-            String query = "SELECT * FROM " + tableName;
-
-            TableEntity table = new TableEntity();
-            table.setResultSet(stmt.executeQuery(query));
-
-            table.setResultSetMetaData(table.getResultSet().getMetaData());
-            return table;
-        }catch(SQLException | JSchException ex){
-            ex.printStackTrace();
-            return null;
-        }
-    }*/
-
     public static List<Map<String, Object>> getTable(String tableName) {
         List<Map<String, Object>> data = new ArrayList<>();
         try (Connection conn = getConnection();
