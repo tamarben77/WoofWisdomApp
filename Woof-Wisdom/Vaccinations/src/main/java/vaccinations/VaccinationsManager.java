@@ -37,9 +37,7 @@ public class VaccinationsManager {
         String[] columnNames = {"vaccination_id", "vaccination_name", "username", "date", "description", "location"};
         String[] values = {String.valueOf(currId), vac_name, username, vac_date, vac_description, vac_location};
         MySQLConnector.insertNewRow("vaccinations", columnNames, values);
-        //String query = String.format("INSERT INTO shakira.vaccinations (vaccination_id, vaccination_name, username, date, description, location) " +
-                //"VALUES (%d, '%s', '%s', CURDATE(), '%s', '%s')", currId, vac_name, username, vac_description, vac_location);
-        //int rowsAffected = stmt.executeUpdate(query);
-
+        String query = String.format("INSERT INTO shakira.vaccinations (vaccination_id, vaccination_name, username, date, description, location) " +
+                "VALUES (%d, '%s', '%s', CURDATE(), '%s', '%s')", currId, vac_name, username, vac_description, vac_location);
     }
 }
