@@ -1,4 +1,4 @@
-package WoofWisdom.Woof.Wisdom;
+package WoofWisdom;
 
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;

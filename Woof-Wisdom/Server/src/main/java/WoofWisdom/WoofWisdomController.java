@@ -1,4 +1,4 @@
-package WoofWisdom.Woof.Wisdom;
+package WoofWisdom;
 
 import AddToCalender.AddEventToGoogleCalendar;
 import AddToCalender.GoogleCalendarEvent;
