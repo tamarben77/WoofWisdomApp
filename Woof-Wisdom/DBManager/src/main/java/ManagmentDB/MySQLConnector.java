@@ -20,7 +20,7 @@ public class MySQLConnector {
 */
     private static final String SSH_USER = "ubuntu";
     private static final String SSH_KEY_FILE = "ssh-keys/woofwisdomkey.pem";
-    private static final String SSH_HOST = "ec2-184-72-117-35.compute-1.amazonaws.com";
+    private static final String SSH_HOST = "ec2-54-211-217-189.compute-1.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";
@@ -149,6 +149,52 @@ public class MySQLConnector {
         }
         return userExists;
     }
+
+    public static List<Map<String, Object>> select(String tableName, String condition, String whereValue) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        try {
+            conn = getConnection();
+            String sql = "SELECT * FROM " + "woofwisdomdb." +tableName;
+            if (condition != null) {
+                sql += " WHERE " + condition + "=" + "'" +whereValue+ "'";
+            }
+            stmt = conn.prepareStatement(sql);
+            System.out.println("Executing SQL query: " + sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = rs.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                result.add(row);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return result;
+    }
+
 
 
 }

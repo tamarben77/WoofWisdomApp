@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +20,11 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class login extends AppCompatActivity {
-    private static final String URL = "http://192.168.1.206:8091/signIn";
+    private static final String URL = "http://192.168.1.212:8091/signIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,19 @@ public class login extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                              /*  SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                try {
+                                    editor.putString("sessionID", response.getString("sessionID"));
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                editor.apply();
+                                Log.d("LoginActivity", "Starting MainActivity");*/
+                                Intent intent = new Intent(login.this, MainActivity.class);
+                                Log.d("login", "Starting Main Activity");
+                                startActivity(intent);
+                                Log.d("login", "Main Activity started");
                                 Toast.makeText(login.this, "Login successful", Toast.LENGTH_SHORT).show();
                             }
                         },
