@@ -3,6 +3,7 @@ package com.example.woofwisdomapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -58,7 +60,7 @@ public class login extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                              /*  SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 try {
                                     editor.putString("sessionID", response.getString("sessionID"));
@@ -66,7 +68,7 @@ public class login extends AppCompatActivity {
                                     throw new RuntimeException(e);
                                 }
                                 editor.apply();
-                                Log.d("LoginActivity", "Starting MainActivity");*/
+                                Log.d("LoginActivity", "Starting MainActivity");
                                 Intent intent = new Intent(login.this, MainActivity.class);
                                 Log.d("login", "Starting Main Activity");
                                 startActivity(intent);
@@ -77,9 +79,13 @@ public class login extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                Log.d("login", "login Failed");
                                 Toast.makeText(login.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
+                int timeout = 60000;
+                request.setRetryPolicy(new DefaultRetryPolicy(timeout,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 Volley.newRequestQueue(login.this).add(request);
             }
         });
