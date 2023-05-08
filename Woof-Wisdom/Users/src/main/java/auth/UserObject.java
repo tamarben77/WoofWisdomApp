@@ -6,6 +6,7 @@ public class UserObject {
     private String email;
     private String password;
     private String message;
+    private String sessionID;
 
     public String getFirstName() {
         return firstName;
@@ -46,4 +47,12 @@ public class UserObject {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void setSessionId(String sessionId) {
+        this.sessionID = sessionId;
+    }
+    public String getSessionID(){
+        return sessionID;
+    }
+
 }
