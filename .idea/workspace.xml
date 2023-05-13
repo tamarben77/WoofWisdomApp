@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="432744f1-5780-4788-b040-b674879af956" name="Changes" comment="" />
+    <list default="true" id="432744f1-5780-4788-b040-b674879af956" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/DBManager/src/main/java/ManagmentDB/MySQLConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/DBManager/src/main/java/ManagmentDB/MySQLConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Fourms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Fourms/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/ForumQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/ForumQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/Forums.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/Forums.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/WoofWisdomApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/WoofWisdomApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_forums.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_forums.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,8 +34,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/netav/Desktop/Personal/WoofWisdomApp/Woof-Wisdom",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "C:/Users/reuth/Desktop/WoofWisdomApp/WoofWisdomApplication",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -35,6 +52,7 @@
       <updated>1683272796062</updated>
       <workItem from="1683272797932" duration="29000" />
       <workItem from="1683274908047" duration="130000" />
+      <workItem from="1683652570783" duration="31000" />
     </task>
     <servers />
   </component>

@@ -1,8 +1,16 @@
 package HandleForumsRequests;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "forums")
 public class ForumQuery {
 
     private String ifNewQuery;
+    @Id
     private String questionID;
     private String questionTitle;
     private String questionDetails;

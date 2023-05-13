@@ -19,8 +19,8 @@ public class MySQLConnector {
     }
 */
     private static final String SSH_USER = "ubuntu";
-    private static final String SSH_KEY_FILE = "ssh-keys/woofwisdomkey.pem";
-    private static final String SSH_HOST = "ec2-54-211-217-189.compute-1.amazonaws.com";
+    private static final String SSH_KEY_FILE = "ssh-keys/newWWkey.pem";
+    private static final String SSH_HOST = "ec2-15-236-186-223.eu-west-3.compute.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";
