@@ -9,23 +9,14 @@ import java.util.*;
 
 
 public class MySQLConnector {
-/*
-    private static final String DB_URL = "jdbc:MySQL://localhost/shakira";//"jdbc:mysql://localhost:3306/WoofWisdomDB";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "AAAaaa123";
-    public static Connection getConnection() throws SQLException {
-        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        return conn;
-    }
-*/
     private static final String SSH_USER = "ubuntu";
-    private static final String SSH_KEY_FILE = "ssh-keys/woofwisdomkey.pem";
-    private static final String SSH_HOST = "ec2-54-211-217-189.compute-1.amazonaws.com";
+    private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKey.pem";
+    private static final String SSH_HOST = "ec2-44-203-138-157.compute-1.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "AAAaaa123";
-    private static final String DB_NAME = "woofwisdomdb";
+    private static final String DB_NAME = "woofwisdom";
 
     public static Connection getConnection() throws SQLException, JSchException {
         JSch jsch = new JSch();
@@ -72,10 +63,8 @@ public class MySQLConnector {
                 }
                 data.add(row);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | JSchException e) {
             // handle exception
-        } catch (JSchException e) {
-            throw new RuntimeException(e);
         }
         return data;
     }
@@ -134,7 +123,7 @@ public class MySQLConnector {
         return userExists;
     }
 
-    public static List<Map<String, Object>> select(String tableName, String condition, String whereValue) throws SQLException {
+    public static List<Map<String, Object>> select(String tableName, String condition, String whereValue) throws SQLException, JSchException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -160,10 +149,8 @@ public class MySQLConnector {
                 }
                 result.add(row);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | JSchException ex) {
             throw ex;
-        } catch (JSchException e) {
-            throw new RuntimeException(e);
         } finally {
             if (rs != null) {
                 rs.close();

@@ -8,6 +8,33 @@ public class UserObject {
     private String message;
     private String sessionID;
 
+    private String dogName = null;
+    private Integer dogWight = null;
+    private Integer dogAge = null;
+    public String getDogName() {
+        return dogName;
+    }
+
+    public void setDogName(String dogName) {
+        this.dogName = dogName;
+    }
+
+    public Integer getDogWight() {
+        return dogWight;
+    }
+
+    public void setDogWight(Integer dogWight) {
+        this.dogWight = dogWight;
+    }
+
+    public Integer getDogAge() {
+        return dogAge;
+    }
+
+    public void setDogAge(Integer dogAge) {
+        this.dogAge = dogAge;
+    }
+
     public String getFirstName() {
         return firstName;
     }
