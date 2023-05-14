@@ -1,25 +1,38 @@
-package com.example.woofwisdomapplication;
+package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.example.woofwisdomapplication.DTO.NextVaccination;
+import com.example.woofwisdomapplication.DTO.Vaccination;
+import com.example.woofwisdomapplication.R;
+import com.example.woofwisdomapplication.findNearestVetActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +45,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class addVaccination extends AppCompatActivity {
+
+    private static final String IP = "192.168.10.57";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +110,7 @@ public class addVaccination extends AppCompatActivity {
                 }
 
                 // Send a POST request to the specified URL with the JSON object as the body
-                String url = "http://192.168.1.11:8091/addVaccination";
+                String url = "http://" + IP + ":8091/addVaccination";
                 OkHttpClient client = new OkHttpClient.Builder()
                         .readTimeout(60, TimeUnit.SECONDS)
                         .writeTimeout(60, TimeUnit.SECONDS)
@@ -114,6 +129,7 @@ public class addVaccination extends AppCompatActivity {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         // Handle any errors that occurred during the request
+                        int num = 8;
                     }
 
                     @Override
@@ -121,17 +137,42 @@ public class addVaccination extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             String responseBody = response.body().string();
                                 int statusCode = response.code();
-                                // Show an alert dialog with the status code
-                                AlertDialog.Builder builder = new AlertDialog.Builder(addVaccination.this);
-                                builder.setTitle("Status Code");
-                                builder.setMessage("The server returned status code: " + statusCode);
-                                builder.setPositiveButton("OK", null);
-                            runOnUiThread(new Runnable() {
+                                runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    builder.show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(addVaccination.this);
+
+                                    // Set the title and message for the dialog
+                                    builder.setTitle("Get tips for future vaccinations?");
+                                    builder.setMessage("Would you like to get tips for future vaccinations?");
+
+                                    // Set the positive button (Yes)
+                                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            Intent secondActivityIntent = new Intent(
+                                                    getApplicationContext(), NextVaccinationsActivity.class
+                                            );
+                                            startActivity(secondActivityIntent);
+                                        }
+                                    });
+
+                                    // Set the negative button (No)
+                                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            // Close the dialog
+                                            dialogInterface.dismiss();
+                                        }
+                                    });
+
+                                    // Create and show the AlertDialog
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
                                 }
-                            });                        } else {
+                            });
+
+                        } else {
                             // Handle any errors that occurred during the request
                         }
                     }
@@ -139,6 +180,7 @@ public class addVaccination extends AppCompatActivity {
             }
         });
     }
+
 
     public void showDatePickerDialog(View v) {
         Calendar today = Calendar.getInstance();

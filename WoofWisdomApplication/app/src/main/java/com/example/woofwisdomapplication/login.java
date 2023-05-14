@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class login extends AppCompatActivity {
-    private static final String URL = "http://192.168.1.206:8091/signIn";
+    //private static final String URL = "http://192.168.1.206:8091/signIn";
+    private static final String URL = "http://172.21.96.1:8091/signIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,11 @@ public class login extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                                Log.d("Login activity", "Starting MainActivity");
+                                Intent intent = new Intent(login.this, MainActivity.class);
+                                Log.d("login", "starting main activity");
+                                startActivity(intent);
+                                Log.d("login", "main activity started");
                                 Toast.makeText(login.this, "Login successful", Toast.LENGTH_SHORT).show();
                             }
                         },

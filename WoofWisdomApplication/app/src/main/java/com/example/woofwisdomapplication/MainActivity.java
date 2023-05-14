@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
         vaccinations.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), vaccinations.class
+                    getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.vaccinations.class
             );
             startActivity(secondActivityIntent);
         });

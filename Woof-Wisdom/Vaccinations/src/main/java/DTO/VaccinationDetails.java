@@ -1,4 +1,4 @@
-package vaccinations;
+package DTO;
 
 public class VaccinationDetails {
     private String username;

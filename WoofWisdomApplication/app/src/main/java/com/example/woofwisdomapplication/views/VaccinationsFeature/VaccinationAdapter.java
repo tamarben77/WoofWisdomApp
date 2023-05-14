@@ -1,6 +1,5 @@
-package com.example.woofwisdomapplication.views;
+package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

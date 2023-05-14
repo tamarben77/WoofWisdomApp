@@ -13,13 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import vaccinations.VaccinationDetails;
+import vaccinations.NextVaccinations;
+import DTO.VaccinationDetails;
 import vaccinations.VaccinationsManager;
 import auth.UserObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class WoofWisdomController {
@@ -116,13 +118,20 @@ public class WoofWisdomController {
         return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
     }
 
+    @GetMapping("/next-vaccinations")
+    @ResponseBody
+    public ResponseEntity<String> getNextVaccinations(@RequestParam("dogAgeInWeeks") int dogAgeInWeeks) throws JsonProcessingException {
+        List<String> allVaccinations = NextVaccinations.getNextVaccinations(dogAgeInWeeks);
+        StringBuilder res = new StringBuilder();
+        for(String vaccination: allVaccinations){
+            res.append(vaccination).append("\n");
+        }
+        return new ResponseEntity<>(res.toString(), HttpStatus.OK);
+    }
+
     @GetMapping("/neta")
     @ResponseBody
-    public void neta() {
-        String tableName = "users";
-        String[] columnNames = {"First_Name", "Last_Name", "Email", "Password"};
-        String[] values = {"John", "Doe", "johndoe@example.com", "password123"};
-        MySQLConnector.insertNewRow(tableName, columnNames, values);
-        /*return "hiiiiii";*/
+    public ResponseEntity<String> neta() {
+        return new ResponseEntity<>("Hiiii", HttpStatus.OK);
     }
 }
