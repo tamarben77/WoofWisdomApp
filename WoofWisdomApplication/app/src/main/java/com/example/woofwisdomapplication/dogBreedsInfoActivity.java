@@ -44,7 +44,7 @@ public class dogBreedsInfoActivity extends AppCompatActivity {
         });
 
         // Make a network call to get the list of dog breeds from the server
-        String url = "http://10.21.160.241:8091/dogBreed/breedsList"; // Replace with your actual API endpoint
+        String url = "http://192.168.1.212:8091/dogBreed/breedsList"; // Replace with your actual API endpoint
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

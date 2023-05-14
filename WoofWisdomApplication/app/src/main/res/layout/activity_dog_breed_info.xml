@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <!-- Breed name -->
 
     <TextView
@@ -10,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Breed name: "
         android:textSize="16sp" />
 
@@ -17,10 +19,11 @@
         android:id="@+id/breed_name_value_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
         android:layout_marginTop="16dp"
-        android:layout_toRightOf="@+id/breed_name_textview"/>
+        android:layout_toRightOf="@+id/breed_name_textview"
+        android:fontFamily="sans-serif-medium"
+        android:text=""
+        android:textSize="16sp" />
 
     <!-- Breed type -->
 
@@ -30,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/breed_name_textview"
         android:layout_marginTop="80dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Breed type: "
         android:textSize="16sp" />
 
@@ -43,6 +47,7 @@
         android:layout_marginLeft="1dp"
         android:layout_marginTop="82dp"
         android:layout_toRightOf="@+id/breed_type_textview"
+        android:fontFamily="sans-serif-medium"
         android:text=""
         android:textSize="16sp" />
 
@@ -52,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/breed_type_textview"
         android:layout_marginTop="80dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Breed description: "
         android:textSize="16sp" />
 
@@ -65,6 +71,7 @@
         android:layout_marginLeft="-1dp"
         android:layout_marginTop="79dp"
         android:layout_toRightOf="@+id/breed_description_textview"
+        android:fontFamily="sans-serif-medium"
         android:text=""
         android:textSize="16sp" />
 
@@ -76,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/breed_description_textview"
         android:layout_marginTop="104dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Fur color: "
         android:textSize="16sp" />
 
@@ -87,6 +95,7 @@
         android:layout_marginLeft="-1dp"
         android:layout_marginTop="104dp"
         android:layout_toRightOf="@+id/fur_color_textview"
+        android:fontFamily="sans-serif-medium"
         android:text=""
         android:textSize="16sp" />
 
@@ -96,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fur_color_value_textview"
         android:layout_marginTop="109dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Origin: "
         android:textSize="16sp" />
 
@@ -107,6 +117,7 @@
         android:layout_marginLeft="1dp"
         android:layout_marginTop="-23dp"
         android:layout_toRightOf="@+id/origin_textview"
+        android:fontFamily="sans-serif-medium"
         android:text=""
         android:textSize="16sp" />
 

@@ -11,7 +11,7 @@ import java.util.*;
 public class MySQLConnector {
     private static final String SSH_USER = "ubuntu";
     private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKey.pem";
-    private static final String SSH_HOST = "ec2-44-203-138-157.compute-1.amazonaws.com";
+    private static final String SSH_HOST = "ec2-174-129-143-139.compute-1.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";

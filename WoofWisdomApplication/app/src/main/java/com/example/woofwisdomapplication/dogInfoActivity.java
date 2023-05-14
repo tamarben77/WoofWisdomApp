@@ -3,6 +3,7 @@ package com.example.woofwisdomapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,8 +24,15 @@ public class dogInfoActivity extends AppCompatActivity {
 
         // Get the selected breed name from the intent
         selectedBreed = getIntent().getStringExtra("breedName");
-        String url = "http://10.21.160.241:8091/dogBreed/breedsInfo/" + selectedBreed;
+        String url = "http://192.168.1.212:8091/dogBreed/breedsInfo/" + selectedBreed;
 
+        RelativeLayout mainLayout = findViewById(R.id.main_layout);
+        String breedName = selectedBreed;
+        String imageName = "breed_" + breedName.toLowerCase();
+        int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
+        if (resourceId != 0) {
+            mainLayout.setBackgroundResource(resourceId);
+        }
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
