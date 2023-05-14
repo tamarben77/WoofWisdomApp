@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -175,7 +176,14 @@ public class WoofWisdomController {
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
     }
     @PostMapping("/signUp")
-    public ResponseEntity<String> signUp(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<String> signUp(
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam(required = false) String dogName,
+            @RequestParam(required = false) String dogWeight,
+            @RequestParam(required = false) Integer dogAge) {
         String logMessage = "Sign-up request received for email: " + email;
         if (MySQLConnector.checkIfUserExists(email)) {
             logMessage += ", user already exists";
@@ -185,6 +193,25 @@ public class WoofWisdomController {
         String tableName = "users";
         String[] columnNames = {"First_Name", "Last_Name", "Email", "Password"};
         String[] values = {firstName, lastName, email, password};
+        if (dogName != null) {
+            columnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
+            values = Arrays.copyOf(values, values.length + 1);
+            columnNames[columnNames.length - 1] = "Dog_Name";
+            values[values.length - 1] = dogName;
+        }
+        if (dogWeight != null) {
+            columnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
+            values = Arrays.copyOf(values, values.length + 1);
+            columnNames[columnNames.length - 1] = "Dog_Weight";
+            values[values.length - 1] = dogWeight;
+        }
+
+        if (dogAge != null) {
+            columnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
+            values = Arrays.copyOf(values, values.length + 1);
+            columnNames[columnNames.length - 1] = "Dog_Age";
+            values[values.length - 1] = String.valueOf(dogAge);
+        }
         MySQLConnector.insertNewRow(tableName, columnNames, values);
         logMessage += ", user created successfully";
         log.info(logMessage);

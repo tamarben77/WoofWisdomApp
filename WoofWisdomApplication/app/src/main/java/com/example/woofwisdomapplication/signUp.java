@@ -18,10 +18,14 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 public class signUp extends AppCompatActivity {
+    private static final String baseUrl = "http://192.168.1.212:8091/signUp";
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
+    private EditText dogNameEditText;
+    private EditText dogWeightEditText;
+    private EditText dogAgeEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,9 @@ public class signUp extends AppCompatActivity {
         lastNameEditText = findViewById(R.id.editTextTextLastName);
         emailEditText = findViewById(R.id.editTextTextEmailAddress2);
         passwordEditText = findViewById(R.id.editTextNumberPassword);
+        dogNameEditText = findViewById(R.id.editTextDogName);
+        dogWeightEditText = findViewById(R.id.editTextDogWight);
+        dogAgeEditText = findViewById(R.id.editTextDogAge);
 
         Button signUpButton = findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -42,15 +49,33 @@ public class signUp extends AppCompatActivity {
         });
     }
 
-    private void signUpUser() {
+   /* private void signUpUser() {
         String firstName = firstNameEditText.getText().toString();
         String lastName = lastNameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        String dogName = dogNameEditText.getText().toString();
+        String dogWeight = dogWeightEditText.getText().toString();
+        String dogAge = dogAgeEditText.getText().toString();
 
-        String url = "http://localhost:8091/signIn" + firstName + "&lastName=" + lastName + "&email=" + email + "&password=" + password;
+        if (email.isEmpty() || password.isEmpty() || firstName.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Email, password, and first name are required fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        String url = baseUrl + "?firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&password=" + password;
+
+        if (!dogName.isEmpty()) {
+            url += "&dogName=" + dogName;
+        }
+        if (!dogWeight.isEmpty()) {
+            url += "&dogWeight=" + dogWeight;
+        }
+        if (!dogAge.isEmpty()) {
+            url += "&dogAge=" + dogAge;
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(getApplicationContext(), "Successfully SignUp", Toast.LENGTH_SHORT).show();
@@ -67,5 +92,49 @@ public class signUp extends AppCompatActivity {
         });
 
         Volley.newRequestQueue(this).add(request);
-    }
+    }*/
+   private void signUpUser() {
+       String firstName = firstNameEditText.getText().toString();
+       String lastName = lastNameEditText.getText().toString();
+       String email = emailEditText.getText().toString();
+       String password = passwordEditText.getText().toString();
+       String dogName = dogNameEditText.getText().toString();
+       String dogWeight = dogWeightEditText.getText().toString();
+       String dogAge = dogAgeEditText.getText().toString();
+
+       if (email.isEmpty() || password.isEmpty() || firstName.isEmpty()) {
+           Toast.makeText(getApplicationContext(), "Email, password, and first name are required fields.", Toast.LENGTH_LONG).show();
+           return;
+       }
+
+       String url = baseUrl + "?firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&password=" + password;
+
+       if (!dogName.isEmpty()) {
+           url += "&dogName=" + dogName;
+       }
+       if (!dogWeight.isEmpty()) {
+           url += "&dogWeight=" + dogWeight;
+       }
+       if (!dogAge.isEmpty()) {
+           url += "&dogAge=" + dogAge;
+       }
+
+       JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+           @Override
+           public void onResponse(JSONObject response) {
+               Toast.makeText(getApplicationContext(), "Successfully SignUp", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(signUp.this, MainActivity.class);
+               startActivity(intent);
+           }
+       }, new Response.ErrorListener() {
+           @Override
+           public void onErrorResponse(VolleyError error) {
+               Toast.makeText(getApplicationContext(), "Failed to SignUp, please try again", Toast.LENGTH_SHORT).show();
+               Intent intent = new Intent(signUp.this, MainActivity.class);
+               startActivity(intent);
+           }
+       });
+
+       Volley.newRequestQueue(this).add(request);
+   }
 }
