@@ -1,4 +1,4 @@
-package com.example.woofwisdomapplication;
+package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,13 +14,12 @@ import android.widget.ProgressBar;
 
 import com.example.woofwisdomapplication.API.VaccinationService;
 import com.example.woofwisdomapplication.DTO.Vaccination;
-import com.example.woofwisdomapplication.views.VaccinationAdapter;
+import com.example.woofwisdomapplication.R;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;

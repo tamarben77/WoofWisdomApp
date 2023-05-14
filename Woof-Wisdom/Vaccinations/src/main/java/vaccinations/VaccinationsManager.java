@@ -30,14 +30,9 @@ public class VaccinationsManager {
         return mapper.writeValueAsString(data);
     }
 
-
     public static void addNewVaccinationRecord(String username, String vac_name, String vac_date, String vac_description, String vac_location) throws SQLException {
-
-        int currId = MySQLConnector.getMaxId("vaccinations", "vaccination_id");
-        String[] columnNames = {"vaccination_id", "vaccination_name", "username", "date", "description", "location"};
-        String[] values = {String.valueOf(currId), vac_name, username, vac_date, vac_description, vac_location};
+        String[] columnNames = {"vaccination_name", "username", "date", "description", "location"};
+        String[] values = {vac_name, username, vac_date, vac_description, vac_location};
         MySQLConnector.insertNewRow("vaccinations", columnNames, values);
-        String query = String.format("INSERT INTO shakira.vaccinations (vaccination_id, vaccination_name, username, date, description, location) " +
-                "VALUES (%d, '%s', '%s', CURDATE(), '%s', '%s')", currId, vac_name, username, vac_description, vac_location);
     }
 }

@@ -1,38 +1,6 @@
-package com.example.woofwisdomapplication;
+package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-
-import com.example.woofwisdomapplication.DTO.GoogleCalendarEvent;
-
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-
-import com.example.woofwisdomapplication.DTO.Vaccination;
-import com.example.woofwisdomapplication.views.VaccinationAdapter;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import okhttp3.Callback;
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class immunizationsRecordActivity extends AppCompatActivity {
 
