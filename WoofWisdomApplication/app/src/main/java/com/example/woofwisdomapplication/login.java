@@ -64,6 +64,7 @@ public class login extends AppCompatActivity {
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 try {
                                     editor.putString("sessionID", response.getString("sessionID"));
+                                    editor.putString("userName", response.getString("userName")); // Add this line to store the user's name
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -89,7 +90,6 @@ public class login extends AppCompatActivity {
                 Volley.newRequestQueue(login.this).add(request);
             }
         });
-
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -49,50 +49,6 @@ public class signUp extends AppCompatActivity {
         });
     }
 
-   /* private void signUpUser() {
-        String firstName = firstNameEditText.getText().toString();
-        String lastName = lastNameEditText.getText().toString();
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-        String dogName = dogNameEditText.getText().toString();
-        String dogWeight = dogWeightEditText.getText().toString();
-        String dogAge = dogAgeEditText.getText().toString();
-
-        if (email.isEmpty() || password.isEmpty() || firstName.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Email, password, and first name are required fields.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String url = baseUrl + "?firstName=" + firstName + "&lastName=" + lastName + "&email=" + email + "&password=" + password;
-
-        if (!dogName.isEmpty()) {
-            url += "&dogName=" + dogName;
-        }
-        if (!dogWeight.isEmpty()) {
-            url += "&dogWeight=" + dogWeight;
-        }
-        if (!dogAge.isEmpty()) {
-            url += "&dogAge=" + dogAge;
-        }
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(getApplicationContext(), "Successfully SignUp", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(signUp.this, MainActivity.class);
-                startActivity(intent);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Failed to SignUp, please try again", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(signUp.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        Volley.newRequestQueue(this).add(request);
-    }*/
    private void signUpUser() {
        String firstName = firstNameEditText.getText().toString();
        String lastName = lastNameEditText.getText().toString();
