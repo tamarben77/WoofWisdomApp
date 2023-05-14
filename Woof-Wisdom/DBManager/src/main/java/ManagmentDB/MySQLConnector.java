@@ -9,15 +9,6 @@ import java.util.*;
 
 
 public class MySQLConnector {
-/*
-    private static final String DB_URL = "jdbc:MySQL://localhost/shakira";//"jdbc:mysql://localhost:3306/WoofWisdomDB";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "AAAaaa123";
-    public static Connection getConnection() throws SQLException {
-        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        return conn;
-    }
-*/
     private static final String SSH_USER = "ubuntu";
 
     //IMPORTANT - this location is only for local debugging
@@ -33,7 +24,7 @@ public class MySQLConnector {
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "AAAaaa123";
-    private static final String DB_NAME = "woofwisdom";
+    private static final String DB_NAME = "woofwisdomdb";
 
     public static Connection getConnection() throws SQLException, JSchException {
         JSch jsch = new JSch();
@@ -141,6 +132,50 @@ public class MySQLConnector {
         }
         return userExists;
     }
+
+    public static List<Map<String, Object>> select(String tableName, String condition, String whereValue) throws SQLException, JSchException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        try {
+            conn = getConnection();
+            String sql = "SELECT * FROM " + "woofwisdomdb." +tableName;
+            if (condition != null) {
+                sql += " WHERE " + condition + "=" + "'" +whereValue+ "'";
+            }
+            stmt = conn.prepareStatement(sql);
+            System.out.println("Executing SQL query: " + sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = rs.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                result.add(row);
+            }
+        } catch (SQLException | JSchException ex) {
+            throw ex;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return result;
+    }
+
 
 
 }
