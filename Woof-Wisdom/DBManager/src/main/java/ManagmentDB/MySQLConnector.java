@@ -3,28 +3,30 @@ package ManagmentDB;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.*;
 
-
+@Component
 public class MySQLConnector {
     private static final String SSH_USER = "ubuntu";
 
     //IMPORTANT - this location is only for local debugging
     //TODO - when deploying the server, this should be in a comment / removed
-    private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKe.pem";
+    //private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKe.pem";
 
     //IMPORTANT - the second SSH-FILE-KEY's location is for the ec2 instance,
     // so it should be used only when running remote server
     //TODO - activate this configuration when deploying the server
-    //private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
-    private static final String SSH_HOST = "ec2-44-203-138-157.compute-1.amazonaws.com";
+    private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
+    private static final String SSH_HOST = "ec2-174-129-143-139.compute-1.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "AAAaaa123";
-    private static final String DB_NAME = "woofwisdomdb";
+    private static final String DB_NAME = "woofwisdom";
 
     public static Connection getConnection() throws SQLException, JSchException {
         JSch jsch = new JSch();
@@ -42,6 +44,7 @@ public class MySQLConnector {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException("Number of column names and values don't match");
         }
+        String host = SSH_HOST;
         try (Connection conn = getConnection()) {
             String sql = "INSERT INTO " + tableName + " (" + String.join(",", columnNames) + ") VALUES (" + String.join(",", Collections.nCopies(columnNames.length, "?")) + ")";
             PreparedStatement stmt = conn.prepareStatement(sql);
