@@ -86,21 +86,20 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @GetMapping("/getUserInfo")
-    public ResponseEntity<UserObject> getUserInfo(@RequestBody UserObject user) {
+    public ResponseEntity<UserObject> getUserInfo(@RequestParam("sessionID") String sessionID) {
         UserObject newUser = new UserObject();
-        String logMessage = "Get user info request received for session ID: " + user.getSessionID();
+        String logMessage = "Get user info request received for session ID: " + sessionID;
 
         // Check if the session ID exists in the database
         try (Connection conn = MySQLConnector.getConnection()) {
             String tableName = "sessions";
             String columnName = "SessionId";
-            String whereValue = user.getSessionID();
+            String whereValue = sessionID;
             List<Map<String, Object>> resultList = MySQLConnector.select(tableName, columnName, whereValue);
             for (Map<String, Object> row : resultList) {
                 Object sessionId = row.get("SessionId");
                 Object email = row.get("Email");
-// Inside the loop where you check if the session ID is valid
-                if (sessionId.equals(user.getSessionID())) {
+                if (sessionId.equals(sessionID)) {
                     // Retrieve the user's first name and last name based on email
                     String firstName = userService.getUserFirstNameFromEmail(conn, email.toString());
                     String lastName = userService.getUserLastNameFromEmail(conn, email.toString());

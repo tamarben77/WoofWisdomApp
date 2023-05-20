@@ -56,73 +56,37 @@ public class login extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-                JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonRequestBody,
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, jsonRequestBody,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
                                 try {
-                                    String sessionID = response.getString("sessionID");
-                                    SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("sessionID", sessionID);
-                                    editor.apply();
-
-                                    // Call getUserInfo API to fetch user information
-                                    String getUserInfoURL = "http:// 192.168.1.212/auth/getUserInfo";
-                                    JSONObject userInfoRequestBody = new JSONObject();
-                                    userInfoRequestBody.put("sessionID", sessionID);
-
-                                    JsonObjectRequest userInfoRequest = new JsonObjectRequest(Request.Method.GET, getUserInfoURL, userInfoRequestBody,
-                                            new Response.Listener<JSONObject>() {
-                                                @Override
-                                                public void onResponse(JSONObject userInfoResponse) {
-                                                    try {
-                                                        String firstName = userInfoResponse.getString("firstName");
-                                                        String lastName = userInfoResponse.getString("lastName");
-
-                                                        // Store first name and last name in SharedPreferences
-                                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                        editor.putString("firstName", firstName);
-                                                        editor.putString("lastName", lastName);
-                                                        editor.apply();
-
-                                                        // Start MainActivity
-                                                        Intent intent = new Intent(login.this, MainActivity.class);
-                                                        startActivity(intent);
-                                                        Toast.makeText(login.this, "Login successful", Toast.LENGTH_SHORT).show();
-                                                    } catch (JSONException e) {
-                                                        throw new RuntimeException(e);
-                                                    }
-                                                }
-                                            },
-                                            new Response.ErrorListener() {
-                                                @Override
-                                                public void onErrorResponse(VolleyError error) {
-                                                    Toast.makeText(login.this, "Failed to fetch user information: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
-                                    int timeout = 60000;
-                                    userInfoRequest.setRetryPolicy(new DefaultRetryPolicy(timeout,
-                                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                                    Volley.newRequestQueue(login.this).add(userInfoRequest);
-
+                                    editor.putString("sessionID", response.getString("sessionID"));
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
+                                editor.apply();
+                                Log.d("LoginActivity", "Starting MainActivity");
+                                Intent intent = new Intent(login.this, MainActivity.class);
+                                Log.d("login", "Starting Main Activity");
+                                startActivity(intent);
+                                Log.d("login", "Main Activity started");
+                                Toast.makeText(login.this, "Login successful", Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                Log.d("login", "login Failed");
                                 Toast.makeText(login.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
                 int timeout = 60000;
-                loginRequest.setRetryPolicy(new DefaultRetryPolicy(timeout,
+                request.setRetryPolicy(new DefaultRetryPolicy(timeout,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                Volley.newRequestQueue(login.this).add(loginRequest);
+                Volley.newRequestQueue(login.this).add(request);
             }
         });
 
