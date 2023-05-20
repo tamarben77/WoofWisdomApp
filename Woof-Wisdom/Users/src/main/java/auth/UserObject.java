@@ -1,5 +1,10 @@
 package auth;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserObject {
     private String firstName;
     private String lastName;
