@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class login extends AppCompatActivity {
-    private static final String URL = "http://192.168.1.212:8091/signIn";
+    private static final String URL = "http://192.168.1.212:8091/auth/signIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
