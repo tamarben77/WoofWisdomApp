@@ -1,4 +1,4 @@
-package auth;
+package com.example.woofwisdomapplication.Users;
 
 public class UserObject {
     private String firstName;

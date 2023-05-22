@@ -9,23 +9,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.example.woofwisdomapplication.Users.UserObject;
+import com.example.woofwisdomapplication.Users.UserUtils;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private TextView welcomeTextView;
+    private UserObject userObject;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
         welcomeTextView = findViewById(R.id.welcomeTextView);
         UserUtils.displayWelcomeMessage(this, welcomeTextView);
+      /*  UserUtils.MyUserObjectListener listener = new UserUtils.MyUserObjectListener();
+        listener.setCallback(this);
+        UserUtils.getUserObjectBySessionID(this, listener);*/
 
         ImageButton buttonNearestVet = (ImageButton) findViewById(R.id.mapsBtn);
         buttonNearestVet.setOnClickListener(view -> {

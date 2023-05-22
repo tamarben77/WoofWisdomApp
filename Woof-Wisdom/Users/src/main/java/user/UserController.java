@@ -103,13 +103,19 @@ public class UserController {
                     // Retrieve the user's first name and last name based on email
                     String firstName = userService.getUserFirstNameFromEmail(conn, email.toString());
                     String lastName = userService.getUserLastNameFromEmail(conn, email.toString());
+                    String dogName = userService.getDogNameFromEmail(conn, email.toString());
+                    String dogWeight = userService.getDogWeightFromEmail(conn,email.toString());
+                    String dogAge = userService.getDogAgeFromEmail(conn,email.toString());
                     if (firstName != null && lastName != null) {
                         logMessage += ", user info retrieved successfully";
                         log.info(logMessage);
                         newUser.setSessionId(sessionId.toString());
                         newUser.setEmail(email.toString());
-                        newUser.setFirstName(firstName); // Set the user's first name in the response
-                        newUser.setLastName(lastName); // Set the user's last name in the response
+                        newUser.setFirstName(firstName);
+                        newUser.setLastName(lastName);
+                        if(dogName != null ) newUser.setDogName(dogName);
+                        if(dogWeight != null ) newUser.setDogWeight(Integer.valueOf(dogWeight));
+                        if(dogAge != null ) newUser.setDogAge(Integer.valueOf(dogAge));
                         return new ResponseEntity<>(newUser, HttpStatus.OK);
                     }
                 }
