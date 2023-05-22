@@ -40,7 +40,7 @@ import java.util.Map;
 public class ViewListOfVets extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private Double latitude, longitude;
-    private static String URL = "http://192.168.1.11:8091/getNearestVet";
+    private static String URL = "http://" + System.getProperty("IP") + ":8091/getNearestVet";
     private ProgressBar loader;
 
     @Override

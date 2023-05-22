@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.woofwisdomapplication"
     xmlns:tools="http://schemas.android.com/tools" >
     <!--
          Required only when requesting background location access on
@@ -9,6 +10,47 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
+
+<!--    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />-->
+    <meta-data
+        android:name="com.google.android.gms.car.application"
+        android:value="true" />
+<!--    <meta-data
+        android:name="com.google.android.gms.car.notification.SmallIcon"
+        android:resource="@drawable/ic_notification" />-->
+<!--    <meta-data
+        android:name="com.google.android.gms.car.notification.LargeIcon"
+        android:resource="@drawable/ic_notification_large" />
+    <meta-data
+        android:name="com.google.android.gms.car.notification.Title"
+        android:resource="@string/notification_title" />
+    <meta-data
+        android:name="com.google.android.gms.car.notification.Text"
+        android:resource="@string/notification_text" />
+    <meta-data
+        android:name="com.google.android.gms.car.notification.Action"
+        android:resource="@string/notification_action" />-->
+    <meta-data
+        android:name="com.google.android.gms.car.notification.Image"
+        android:resource="@drawable/notification_bg" />
+
+    <!-- Replace [YOUR_CLIENT_ID] with your generated client ID -->
+    <meta-data
+        android:name="com.google.android.gms.wallet.api.enabled"
+        android:value="true" />
+    <meta-data
+        android:name="com.google.android.gms.wallet.api.enabledEnvironment"
+        android:value="593298902212-bcv0nnl1pn56e3edjcs4g0r2raf4dmsn.apps.googleusercontent.com
+" />
 
     <application
         android:allowBackup="true"
@@ -60,7 +102,7 @@
             android:name=".stoolPukeAnalyzerActivity"
             android:exported="false" />
         <activity
-            android:name=".views.VaccinationsFeature.immunizationsRecordActivity"
+            android:name=".views.VaccinationsFeature.ImmunizationsRecordActivity"
             android:exported="false" />
         <activity
             android:name=".findNearestVetActivity"

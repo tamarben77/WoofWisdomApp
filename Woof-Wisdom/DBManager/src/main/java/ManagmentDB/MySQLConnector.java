@@ -3,11 +3,12 @@ package ManagmentDB;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.*;
 
-
+@Component
 public class MySQLConnector {
     private static final String SSH_USER = "ubuntu";
 
@@ -42,6 +43,7 @@ public class MySQLConnector {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException("Number of column names and values don't match");
         }
+        String host = SSH_HOST;
         try (Connection conn = getConnection()) {
             String sql = "INSERT INTO " + tableName + " (" + String.join(",", columnNames) + ") VALUES (" + String.join(",", Collections.nCopies(columnNames.length, "?")) + ")";
             PreparedStatement stmt = conn.prepareStatement(sql);

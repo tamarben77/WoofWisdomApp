@@ -46,7 +46,7 @@ import okhttp3.Response;
 
 public class addVaccination extends AppCompatActivity {
 
-    private static final String IP = "192.168.10.57";
+    private static final String IP = System.getProperty("IP");//"192.168.10.57";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

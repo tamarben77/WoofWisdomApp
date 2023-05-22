@@ -20,12 +20,12 @@ public class NextVaccinations {
         // Create a list to store the names of recommended vaccinations
         List<VaccinationsRepo> filteredVaccinations = allVaccinations.stream()
                 .filter(v -> v.getRecommendedAge() >= dogAgeInWeeks || v.getEveryYears() != 0)
-                .collect(Collectors.toList());
+                .toList();
         List<Object> mappedList = filteredVaccinations.stream()
                 .map(vaccination -> Map.of(
                         "name", vaccination.getName(),
-                        "recommendedAge", vaccination.getRecommendedAge(),
-                        "everyYears", vaccination.getEveryYears()
+                        "inWeeks", vaccination.getRecommendedAge() - dogAgeInWeeks,
+                        "inGeneral", vaccination.getEveryYears()
                 ))
                 .collect(Collectors.toList());
 
@@ -39,7 +39,7 @@ public class NextVaccinations {
 
         for (Map<String, Object> row : tableData) {
             VaccinationsRepo vaccinationsRepo = new VaccinationsRepo();
-            vaccinationsRepo.setId((Integer) row.get("id"));
+            //vaccinationsRepo.setId((Integer) row.get("id"));
             vaccinationsRepo.setName((String) row.get("name"));
             vaccinationsRepo.setRecommendedAge((Integer) row.get("recommended_age"));
             vaccinationsRepo.setEveryYears((Integer) row.get("every_years"));

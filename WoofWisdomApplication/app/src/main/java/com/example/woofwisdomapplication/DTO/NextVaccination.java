@@ -1,18 +1,9 @@
 package com.example.woofwisdomapplication.DTO;
 
 public class NextVaccination {
-    private Integer id;
     private String name;
-    private Integer recommendedAge;
-    private Integer everyYears;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Integer inWeeks;
+    private Integer inGeneral;
 
     public String getName() {
         return name;
@@ -22,19 +13,19 @@ public class NextVaccination {
         this.name = name;
     }
 
-    public Integer getRecommendedAge() {
-        return recommendedAge;
+    public Integer getInWeeks() {
+        return inWeeks;
     }
 
-    public void setRecommendedAge(Integer recommendedAge) {
-        this.recommendedAge = recommendedAge;
+    public void setInWeeks(Integer inWeeks) {
+        this.inWeeks = inWeeks;
     }
 
-    public Integer getEveryYears() {
-        return everyYears;
+    public Integer getInGeneral() {
+        return inGeneral;
     }
 
-    public void setEveryYears(Integer everyYears) {
-        this.everyYears = everyYears;
+    public void setInGeneral(Integer inGeneral) {
+        this.inGeneral = inGeneral;
     }
 }

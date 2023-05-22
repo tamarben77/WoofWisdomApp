@@ -57,7 +57,7 @@ public class vaccinations extends AppCompatActivity {
         OkHttpClient client = builder.build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.11:8091/showVaccinations/")
+                .baseUrl("http://" + System.getProperty("IP") + ":8091/showVaccinations/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
