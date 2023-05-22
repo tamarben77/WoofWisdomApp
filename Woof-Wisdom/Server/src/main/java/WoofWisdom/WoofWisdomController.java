@@ -2,13 +2,12 @@ package WoofWisdom;
 
 import AddToCalender.AddEventToGoogleCalendar;
 import AddToCalender.GoogleCalendarEvent;
+import DTO.VaccinationDetails;
 import ManagmentDB.MySQLConnector;
 import SearchGoogleMaps.ClientLocation;
 import SearchGoogleMaps.VetFinder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
-import com.jcraft.jsch.JSchException;
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,19 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vaccinations.NextVaccinations;
-import DTO.VaccinationDetails;
 import vaccinations.VaccinationsManager;
-import auth.UserObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class WoofWisdomController {
@@ -44,11 +37,12 @@ public class WoofWisdomController {
     }
 
     @PostMapping("/getNearestVet")
-    public ResponseEntity GetNearestVet(@RequestBody String client_location) throws Exception {
+    public ResponseEntity GetNearestVet(@RequestBody String client_location, @RequestParam int radius) throws Exception {
         System.out.println("Got a request to find nearest vets...");
         Gson gson = new Gson();
         ClientLocation clientLocation = gson.fromJson(client_location, ClientLocation.class);
-        String response = VetFinder.getVetLocations(Double.valueOf(clientLocation.getClient_latitude()), Double.valueOf(clientLocation.getClient_longitude()));
+        String response = VetFinder.getVetLocations(Double.valueOf(clientLocation.getClient_latitude()),
+                Double.valueOf(clientLocation.getClient_longitude()), radius*1000);
         ResponseEntity res = new ResponseEntity<>(response, HttpStatus.OK);
         return res;
     }

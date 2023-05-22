@@ -8,38 +8,57 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 public class findNearestVetActivity extends AppCompatActivity {
 
-    private FusedLocationProviderClient fusedLocationClient;
+    private SeekBar radiusSeekBar;
+    private TextView progressText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_nearest_vet);
 
+        radiusSeekBar = findViewById(R.id.radiusSeekBar);
+        progressText = findViewById(R.id.progressText);
+
+        progressText.setText("Selected Value: " + radiusSeekBar.getProgress());
+
+        radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // Update the progress text
+                progressText.setText("Selected Value: " + progress);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // Not needed in this example
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // Not needed in this example
+            }
+        });
+
         Button findNearestVetButton = (Button) findViewById(R.id.FindVets);
         findNearestVetButton.setOnClickListener(view -> {
-            //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            int radius = radiusSeekBar.getProgress();
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                ActivityCompat.requestPermissions(this, new String[] { android.Manifest.permission.ACCESS_FINE_LOCATION }, 0);
-                //return;
+
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             }
-                Intent secondActivityIntent = new Intent(
-                        getApplicationContext(), ViewListOfVets.class
-                );
-                startActivity(secondActivityIntent);
-            //System.out.println(fusedLocationClient.getLastLocation());
+            Intent secondActivityIntent = new Intent(
+                    getApplicationContext(), ViewListOfVets.class
+            );
+            secondActivityIntent.putExtra("radius", radius);
+            startActivity(secondActivityIntent);
         });
     }
 }

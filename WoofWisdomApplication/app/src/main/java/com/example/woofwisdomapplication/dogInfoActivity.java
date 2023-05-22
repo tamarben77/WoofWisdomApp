@@ -23,7 +23,7 @@ public class dogInfoActivity extends AppCompatActivity {
 
         // Get the selected breed name from the intent
         selectedBreed = getIntent().getStringExtra("breedName");
-        String url = "http://10.21.160.241:8091/dogBreed/breedsInfo/" + selectedBreed;
+        String url = "http://192.168.1.11:8091/dogBreed/breedsInfo/" + selectedBreed;
 
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET,

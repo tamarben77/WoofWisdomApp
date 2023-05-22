@@ -6,33 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ViewListOfVets">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="357dp"
-        android:layout_height="88dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="5dp"
-        android:text="Here's a list of vets within 5 km from your location:"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/listOfVets"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vetRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/listOfVets"
-        android:layout_width="355dp"
-        android:layout_height="568dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginEnd="26dp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ProgressBar
         android:id="@+id/loader"
@@ -47,6 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listOfVets"
+        app:layout_constraintTop_toBottomOf="@+id/vetRecyclerView"
         app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

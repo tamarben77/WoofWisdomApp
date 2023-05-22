@@ -18,7 +18,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 public class signUp extends AppCompatActivity {
-    private static final String baseUrl = "http://192.168.1.212:8091/signUp";
+    private static final String baseUrl = "http://192.168.1.11:8091/signUp";
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText emailEditText;
