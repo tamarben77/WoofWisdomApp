@@ -3,7 +3,6 @@ package ManagmentDB;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -15,12 +14,12 @@ public class MySQLConnector {
 
     //IMPORTANT - this location is only for local debugging
     //TODO - when deploying the server, this should be in a comment / removed
-    //private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKe.pem";
+    private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKe.pem";
 
     //IMPORTANT - the second SSH-FILE-KEY's location is for the ec2 instance,
     // so it should be used only when running remote server
     //TODO - activate this configuration when deploying the server
-    private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
+    //private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
     private static final String SSH_HOST = "ec2-174-129-143-139.compute-1.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;

@@ -35,6 +35,7 @@ public class WoofWisdomController {
     private static final Logger log = LoggerFactory.getLogger(WoofWisdomController.class);
     @PostMapping(value = "/addToCalender")
     public ResponseEntity AddToGoogleCalender(@RequestBody String googleCalendarEvent) throws IOException, GeneralSecurityException {
+        System.out.println("got an add to calendar request...");
         Gson gson = new Gson();
         GoogleCalendarEvent Event = gson.fromJson(googleCalendarEvent, GoogleCalendarEvent.class);
         AddEventToGoogleCalendar add = new AddEventToGoogleCalendar(Event);
@@ -44,6 +45,7 @@ public class WoofWisdomController {
 
     @PostMapping("/getNearestVet")
     public ResponseEntity GetNearestVet(@RequestBody String client_location) throws Exception {
+        System.out.println("Got a request to find nearest vets...");
         Gson gson = new Gson();
         ClientLocation clientLocation = gson.fromJson(client_location, ClientLocation.class);
         String response = VetFinder.getVetLocations(Double.valueOf(clientLocation.getClient_latitude()), Double.valueOf(clientLocation.getClient_longitude()));
@@ -58,6 +60,7 @@ public class WoofWisdomController {
 
     @PostMapping("/addVaccination")
     public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException, JsonProcessingException {
+        System.out.println("got a request to add vaccination...");
         Gson gson = new Gson();
         VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
         VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
@@ -222,11 +225,13 @@ public class WoofWisdomController {
     @GetMapping("/next-vaccinations")
     @ResponseBody
     public ResponseEntity<String> getNextVaccinations(@RequestParam("dogAgeInWeeks") int dogAgeInWeeks) throws JsonProcessingException {
+        System.out.println("got a request for next vaccinations recommendation...");
         List<String> allVaccinations = NextVaccinations.getNextVaccinations(dogAgeInWeeks);
         StringBuilder res = new StringBuilder();
         for(String vaccination: allVaccinations){
             res.append(vaccination).append("\n");
         }
+        System.out.println(res.toString());
         return new ResponseEntity<>(res.toString(), HttpStatus.OK);
     }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.woofwisdomapplication.DTO.NextVaccination;
 import com.example.woofwisdomapplication.R;
+import com.example.woofwisdomapplication.findNearestVetActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -68,38 +69,52 @@ public class NextVaccinationsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<NextVaccination>>() {}.getType();
-                    List<NextVaccination> vaccinations = gson.fromJson(response.body().string(), listType);
-                    for(NextVaccination vac: vaccinations){
-                        View vaccinationItemView = LayoutInflater.from(NextVaccinationsActivity.this).inflate(R.layout.recommended_vaccination_item, null);
-                        TextView txtVaccinationName = vaccinationItemView.findViewById(R.id.txtVaccinationName);
-                        TextView txtVaccinationDetails = vaccinationItemView.findViewById(R.id.txtVaccinationDetails);
-                        Button btnSetReminder = vaccinationItemView.findViewById(R.id.btnSetReminder);
-
-                        txtVaccinationName.setText(vac.getName());
-
-                        String details = "";
-                        if (vac.getInWeeks() > 0) {
-                            details += "In " + vac.getInWeeks() + " weeks";
-                        }
-                        if (vac.getInGeneral() != 0) {
-                            if (!details.isEmpty()) {
-                                details += ", ";
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Gson gson = new Gson();
+                            Type listType = new TypeToken<List<NextVaccination>>() {
+                            }.getType();
+                            List<NextVaccination> vaccinations = null;
+                            try {
+                                vaccinations = gson.fromJson(response.body().string(), listType);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
                             }
-                            details += "In general " + vac.getInGeneral();
-                        }
-                        txtVaccinationDetails.setText(details);
+                            for (NextVaccination vac : vaccinations) {
+                                View vaccinationItemView = LayoutInflater.from(NextVaccinationsActivity.this).inflate(R.layout.recommended_vaccination_item, null);
+                                TextView txtVaccinationName = vaccinationItemView.findViewById(R.id.txtVaccinationName);
+                                TextView txtVaccinationDetails = vaccinationItemView.findViewById(R.id.txtVaccinationDetails);
+                                Button btnSetReminder = vaccinationItemView.findViewById(R.id.btnSetReminder);
 
-                        btnSetReminder.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Perform reminder setup logic here
+                                txtVaccinationName.setText(vac.getName());
+
+                                String details = "";
+                                if (vac.getInWeeks() > 0) {
+                                    details += "In " + vac.getInWeeks() + " weeks";
+                                }
+                                if (vac.getInGeneral() != 0) {
+                                    if (!details.isEmpty()) {
+                                        details += ", ";
+                                    }
+                                    details += "In general " + vac.getInGeneral();
+                                }
+                                txtVaccinationDetails.setText(details);
+
+                                btnSetReminder.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent secondActivityIntent = new Intent(
+                                                getApplicationContext(), ImmunizationsRecordActivity.class
+                                        );
+                                        startActivity(secondActivityIntent);
+                                    }
+                                });
+
+                                linearLayout.addView(vaccinationItemView);
                             }
-                        });
-
-                        linearLayout.addView(vaccinationItemView);
-                    }
+                        }
+                    });
                 } else {
                     // Handle the error
                     //Toast.makeText(AddVaccinationActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();

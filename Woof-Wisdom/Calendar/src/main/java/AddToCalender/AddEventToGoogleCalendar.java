@@ -38,7 +38,7 @@ import java.util.Collections;
             GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                     HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, Collections.singletonList(CalendarScopes.CALENDAR))
                     .build();
-            Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver.Builder().setPort(8090).build()).authorize(eventToAdd.getUserId());
+            Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver.Builder().setPort(8888).build()).authorize(eventToAdd.getUserId());
 
             // Build the Calendar service
             Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)

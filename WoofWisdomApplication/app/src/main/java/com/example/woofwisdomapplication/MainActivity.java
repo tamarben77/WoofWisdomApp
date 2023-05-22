@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.setProperty("IP", "192.168.1.37");
+        System.setProperty("IP", "192.168.1.11");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -24,10 +24,18 @@ public class MainActivity extends AppCompatActivity {
             startActivity(secondActivityIntent);
         });
 
-        ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
+/*        ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
         vaccinations.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.vaccinations.class
+            );
+            startActivity(secondActivityIntent);
+        });*/
+
+        ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
+        vaccinations.setOnClickListener(view -> {
+            Intent secondActivityIntent = new Intent(
+                    getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.ImmunizationsRecordActivity.class
             );
             startActivity(secondActivityIntent);
         });
