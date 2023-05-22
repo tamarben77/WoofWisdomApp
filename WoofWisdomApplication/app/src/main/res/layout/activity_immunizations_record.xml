@@ -26,19 +26,19 @@
         android:layout_below="@id/etSummary"
         android:hint="Location" />
 
-    <EditText
-        android:id="@+id/etDate"
+    <Button
+        android:id="@+id/btnSelectDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etLocation"
-        android:hint="Date (YYYY-MM-DD HH:MM)"
-        android:inputType="datetime" />
+        android:text="Select Date" />
+
 
     <Button
         android:id="@+id/btnInsert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etDate"
+        android:layout_below="@id/btnSelectDate"
         android:text="Insert Event" />
 
 </RelativeLayout>

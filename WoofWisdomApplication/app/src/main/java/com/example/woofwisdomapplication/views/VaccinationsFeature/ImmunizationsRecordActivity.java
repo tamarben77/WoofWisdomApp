@@ -1,9 +1,13 @@
 package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
 import android.Manifest;
+import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,27 +29,41 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.EventDateTime;
+import com.google.api.services.calendar.Calendar;
+import android.content.IntentSender;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
+
+/*
 import java.util.Calendar;
+*/
+import java.util.Locale;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.view.View.OnClickListener;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 public class ImmunizationsRecordActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+
+    private java.util.Calendar selectedDateTime;
 
     private static final String TAG = ImmunizationsRecordActivity.class.getSimpleName();
     private static final int REQUEST_ACCOUNT_PICKER = 1000;
     private static final int REQUEST_PERMISSIONS = 1001;
     private static final int REQUEST_AUTHORIZATION = 1002;
-
     private GoogleAccountCredential mCredential;
     private GoogleApiClient mGoogleApiClient;
     private EditText etSummary, etLocation, etDate;
+    private Button btnSelectDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +72,7 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
 
         // Initialize Google Sign-In options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("593298902212-bcv0nnl1pn56e3edjcs4g0r2raf4dmsn.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
@@ -70,7 +89,17 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
 
         etSummary = findViewById(R.id.etSummary);
         etLocation = findViewById(R.id.etLocation);
-        etDate = findViewById(R.id.etDate);
+        //etDate = findViewById(R.id.etDate);
+
+        selectedDateTime = java.util.Calendar.getInstance();
+
+        btnSelectDate = findViewById(R.id.btnSelectDate);
+        btnSelectDate.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimePicker();
+            }
+        });
 
         Button btnSignIn = findViewById(R.id.btnSignIn);
         btnSignIn.setOnClickListener(new View.OnClickListener() {
@@ -90,16 +119,23 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     }
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, REQUEST_ACCOUNT_PICKER);
+        String[] accountTypes = new String[]{"com.google"};
+        Intent accountPickerIntent = AccountPicker.newChooseAccountIntent(null, null, accountTypes, false, null, null, null, null);
+        startActivityForResult(accountPickerIntent, REQUEST_ACCOUNT_PICKER);
     }
 
     private void insertEvent() {
         String summary = etSummary.getText().toString().trim();
         String location = etLocation.getText().toString().trim();
-        String dateString = etDate.getText().toString().trim();
+        //String dateString = etDate.getText().toString().trim();
+        String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", selectedDateTime);
 
-        if (summary.isEmpty() || location.isEmpty() || dateString.isEmpty()) {
+
+/*        String summary = "bla";
+        String location = "bla";
+        String dateString = "2023-04-04 13:30";*/
+
+        if (summary.isEmpty() || location.isEmpty() || formattedDateTime.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -111,7 +147,7 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
         } else if (!isDeviceOnline()) {
             Toast.makeText(this, "No network connection available", Toast.LENGTH_SHORT).show();
         } else {
-            new InsertEventTask(mCredential, summary, location, dateString).execute();
+            new InsertEventTask(mCredential, summary, location, formattedDateTime).execute();
         }
     }
 
@@ -119,13 +155,21 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_ACCOUNT_PICKER && resultCode == RESULT_OK && data != null && data.getExtras() != null) {
+        if (requestCode == REQUEST_AUTHORIZATION) {
+            if (resultCode == RESULT_OK) {
+                // User provided consent, re-attempt to insert the event
+                insertEvent();
+            } else {
+                Toast.makeText(this, "Authorization denied.", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == REQUEST_ACCOUNT_PICKER && resultCode == RESULT_OK && data != null && data.getExtras() != null) {
             String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
             if (accountName != null) {
                 mCredential.setSelectedAccountName(accountName);
             }
         }
     }
+
 
     private void chooseAccount() {
         String[] accountTypes = new String[]{"com.google"};
@@ -154,8 +198,9 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     }
 
     private boolean isDeviceOnline() {
-        // Check network connection availability
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS) == PackageManager.PERMISSION_GRANTED;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 
     private boolean isGooglePlayServicesAvailable() {
@@ -198,8 +243,10 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(
-                        Utils.HTTP_TRANSPORT, Utils.JSON_FACTORY, credential)
+                Calendar service = new Calendar.Builder(
+                        Utils.HTTP_TRANSPORT,
+                        Utils.JSON_FACTORY,
+                        credential)
                         .setApplicationName("Woof Wisdom App")
                         .build();
 
@@ -207,38 +254,77 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
                         .setSummary(summary)
                         .setLocation(location);
 
-                DateTime startDateTime = new DateTime(Utils.parseDateTime(dateString).getTime());
+                DateTime startDateTime = Utils.parseDateTime(dateString);
+                DateTime endDateTime = Utils.parseDateTime(dateString);
+
                 EventDateTime start = new EventDateTime()
                         .setDateTime(startDateTime)
-                        .setTimeZone("Your Time Zone");
-                event.setStart(start);
+                        .setTimeZone("UTC");
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(Utils.parseDateTime(dateString));
-                calendar.add(Calendar.HOUR_OF_DAY, 1);
-                DateTime endDateTime = new DateTime(calendar.getTime());
                 EventDateTime end = new EventDateTime()
                         .setDateTime(endDateTime)
-                        .setTimeZone("Your Time Zone");
+                        .setTimeZone("UTC");
+
+                event.setStart(start);
                 event.setEnd(end);
 
-                String calendarId = "primary";
-                event = service.events().insert(calendarId, event).execute();
-                Log.d(TAG, "Event created: " + event.getHtmlLink());
+                service.events().insert("primary", event).execute();
 
-                return null;
-            } catch (IOException e) {
+            } catch (UserRecoverableAuthIOException e) {
+                // User needs to provide consent, start an activity to prompt for permission
+                Intent intent = e.getIntent();
+                startActivityForResult(intent, REQUEST_AUTHORIZATION);
+                Log.e(TAG, "UserRecoverableAuthIOException: NeedRemoteConsent");
+                e.printStackTrace();
+            }catch (IOException | ParseException e) {
                 Log.e(TAG, "Error inserting event: " + e.getMessage());
                 e.printStackTrace();
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            Toast.makeText(ImmunizationsRecordActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(ImmunizationsRecordActivity.this, "Event inserted successfully", Toast.LENGTH_SHORT).show();
+            etSummary.setText("");
+            etLocation.setText("");
+            etDate.setText("");
         }
     }
+
+    private void showDateTimePicker() {
+        final java.util.Calendar currentDateTime = selectedDateTime;
+        int year = currentDateTime.get(java.util.Calendar.YEAR);
+        int month = currentDateTime.get(java.util.Calendar.MONTH);
+        int day = currentDateTime.get(java.util.Calendar.DAY_OF_MONTH);
+        int hour = currentDateTime.get(java.util.Calendar.HOUR_OF_DAY);
+        int minute = currentDateTime.get(java.util.Calendar.MINUTE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                currentDateTime.set(java.util.Calendar.YEAR, year);
+                currentDateTime.set(java.util.Calendar.MONTH, month);
+                currentDateTime.set(java.util.Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(ImmunizationsRecordActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        currentDateTime.set(java.util.Calendar.HOUR_OF_DAY, hourOfDay);
+                        currentDateTime.set(java.util.Calendar.MINUTE, minute);
+
+                        // Update the text of the date selection button
+                        String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", currentDateTime);
+                        btnSelectDate.setText(formattedDateTime);
+                    }
+                }, hour, minute, false);
+
+                timePickerDialog.show();
+            }
+        }, year, month, day);
+
+        datePickerDialog.show();
+    }
+
 }
