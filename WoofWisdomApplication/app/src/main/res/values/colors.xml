@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="logoPink">#FFE5E6</color>
     <color name="logoDarkPink">#FFC7C7</color>
+    <color name="hint_color">#808080</color>
 </resources>

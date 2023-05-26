@@ -28,7 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class login extends AppCompatActivity {
-    private static final String URL = "http://192.168.1.212:8091/auth/signIn";
+    private static final String IP = System.getProperty("IP");
+    private static final String URL = "http://" + IP + ":8091/auth/signIn";
     private boolean isPasswordVisible = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
