@@ -3,22 +3,26 @@ package com.example.woofwisdomapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class signUp extends AppCompatActivity {
-    private static final String baseUrl = "http://192.168.1.212:8091/signUp";
+    private static final String IP = System.getProperty("IP");
+    private static final String baseUrl = "http://" +IP+ ":8091/auth/signUp";
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText emailEditText;
@@ -34,10 +38,10 @@ public class signUp extends AppCompatActivity {
 
         firstNameEditText = findViewById(R.id.editTextTextFirstName);
         lastNameEditText = findViewById(R.id.editTextTextLastName);
-        emailEditText = findViewById(R.id.editTextTextEmailAddress2);
-        passwordEditText = findViewById(R.id.editTextNumberPassword);
+        emailEditText = findViewById(R.id.editTextEmail);
+        passwordEditText = findViewById(R.id.editTextPassword);
         dogNameEditText = findViewById(R.id.editTextDogName);
-        dogWeightEditText = findViewById(R.id.editTextDogWight);
+        dogWeightEditText = findViewById(R.id.editTextDogWeight);
         dogAgeEditText = findViewById(R.id.editTextDogAge);
 
         Button signUpButton = findViewById(R.id.signUpButton);
@@ -123,18 +127,29 @@ public class signUp extends AppCompatActivity {
            @Override
            public void onResponse(JSONObject response) {
                Toast.makeText(getApplicationContext(), "Successfully SignUp", Toast.LENGTH_SHORT).show();
+               // Store the session ID in SharedPreferences
+               SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+               SharedPreferences.Editor editor = sharedPreferences.edit();
+               try {
+                   editor.putString("sessionID", response.getString("sessionID"));
+                   editor.apply();
+               } catch (JSONException e) {
+                   throw new RuntimeException(e);
+               }
+               // Redirect to MainActivity and display welcome message
                Intent intent = new Intent(signUp.this, MainActivity.class);
                startActivity(intent);
+               finish();
            }
        }, new Response.ErrorListener() {
            @Override
            public void onErrorResponse(VolleyError error) {
                Toast.makeText(getApplicationContext(), "Failed to SignUp, please try again", Toast.LENGTH_SHORT).show();
-               Intent intent = new Intent(signUp.this, MainActivity.class);
-               startActivity(intent);
            }
        });
-
+       int timeout = 60000;
+       request.setRetryPolicy(new DefaultRetryPolicy(timeout,
+               DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
        Volley.newRequestQueue(this).add(request);
    }
 }
