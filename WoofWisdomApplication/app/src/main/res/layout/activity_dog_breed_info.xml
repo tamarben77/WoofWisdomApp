@@ -1,113 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Breed name -->
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="Discover dog breeds with Woof Wisdom!"
+        android:textColor="#2C2828"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/breed_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/titleText"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Breed name: "
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/breed_name_textview"
+        android:scaleType="centerCrop" />
+
 
     <TextView
         android:id="@+id/breed_name_value_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
+        android:layout_below="@id/titleText"
+        android:layout_toRightOf="@id/breed_name_textview"
         android:layout_marginTop="16dp"
-        android:layout_toRightOf="@+id/breed_name_textview"/>
-
-    <!-- Breed type -->
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Your Breed Name"
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/breed_type_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/breed_name_textview"
-        android:layout_marginTop="80dp"
+        android:layout_below="@id/breed_name_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Breed type: "
-        android:textSize="16sp" />
-
-    <!-- Breed description -->
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/breed_type_value_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/breed_name_textview"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="82dp"
-        android:layout_toRightOf="@+id/breed_type_textview"
-        android:text=""
-        android:textSize="16sp" />
+        android:layout_below="@id/breed_name_value_textview"
+        android:layout_toRightOf="@id/breed_type_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Your Breed Type"
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/breed_description_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/breed_type_textview"
-        android:layout_marginTop="80dp"
+        android:layout_below="@id/breed_type_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Breed description: "
-        android:textSize="16sp" />
-
-    <!-- Fur color -->
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/breed_description_value_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/breed_type_textview"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginTop="79dp"
-        android:layout_toRightOf="@+id/breed_description_textview"
-        android:text=""
-        android:textSize="16sp" />
-
-    <!-- Origin -->
+        android:layout_below="@id/breed_type_value_textview"
+        android:layout_toRightOf="@id/breed_description_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Your Breed Description"
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/fur_color_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/breed_description_textview"
-        android:layout_marginTop="104dp"
+        android:layout_below="@id/breed_description_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Fur color: "
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/fur_color_value_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/breed_description_textview"
-        android:layout_marginLeft="-1dp"
-        android:layout_marginTop="104dp"
-        android:layout_toRightOf="@+id/fur_color_textview"
-        android:text=""
-        android:textSize="16sp" />
+        android:layout_below="@id/breed_description_value_textview"
+        android:layout_toRightOf="@id/fur_color_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Your Fur Color"
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/origin_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fur_color_value_textview"
-        android:layout_marginTop="109dp"
+        android:layout_below="@id/fur_color_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Origin: "
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/origin_value_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/origin_textview"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="-23dp"
-        android:layout_toRightOf="@+id/origin_textview"
-        android:text=""
-        android:textSize="16sp" />
+        android:layout_below="@id/fur_color_value_textview"
+        android:layout_toRightOf="@id/origin_textview"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Your Origin"
+        android:textSize="16sp"
+        android:textColor="#000000" />
 
 </RelativeLayout>
