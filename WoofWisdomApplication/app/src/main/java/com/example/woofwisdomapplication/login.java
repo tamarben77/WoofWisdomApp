@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.text.method.PasswordTransformationMethod;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -26,18 +28,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class login extends AppCompatActivity {
-    private static final String URL = "http://192.168.1.212:8091/auth/signIn";
-
+    private static final String IP = System.getProperty("IP");
+    private static final String URL = "http://" + IP + ":8091/auth/signIn";
+    private boolean isPasswordVisible = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
 
-        EditText emailEditText = findViewById(R.id.editTextTextEmailAddress);
-        EditText passwordEditText = findViewById(R.id.editTextTextPassword);
-        Button loginButton = findViewById(R.id.buttontoLogin);
-        Button signUpButton = findViewById(R.id.signUpbutton);
+        EditText emailEditText = findViewById(R.id.editTextEmail);
+        EditText passwordEditText = findViewById(R.id.editTextPassword);
+        Button loginButton = findViewById(R.id.loginButton);
+        Button signUpButton = findViewById(R.id.signUpButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +90,19 @@ public class login extends AppCompatActivity {
                 request.setRetryPolicy(new DefaultRetryPolicy(timeout,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 Volley.newRequestQueue(login.this).add(request);
+            }
+        });
+        ImageView eyeIcon = findViewById(R.id.eyeIcon);
+        eyeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isPasswordVisible = !isPasswordVisible;
+                if (isPasswordVisible) {
+                    passwordEditText.setTransformationMethod(null);
+                } else {
+                    passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                passwordEditText.setSelection(passwordEditText.getText().length());
             }
         });
 
