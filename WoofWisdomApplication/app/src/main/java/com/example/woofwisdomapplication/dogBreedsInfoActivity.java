@@ -26,6 +26,7 @@ import java.util.List;
 public class dogBreedsInfoActivity extends AppCompatActivity {
     private AutoCompleteTextView breedAutoComplete;
     private List<String> breedList;
+    private static final String IP = System.getProperty("IP");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,7 @@ public class dogBreedsInfoActivity extends AppCompatActivity {
             }
         });
 
-        // Make a network call to get the list of dog breeds from the server
-        String url = "http://10.21.160.241:8091/dogBreed/breedsList"; // Replace with your actual API endpoint
+        String url = "http://" + IP + ":8091/dogBreed/breedsList";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -84,7 +84,7 @@ public class dogBreedsInfoActivity extends AppCompatActivity {
             JSONArray jsonArray = new JSONArray(jsonResponse);
             for (int i = 0; i < jsonArray.length(); i++) {
                 String breedName = jsonArray.getString(i);
-                breedName = breedName.replaceAll("\"", ""); // remove quotation marks
+                breedName = breedName.replaceAll("\"", "");
                 breedNames.add(breedName);
             }
         } catch (JSONException e) {
