@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static user.UserService.sendPasswordResetEmail;
+
 @RestController
 @RequestMapping("/auth")
 public class UserController {
@@ -190,4 +192,39 @@ public class UserController {
         response.setMessage("User created successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<UserObject> forgotPassword(@RequestParam String email) {
+        // Check if the user exists in the database
+        if (MySQLConnector.checkIfUserExists(email)) {
+            // Generate a password reset token
+            String resetToken = UserService.generateResetToken();
+
+            // Store the reset token in the database for the user
+            try (Connection conn = MySQLConnector.getConnection()) {
+                String sql = "UPDATE users SET ResetToken = ? WHERE Email = ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, resetToken);
+                stmt.setString(2, email);
+                stmt.executeUpdate();
+            } catch (SQLException | JSchException ex) {
+                ex.printStackTrace();
+            }
+
+            // Send an email to the user with the password reset link containing the reset token
+            sendPasswordResetEmail(email, resetToken);
+
+            // Return a response indicating that the password reset email has been sent
+            UserObject response = new UserObject();
+            response.setEmail(email);
+            response.setMessage("Password reset email has been sent");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            // User does not exist
+            UserObject response = new UserObject();
+            response.setMessage("User does not exist");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
