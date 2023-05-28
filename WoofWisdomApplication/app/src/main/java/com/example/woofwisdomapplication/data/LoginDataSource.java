@@ -5,7 +5,7 @@ import com.example.woofwisdomapplication.data.model.LoggedInUser;
 import java.io.IOException;
 
 /**
- * Class that handles authentication w/ login credentials and retrieves user information.
+ * Class that handles authentication w/ LoginActivity credentials and retrieves user information.
  */
 public class LoginDataSource {
 

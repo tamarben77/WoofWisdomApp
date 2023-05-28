@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Self Color :- -->
+    <color name="dark_pink">#ee9ca7</color>
+    <color name="light_pink">#ffdde1</color>
+    <color name="self_grey">#AFAFB5</color>
+    <color name="SelfBlue">#34AFFF</color>
+    <color name="Self_pink">#4DF3BD83</color>
+    <color name="Self_green">#59C173</color>
+    <color name="transparent">#3fff</color>
+    <color name="self_white">#90F3F2F2</color>
 </resources>

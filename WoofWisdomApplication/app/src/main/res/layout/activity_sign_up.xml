@@ -1,14 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#39F9AE5E"
-    tools:context=".signUp">
+    android:background="@color/Self_pink"
+    tools:context=".SignUpActivity">
 
-    <EditText
-        android:id="@+id/editTextTextLastName"
+   <ImageView
+       android:id="@+id/back"
+       android:layout_width="40dp"
+       android:layout_height="40dp"
+       android:scaleType="centerCrop"
+       android:src="@drawable/ic_back_arrow"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.050"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.030" />
+
+   <TextView
+       android:id="@+id/login_text"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:fontFamily="@font/poppins_semibold"
+       android:gravity="center"
+       android:text="@string/create_account"
+       android:textAlignment="center"
+       android:textColor="@color/black"
+       android:textFontWeight="600"
+       android:textSize="22sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.500"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/back"
+       app:layout_constraintVertical_bias="0.060" />
+
+   <androidx.cardview.widget.CardView
+       android:id="@+id/cardView2"
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:layout_marginRight="30dp"
+       android:layout_marginLeft="30dp"
+       android:backgroundTint="@color/white"
+       app:cardCornerRadius="20dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="@+id/login_text"
+       app:layout_constraintStart_toStartOf="@+id/login_text"
+       app:layout_constraintTop_toBottomOf="@+id/login_text"
+       app:layout_constraintVertical_bias="0.1">
+
+      <EditText
+          android:id="@+id/editTextTextFirstName"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:backgroundTint="@color/white"
+          android:ems="10"
+          android:drawableStart="@drawable/ic_user"
+          android:drawablePadding="20dp"
+          android:hint="@string/first_name"
+          android:inputType="textPersonName"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:textAllCaps="false"
+          android:textColor="@color/black"
+          android:textColorHint="@color/self_grey"
+          android:textFontWeight="500"
+          android:textSize="16sp" />
+
+   </androidx.cardview.widget.CardView>
+
+   <androidx.cardview.widget.CardView
+       android:id="@+id/cardView"
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:layout_marginLeft="30dp"
+       android:layout_marginRight="30dp"
+       android:backgroundTint="@color/white"
+       app:cardCornerRadius="20dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="@+id/cardView2"
+       app:layout_constraintHorizontal_bias="0.500"
+       app:layout_constraintStart_toStartOf="@+id/cardView2"
+       app:layout_constraintTop_toBottomOf="@+id/cardView2"
+       app:layout_constraintVertical_bias="0.040">
+
+      <EditText
+          android:id="@+id/editTextTextLastName"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:backgroundTint="@color/white"
+          android:drawableStart="@drawable/ic_user"
+          android:drawablePadding="20dp"
+          android:ems="10"
+          android:hint="@string/last_name"
+          android:inputType="textPersonName"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:textAllCaps="false"
+          android:textColor="@color/black"
+          android:textColorHint="@color/self_grey"
+          android:textFontWeight="500"
+          android:textSize="16sp" />
+
+   </androidx.cardview.widget.CardView>
+
+   <androidx.cardview.widget.CardView
+       android:id="@+id/cardView4"
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:layout_marginLeft="30dp"
+       android:layout_marginRight="30dp"
+       android:backgroundTint="@color/white"
+       app:cardCornerRadius="20dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="@+id/cardView"
+       app:layout_constraintHorizontal_bias="0.500"
+       app:layout_constraintStart_toStartOf="@+id/cardView"
+       app:layout_constraintTop_toBottomOf="@+id/cardView"
+       app:layout_constraintVertical_bias="0.040">
+
+      <EditText
+          android:id="@+id/editTextTextEmailAddress2"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:backgroundTint="@color/white"
+          android:drawableStart="@drawable/ic_mail"
+          android:drawablePadding="20dp"
+          android:ems="10"
+          android:hint="@string/username"
+          android:inputType="textPersonName"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:textAllCaps="false"
+          android:textColor="@color/black"
+          android:textColorHint="@color/self_grey"
+          android:textFontWeight="500"
+          android:textSize="16sp" />
+
+   </androidx.cardview.widget.CardView>
+
+   <androidx.cardview.widget.CardView
+       android:id="@+id/cardView5"
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:layout_marginLeft="30dp"
+       android:layout_marginRight="30dp"
+       app:cardCornerRadius="20dp"
+       android:backgroundTint="@color/white"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="@+id/cardView4"
+       app:layout_constraintHorizontal_bias="0.500"
+       app:layout_constraintStart_toStartOf="@+id/cardView4"
+       app:layout_constraintTop_toBottomOf="@+id/cardView4"
+       app:layout_constraintVertical_bias="0.040">
+
+      <EditText
+          android:id="@+id/editTextNumberPassword"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:backgroundTint="@color/white"
+          android:drawableStart="@drawable/ic_password"
+          android:drawablePadding="20dp"
+          android:ems="10"
+          android:hint="@string/password"
+          android:inputType="textPersonName"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:textAllCaps="false"
+          android:textColor="@color/black"
+          android:textColorHint="@color/self_grey"
+          android:textFontWeight="500"
+          android:textSize="16sp" />
+
+   </androidx.cardview.widget.CardView>
+
+   <Button
+       android:id="@+id/signUpButton"
+       android:layout_width="match_parent"
+       android:layout_height="60dp"
+       android:layout_marginLeft="120dp"
+       android:layout_marginRight="120dp"
+       android:background="@drawable/login_button"
+       android:fontFamily="@font/poppins_semibold"
+       android:gravity="center"
+       android:paddingTop="5dp"
+       android:text="@string/signup"
+       android:textAlignment="center"
+       android:textAllCaps="false"
+       android:textColor="@color/black"
+       android:textFontWeight="500"
+       android:textSize="14sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="@+id/cardView5"
+       app:layout_constraintStart_toStartOf="@+id/cardView5"
+       app:layout_constraintTop_toBottomOf="@+id/cardView5"
+       app:layout_constraintVertical_bias="0.220" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="30dp"
+       android:layout_marginRight="30dp"
+       android:orientation="horizontal"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="1.0"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/signUpButton"
+       app:layout_constraintVertical_bias="0.999">
+
+      <TextView
+          android:id="@+id/textView9"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="5dp"
+          android:layout_weight="1"
+          android:fontFamily="@font/poppins_medium"
+          android:gravity="right"
+          android:text="@string/have_account"
+          android:textColor="@color/black"
+          android:textFontWeight="500"
+          android:textSize="16sp" />
+
+      <TextView
+          android:id="@+id/link"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:fontFamily="@font/poppins_medium"
+          android:text="@string/link_login"
+          android:textColor="@color/SelfBlue"
+          android:textFontWeight="500"
+          android:textSize="16sp" />
+
+   </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+   <!-- <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="140dp"
@@ -68,7 +301,6 @@
         tools:layout_editor_absoluteY="355dp" />
 
     <EditText
-        android:id="@+id/editTextTextFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
@@ -96,7 +328,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTextLastName" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="140dp"
@@ -109,7 +341,6 @@
         app:layout_constraintTop_toBottomOf="@+id/signInyourEmail" />
 
     <EditText
-        android:id="@+id/editTextNumberPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="140dp"
@@ -120,5 +351,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/signUpButton"
-        app:layout_constraintTop_toBottomOf="@+id/signInYourPassword" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/signInYourPassword" />-->

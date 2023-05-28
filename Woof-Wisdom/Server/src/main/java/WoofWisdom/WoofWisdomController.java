@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vaccinations.VaccinationDetails;
 import vaccinations.VaccinationsManager;
+import DogFoodRequests.DogFoodQuery;
 import auth.UserObject;
 
 import java.io.IOException;
@@ -52,6 +53,16 @@ public class WoofWisdomController {
     @GetMapping ("/showVaccinations")
     public ResponseEntity showVaccinations() throws SQLException, JsonProcessingException {
         return VaccinationsManager.showAllVaccinations();
+    }
+
+    @GetMapping ("/showDogFoodCategories")
+    public ResponseEntity showDogFoodCategories() throws SQLException, JsonProcessingException {
+        return DogFoodQuery.showDogFoodCategories();
+    }
+
+    @GetMapping ("/showDogFoodItemsByCategory")
+    public ResponseEntity showDogFoodItemsByCategory(@RequestParam String category_name) throws SQLException, JsonProcessingException {
+        return DogFoodQuery.showDogFoodItemsByCategory(category_name);
     }
 
     @PostMapping("/addVaccination")
@@ -91,9 +102,9 @@ public class WoofWisdomController {
         String email = user.getEmail();
         String password = user.getPassword();
 
-        boolean isValidCredentials = MySQLConnector.checkCredentials(email, password);
+        int userID = MySQLConnector.checkCredentials(email, password);
         String logMessage = "Sign-in request received for email: " + email;
-        if (!isValidCredentials) {
+        if (userID==0) {
             logMessage +=", authentication failed";
             log.warn(logMessage);
             UserObject response = new UserObject();
@@ -120,6 +131,7 @@ public class WoofWisdomController {
 
                 UserObject response = new UserObject();
                 response.setEmail(email);
+                response.setUserID(userID);
                 response.setSessionId(sessionId);
                 response.setMessage("Login successful");
                 return new ResponseEntity<>(response, HttpStatus.OK);
@@ -127,6 +139,7 @@ public class WoofWisdomController {
         } catch (SQLException | JSchException ex) {
             ex.printStackTrace();
         }
+
         // Insert a new row for the user's session in the database
         String sessionId = session.getId();
         session.setAttribute("user", user);
@@ -138,6 +151,7 @@ public class WoofWisdomController {
 
         UserObject response = new UserObject();
         response.setEmail(email);
+        response.setUserID(userID);
         response.setSessionId(sessionId);
         response.setMessage("Login successful");
         return new ResponseEntity<>(response, HttpStatus.OK);

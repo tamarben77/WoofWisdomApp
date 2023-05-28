@@ -9,33 +9,25 @@ import jakarta.persistence.Table;
 @Table(name = "forums")
 public class ForumQuery {
 
-    private String ifNewQuery;
-    @Id
-    private String questionID;
+    private int ifNewQuery;
     private String questionTitle;
     private String questionDetails;
-    private String userID;
+    private int userID;
     private String userType;
-    private String dateandTime;
-    private String upvotes;
-    private String views;
+    private int upvotes;
+    private int views;
     private String category;
+    @Id
+    private Long id;
 
-    public String getIfNewQuery() {
+    public int getIfNewQuery() {
         return ifNewQuery;
     }
 
-    public void setIfNewQuery(String ifNewQuery) {
+    public void setIfNewQuery(int ifNewQuery) {
         this.ifNewQuery = ifNewQuery;
     }
 
-    public String getQuestionID() {
-        return questionID;
-    }
-
-    public void setQuestionID(String questionID) {
-        this.questionID = questionID;
-    }
 
     public String getQuestionTitle() {
         return questionTitle;
@@ -53,11 +45,11 @@ public class ForumQuery {
         this.questionDetails = questionDetails;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -69,27 +61,20 @@ public class ForumQuery {
         this.userType = userType;
     }
 
-    public String getDateandTime() {
-        return dateandTime;
-    }
 
-    public void setDateandTime(String dateandTime) {
-        this.dateandTime = dateandTime;
-    }
-
-    public String getUpvotes() {
+    public int getUpvotes() {
         return upvotes;
     }
 
-    public void setUpvotes(String upvotes) {
+    public void setUpvotes(int upvotes) {
         this.upvotes = upvotes;
     }
 
-    public String getViews() {
+    public int getViews() {
         return views;
     }
 
-    public void setViews(String views) {
+    public void setViews(int views) {
         this.views = views;
     }
 
@@ -99,5 +84,13 @@ public class ForumQuery {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -1,6 +1,15 @@
 package auth;
 
 public class UserObject {
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    private int userID;
     private String firstName;
     private String lastName;
     private String email;

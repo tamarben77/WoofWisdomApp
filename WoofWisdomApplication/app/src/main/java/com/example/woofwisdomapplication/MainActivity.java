@@ -4,17 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String BASE_URL="http://192.168.29.175:8091/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ImageButton buttonNearestVet = (ImageButton) findViewById(R.id.mapsBtn);
+        ImageButton buttonsuspiciousFoodBtn = (ImageButton) findViewById(R.id.suspiciousFoodBtn);
+        ImageButton buttonforumsBtn = (ImageButton) findViewById(R.id.forumsBtn);
+
+        buttonsuspiciousFoodBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),FoodActivity.class));
+            }
+        });
+
+        buttonforumsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FormActivity.class));
+            }
+        });
+
         buttonNearestVet.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), findNearestVetActivity.class
@@ -38,21 +57,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(secondActivityIntent);
         });
 
-        ImageButton suspiciousFood = (ImageButton) findViewById(R.id.suspiciousFoodBtn);
+        /*ImageButton suspiciousFood = (ImageButton) findViewById(R.id.suspiciousFoodBtn);
         suspiciousFood.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), suspiciousFoodActivity.class
             );
             startActivity(secondActivityIntent);
-        });
+        });*/
 
-        ImageButton forums = (ImageButton) findViewById(R.id.forumsBtn);
+        /*ImageButton forums = (ImageButton) findViewById(R.id.forumsBtn);
         forums.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), forumsActivity.class
             );
             startActivity(secondActivityIntent);
-        });
+        });*/
 
         ImageButton dogBreedsInfo = (ImageButton) findViewById(R.id.dogBreedsInfoBtn);
         dogBreedsInfo.setOnClickListener(view -> {
@@ -65,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         Button login = (Button) findViewById(R.id.buttonLogin);
         login.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), login.class
+                    getApplicationContext(), LoginActivity.class
             );
             startActivity(secondActivityIntent);
         });

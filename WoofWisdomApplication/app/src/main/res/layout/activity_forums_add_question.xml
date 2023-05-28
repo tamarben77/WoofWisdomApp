@@ -8,27 +8,105 @@
 
     <TextView
         android:id="@+id/textViewAddForum"
-        android:layout_width="353dp"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:gravity="center"
         android:text=" Add question to forum"
         android:textColor="#535151"
         android:textSize="34sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="42dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060" />
 
-    <EditText
-        android:id="@+id/NameOfWriter"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/first_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="2dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textViewAddForum"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddForum"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddForum"
+        app:layout_constraintVertical_bias="0.030">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_stroke"
+            android:drawableStart="@drawable/ic_user"
+            android:drawablePadding="20dp"
+            android:ems="10"
+            android:hint="Enter Name"
+            android:inputType="text"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/self_grey"
+            android:textFontWeight="500"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--<EditText
         android:layout_width="348dp"
         android:layout_height="52dp"
-        android:background="#D3D1D1"
+        android:background=""
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="  Name"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="133dp" />
+        android:text="Enter Name"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        />-->
 
-    <EditText
+    <androidx.cardview.widget.CardView
+        android:id="@+id/second_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="2dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/first_edittext"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/first_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/first_edittext"
+        app:layout_constraintVertical_bias="0.030">
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_stroke"
+            android:drawableStart="@drawable/ic_title"
+            android:drawablePadding="20dp"
+            android:ems="10"
+            android:hint="Message Title"
+            android:inputType="text"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/self_grey"
+            android:textFontWeight="500"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <!--<EditText
         android:id="@+id/Message_title"
         android:layout_width="348dp"
         android:layout_height="56dp"
@@ -41,13 +119,64 @@
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
-        android:textStyle="normal"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="341dp" />
+        android:textStyle="normal"/>-->
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/whichForum"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textFontWeight="500"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="@color/white"
+        app:ms_background_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/second_edittext"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/second_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/second_edittext"
+        app:layout_constraintVertical_bias="0.030"/>
 
-    <EditText
-        android:id="@+id/whichForum3"
-        android:layout_width="348dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/third_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="2dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/second_edittext"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/second_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/whichForum"
+        app:layout_constraintVertical_bias="0.030">
+
+        <EditText
+            android:id="@+id/details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_stroke"
+            android:ems="10"
+            android:hint="Message Details"
+            android:inputType="text"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="100dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/self_grey"
+            android:textFontWeight="500"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--<EditText
+        android:layout_width="match_parent"
         android:layout_height="164dp"
         android:autoText="false"
         android:background="#D3D1D1"
@@ -60,25 +189,23 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="18sp"
         android:textStyle="normal"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="420dp" />
+         />-->
 
-    <EditText
-        android:id="@+id/whichForum"
+
+    <!--<EditText
         android:layout_width="348dp"
         android:layout_height="56dp"
         android:autoText="true"
         android:background="#D3D1D1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="  Which forum (for vet 1, trainers 2, dogsisters 3)"
+        android:text="  Which forum ()"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp"
         android:textStyle="normal"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="206dp" />
+         />-->
 
     <Button
         android:id="@+id/button"
@@ -88,15 +215,23 @@
         android:text="Send"
         android:textColor="#090909"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="277dp"
-        tools:layout_editor_absoluteY="647dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/third_edittext"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/third_edittext"
+        app:layout_constraintVertical_bias="0.23" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="142dp"
         android:layout_height="118dp"
-        app:srcCompat="@drawable/messege"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="597dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.731"
+        app:layout_constraintStart_toStartOf="@+id/third_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/third_edittext"
+        app:layout_constraintVertical_bias="0.144"
+        app:srcCompat="@drawable/messege" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

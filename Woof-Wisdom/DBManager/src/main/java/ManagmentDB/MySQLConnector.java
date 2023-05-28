@@ -19,13 +19,13 @@ public class MySQLConnector {
     }
 */
     private static final String SSH_USER = "ubuntu";
-    private static final String SSH_KEY_FILE = "ssh-keys/newWWkey.pem";
-    private static final String SSH_HOST = "ec2-15-236-186-223.eu-west-3.compute.amazonaws.com";
+    private static final String SSH_KEY_FILE = "ssh-keys/woofwisdomkey.pem";
+    private static final String SSH_HOST = "ec2-174-129-143-139.compute-1.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "AAAaaa123";
-    private static final String DB_NAME = "woofwisdomdb";
+    private static final String DB_NAME = "woofwisdom";
 
     public static Connection getConnection() throws SQLException, JSchException {
         JSch jsch = new JSch();
@@ -39,7 +39,7 @@ public class MySQLConnector {
         return conn;
     }
 
-    public static void insertNewRow(String tableName, String[] columnNames, String[] values) {
+    public static void insertNewRow(String tableName, String[] columnNames, Object[] values) {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException("Number of column names and values don't match");
         }
@@ -47,7 +47,7 @@ public class MySQLConnector {
             String sql = "INSERT INTO " + tableName + " (" + String.join(",", columnNames) + ") VALUES (" + String.join(",", Collections.nCopies(columnNames.length, "?")) + ")";
             PreparedStatement stmt = conn.prepareStatement(sql);
             for (int i = 0; i < values.length; i++) {
-                stmt.setString(i + 1, values[i]);
+                stmt.setString(i + 1, values[i].toString());
             }
             stmt.executeUpdate();
             System.out.println("Data inserted successfully");
@@ -55,6 +55,7 @@ public class MySQLConnector {
             ex.printStackTrace();
         }
     }
+
 
     public static List<Map<String, Object>> getTable(String tableName) {
         List<Map<String, Object>> data = new ArrayList<>();
@@ -73,8 +74,10 @@ public class MySQLConnector {
                 data.add(row);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             // handle exception
         } catch (JSchException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return data;
@@ -96,7 +99,7 @@ public class MySQLConnector {
         }
     }
 
-    public static boolean checkCredentials(String username, String password) {
+    public static int checkCredentials(String username, String password) {
         String query = "SELECT * FROM users WHERE Email=? AND password=?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -106,15 +109,24 @@ public class MySQLConnector {
 
             // Execute query
             ResultSet rs = stmt.executeQuery();
-
+            ResultSetMetaData meta = rs.getMetaData();
+            int numColumns = meta.getColumnCount();
             // Check if a record was found
-            if (!rs.next()) {
-                return false;
+            if (rs.next()) {
+                int id=0;
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= numColumns; i++) {
+                    String columnName = meta.getColumnName(i);
+                    if(columnName.equals("userID")) {
+                        id = rs.getInt(i);
+                    }
+                }
+                return id;
             }
-            return true;
+            return 0;
         } catch (SQLException | JSchException ex) {
             ex.printStackTrace();
-            return false;
+            return 0;
         }
     }
 
@@ -142,10 +154,55 @@ public class MySQLConnector {
 
         try {
             conn = getConnection();
-            String sql = "SELECT * FROM " + "woofwisdomdb." +tableName;
+            String sql = "SELECT * FROM " + "woofwisdom." +tableName;
             if (condition != null) {
                 sql += " WHERE " + condition + "=" + "'" +whereValue+ "'";
             }
+            stmt = conn.prepareStatement(sql);
+            System.out.println("Executing SQL query: " + sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = rs.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                result.add(row);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } catch (JSchException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return result;
+    }
+
+    public static List<Map<String, Object>> selectDistinct(String columnName1,String tableName) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        try {
+            conn = getConnection();
+            String sql = "SELECT DISTINCT "+columnName1+" FROM " + "woofwisdom." +tableName;
+//            if (condition != null) {
+//                sql += " WHERE " + condition + "=" + "'" +whereValue+ "'";
+//            }
             stmt = conn.prepareStatement(sql);
             System.out.println("Executing SQL query: " + sql);
             rs = stmt.executeQuery();
