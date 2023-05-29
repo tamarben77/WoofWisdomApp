@@ -72,7 +72,7 @@ public class vaccinations extends AppCompatActivity {
                 .build();
 
         progressBarLoader.setVisibility(View.VISIBLE);
-        progressDialogText.setVisibility(View.VISIBLE);
+        //progressDialogText.setVisibility(View.VISIBLE);
 
         VaccinationService service = retrofit.create(VaccinationService.class);
         Call<List<Vaccination>> call = service.getVaccinations();

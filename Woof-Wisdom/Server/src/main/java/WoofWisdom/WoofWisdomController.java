@@ -100,7 +100,6 @@ public class WoofWisdomController {
         }
         MySQLConnector.insertNewRow(tableName, columnNames, values);
         logMessage += ", user created successfully";
-        log.info(logMessage);
         return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
     }
 

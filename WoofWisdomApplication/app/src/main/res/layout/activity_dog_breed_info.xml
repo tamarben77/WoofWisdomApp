@@ -7,7 +7,8 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:supportsRtl="false">
 
         <ImageView
             android:id="@+id/backgroundImage"
@@ -23,7 +24,8 @@
             android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
 
         <TextView
             android:id="@+id/breed_type_value_textview"
@@ -32,7 +34,8 @@
             android:layout_below="@id/breed_name_value_textview"
             android:textColor="#5A5454"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
 
         <TextView
             android:id="@+id/breed_description_value_textview"
@@ -41,7 +44,8 @@
             android:layout_below="@id/breed_type_value_textview"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FF5A5454" />
+            android:textColor="#FF5A5454"
+            android:textDirection="ltr" />
 
         <TextView
             android:id="@+id/fur_color_value_textview"
@@ -50,7 +54,8 @@
             android:layout_below="@id/breed_description_value_textview"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FF5A5454" />
+            android:textColor="#FF5A5454"
+            android:textDirection="ltr" />
 
         <TextView
             android:id="@+id/origin_value_textview"
@@ -59,7 +64,8 @@
             android:layout_below="@id/fur_color_value_textview"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#FF5A5454" />
+            android:textColor="#FF5A5454"
+            android:textDirection="ltr" />
 
         <TextView
             android:id="@+id/adaptability_textview"
@@ -69,7 +75,8 @@
             android:layout_marginTop="32dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
 
         <RatingBar
             android:id="@+id/adaptability_ratingbar"
@@ -99,7 +106,8 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
 
         <RatingBar
             android:id="@+id/health_and_grooming_ratingbar"
@@ -129,7 +137,9 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
+
 
         <RatingBar
             android:id="@+id/trainability_ratingbar"
@@ -159,7 +169,8 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
 
         <RatingBar
             android:id="@+id/exercise_needs_ratingbar"
@@ -189,7 +200,8 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textDirection="ltr" />
 
         <RatingBar
             android:id="@+id/friendliness_ratingbar"
