@@ -3,7 +3,7 @@ package HandleBreedRequests;
 public class DogObject {
     public DogObject(String breedName, String breedType, String breedDescription,
                      String furColor, String origin, String minHeightInches, String maxHeightInches,String minWeightPounds,
-                     String maxWeightPounds, String maxLifeSpan) {
+                     String maxWeightPounds, String maxLifeSpan, String adaptability, String healthAndGrooming, String trainability , String exerciseNeeds, String friendliness) {
         this.breedName = breedName;
         this.breedType = breedType;
         this.breedDescription = breedDescription;
@@ -18,6 +18,11 @@ public class DogObject {
         double avgWeightKilos = (minWeightKilos + maxWeightKilos) / 2;
         this.avgWeight = String.valueOf(avgWeightKilos);
         this.maxLifeSpan = maxLifeSpan;
+        this.adaptability = adaptability;
+        this.healthAndGrooming = healthAndGrooming;
+        this.trainability = trainability;
+        this.exerciseNeeds = exerciseNeeds;
+        this.friendliness = friendliness;
     }
 
 
@@ -93,4 +98,59 @@ public class DogObject {
     private String avgHeightCentimeters;
     private String avgWeight;
     private String maxLifeSpan;
+    private String adaptability;
+    private String healthAndGrooming;
+    private String trainability;
+    private String exerciseNeeds;
+    public String getFriendliness() {
+        return friendliness;
+    }
+
+    public void setFriendliness(String friendliness) {
+        this.friendliness = friendliness;
+    }
+
+    private String friendliness;
+
+    public String getAvgHeightCentimeters() {
+        return avgHeightCentimeters;
+    }
+
+    public void setAvgHeightCentimeters(String avgHeightCentimeters) {
+        this.avgHeightCentimeters = avgHeightCentimeters;
+    }
+
+    public String getAdaptability() {
+        return adaptability;
+    }
+
+    public void setAdaptability(String adaptability) {
+        this.adaptability = adaptability;
+    }
+
+    public String getHealthAndGrooming() {
+        return healthAndGrooming;
+    }
+
+    public void setHealthAndGrooming(String healthAndGrooming) {
+        this.healthAndGrooming = healthAndGrooming;
+    }
+
+    public String getTrainability() {
+        return trainability;
+    }
+
+    public void setTrainability(String trainability) {
+        this.trainability = trainability;
+    }
+
+    public String getExerciseNeeds() {
+        return exerciseNeeds;
+    }
+
+    public void setExerciseNeeds(String exerciseNeeds) {
+        this.exerciseNeeds = exerciseNeeds;
+    }
+
+
 }

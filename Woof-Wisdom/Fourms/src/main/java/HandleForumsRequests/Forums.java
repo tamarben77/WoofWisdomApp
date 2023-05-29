@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.jcraft.jsch.JSchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class Forums {
     }
 
     @GetMapping("/showCommentsOfPost")
-    public static ResponseEntity showCommentsOfPost(String questionId) throws SQLException, JsonProcessingException {
+    public static ResponseEntity showCommentsOfPost(String questionId) throws SQLException, JsonProcessingException, JSchException {
         List<Map<String, Object>> data = MySQLConnector.select("comments","questionId",questionId);
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule()); // add the JSR-310 module

@@ -1,5 +1,10 @@
 package auth;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserObject {
     public int getUserID() {
         return userID;
@@ -16,6 +21,33 @@ public class UserObject {
     private String password;
     private String message;
     private String sessionID;
+
+    private String dogName = null;
+    private Integer dogWight = null;
+    private Integer dogAge = null;
+    public String getDogName() {
+        return dogName;
+    }
+
+    public void setDogName(String dogName) {
+        this.dogName = dogName;
+    }
+
+    public Integer getDogWight() {
+        return dogWight;
+    }
+
+    public void setDogWight(Integer dogWight) {
+        this.dogWight = dogWight;
+    }
+
+    public Integer getDogAge() {
+        return dogAge;
+    }
+
+    public void setDogAge(Integer dogAge) {
+        this.dogAge = dogAge;
+    }
 
     public String getFirstName() {
         return firstName;

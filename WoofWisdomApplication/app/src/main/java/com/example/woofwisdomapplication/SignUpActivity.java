@@ -38,28 +38,28 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         firstNameEditText = findViewById(R.id.editTextTextFirstName);
         lastNameEditText = findViewById(R.id.editTextTextLastName);
-        emailEditText = findViewById(R.id.editTextTextEmailAddress2);
-        passwordEditText = findViewById(R.id.editTextNumberPassword);
+        emailEditText = findViewById(R.id.editTextEmail);
+        passwordEditText = findViewById(R.id.editTextPassword);
         Button signUpButton = findViewById(R.id.signUpButton);
-        TextView signup_link = (TextView) findViewById(R.id.link);
-        ImageView back_button = (ImageView) findViewById(R.id.back);
+//        TextView signup_link = (TextView) findViewById(R.id.link);
+//        ImageView back_button = (ImageView) findViewById(R.id.back);
 
-
-        signup_link.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signup_link.startAnimation(blink);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
-
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back_button.startAnimation(slide_left);
-                finish();
-            }
-        });
+//
+//        signup_link.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                signup_link.startAnimation(blink);
+//                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+//            }
+//        });
+//
+//        back_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                back_button.startAnimation(slide_left);
+//                finish();
+//            }
+//        });
 
         slide_left= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_left_animation);
         blink= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blink_animation);

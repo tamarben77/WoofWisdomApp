@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.WoofWisdomApplication" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_pink</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/logoPink</item>
+        <item name="colorPrimaryVariant">@color/logoPink</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

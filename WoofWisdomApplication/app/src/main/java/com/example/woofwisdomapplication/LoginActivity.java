@@ -30,10 +30,6 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String URL = BASE_URL+"signIn";
-    /*ImageView back_button;
-    TextView forget_password,signup_activity;
-    Button login_button;
-    Animation slide_left,move,blink;*/
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,12 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ImageView back_button;
         Animation slide_left,move,blink;
-        EditText emailEditText = findViewById(R.id.editTextTextEmailAddress);
-        EditText passwordEditText = findViewById(R.id.editTextTextPassword);
-        Button loginButton = findViewById(R.id.buttontoLogin);
-        back_button=(ImageView) findViewById(R.id.back);
+        EditText emailEditText = findViewById(R.id.editTextEmail);
+        EditText passwordEditText = findViewById(R.id.editTextPassword);
+        Button loginButton = findViewById(R.id.loginButton);
+       // back_button=(ImageView) findViewById(R.id.back);
 
-        TextView signUpButton = findViewById(R.id.signUpbutton);
+        TextView signUpButton = findViewById(R.id.signUpButton);
 
         slide_left= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_left_animation);
         move= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.move_animation);
@@ -114,13 +110,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back_button.startAnimation(slide_left);
-                finish();
-            }
-        });
+//        back_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                back_button.startAnimation(slide_left);
+//                finish();
+//            }
+//        });
     }
 }
 

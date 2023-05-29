@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.example.woofwisdomapplication.DTO.Vaccination;
-import com.example.woofwisdomapplication.views.VaccinationAdapter;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

@@ -3,21 +3,13 @@ package ManagmentDB;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.*;
 
-
+@Component
 public class MySQLConnector {
-/*
-    private static final String DB_URL = "jdbc:MySQL://localhost/shakira";//"jdbc:mysql://localhost:3306/WoofWisdomDB";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "AAAaaa123";
-    public static Connection getConnection() throws SQLException {
-        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        return conn;
-    }
-*/
     private static final String SSH_USER = "ubuntu";
     private static final String SSH_KEY_FILE = "ssh-keys/woofwisdomkey.pem";
     private static final String SSH_HOST = "ec2-174-129-143-139.compute-1.amazonaws.com";
@@ -43,6 +35,7 @@ public class MySQLConnector {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException("Number of column names and values don't match");
         }
+        String host = SSH_HOST;
         try (Connection conn = getConnection()) {
             String sql = "INSERT INTO " + tableName + " (" + String.join(",", columnNames) + ") VALUES (" + String.join(",", Collections.nCopies(columnNames.length, "?")) + ")";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -98,8 +91,29 @@ public class MySQLConnector {
             return 1;
         }
     }
+    public static boolean checkCredentials(String username, String password) {
+        String query = "SELECT * FROM users WHERE Email=? AND password=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            // Set query parameters
+            stmt.setString(1, username);
+            stmt.setString(2, password);
 
-    public static int checkCredentials(String username, String password) {
+            // Execute query
+            ResultSet rs = stmt.executeQuery();
+
+            // Check if a record was found
+            if (!rs.next()) {
+                return false;
+            }
+            return true;
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public static int checkCredentials1(String username, String password) {
         String query = "SELECT * FROM users WHERE Email=? AND password=?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -146,7 +160,7 @@ public class MySQLConnector {
         return userExists;
     }
 
-    public static List<Map<String, Object>> select(String tableName, String condition, String whereValue) throws SQLException {
+    public static List<Map<String, Object>> select(String tableName, String condition, String whereValue) throws SQLException, JSchException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -172,10 +186,8 @@ public class MySQLConnector {
                 }
                 result.add(row);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | JSchException ex) {
             throw ex;
-        } catch (JSchException e) {
-            throw new RuntimeException(e);
         } finally {
             if (rs != null) {
                 rs.close();

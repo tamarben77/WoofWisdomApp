@@ -3,18 +3,41 @@ package com.example.woofwisdomapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    private SharedPreferences sharedPreferences;
+    private TextView welcomeTextView;
 
-    public static String BASE_URL="http://192.168.29.175:8091/";
+    public static String BASE_URL="http://10.0.0.16:8091/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.setProperty("IP", "10.0.0.16");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        welcomeTextView = findViewById(R.id.welcomeTextView);
+        UserUtils.displayWelcomeMessage(this, welcomeTextView);
 
         ImageButton buttonNearestVet = (ImageButton) findViewById(R.id.mapsBtn);
         ImageButton buttonsuspiciousFoodBtn = (ImageButton) findViewById(R.id.suspiciousFoodBtn);
@@ -44,10 +67,18 @@ public class MainActivity extends AppCompatActivity {
         ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
         vaccinations.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), vaccinations.class
+                    getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.vaccinations.class
             );
             startActivity(secondActivityIntent);
         });
+
+/*        ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
+        vaccinations.setOnClickListener(view -> {
+            Intent secondActivityIntent = new Intent(
+                    getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.ImmunizationsRecordActivity.class
+            );
+            startActivity(secondActivityIntent);
+        });*/
 
         ImageButton stoolPukeAnalyzer = (ImageButton) findViewById(R.id.cameraAnalyzer);
         stoolPukeAnalyzer.setOnClickListener(view -> {
@@ -84,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         Button login = (Button) findViewById(R.id.buttonLogin);
         login.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), LoginActivity.class
+                    getApplicationContext(), login.class
             );
             startActivity(secondActivityIntent);
         });

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.jcraft.jsch.JSchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -25,7 +26,7 @@ public class DogFoodQuery {
         return new ResponseEntity<>(mapper.writeValueAsString(data), HttpStatus.OK);
     }
 
-    public static ResponseEntity showDogFoodItemsByCategory(String category_name) throws SQLException, JsonProcessingException {
+    public static ResponseEntity showDogFoodItemsByCategory(String category_name) throws SQLException, JsonProcessingException, JSchException {
 
         List<Map<String, Object>> data = MySQLConnector.select("dogFood","foodCategory",category_name);
         ObjectMapper mapper = new ObjectMapper();

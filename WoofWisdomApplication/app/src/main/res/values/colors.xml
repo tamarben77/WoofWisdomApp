@@ -17,4 +17,7 @@
     <color name="Self_green">#59C173</color>
     <color name="transparent">#3fff</color>
     <color name="self_white">#90F3F2F2</color>
+    <color name="logoPink">#FFE5E6</color>
+    <color name="logoDarkPink">#FFC7C7</color>
+    <color name="hint_color">#808080</color>
 </resources>
