@@ -23,6 +23,7 @@
             android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <TextView
@@ -32,6 +33,7 @@
             android:layout_below="@id/breed_name_value_textview"
             android:textColor="#5A5454"
             android:textSize="18sp"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <TextView
@@ -41,6 +43,7 @@
             android:layout_below="@id/breed_type_value_textview"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textAlignment="viewStart"
             android:textColor="#FF5A5454" />
 
         <TextView
@@ -50,6 +53,7 @@
             android:layout_below="@id/breed_description_value_textview"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textAlignment="viewStart"
             android:textColor="#FF5A5454" />
 
         <TextView
@@ -59,6 +63,7 @@
             android:layout_below="@id/fur_color_value_textview"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textAlignment="viewStart"
             android:textColor="#FF5A5454" />
 
         <TextView
@@ -69,6 +74,7 @@
             android:layout_marginTop="32dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <RatingBar
@@ -89,6 +95,7 @@
             android:progressDrawable="@drawable/rating_bar_star"
             android:rating="0"
             android:stepSize="1"
+            android:layout_alignParentLeft="true"
             android:visibility="invisible" />
 
         <TextView
@@ -99,6 +106,7 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <RatingBar
@@ -119,6 +127,7 @@
             android:paddingEnd="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentLeft="true"
             android:layout_marginBottom="8dp" />
 
         <TextView
@@ -129,6 +138,7 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <RatingBar
@@ -149,6 +159,7 @@
             android:paddingEnd="8dp"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
+            android:layout_alignParentLeft="true"
             android:layout_marginBottom="8dp" />
 
         <TextView
@@ -159,6 +170,7 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <RatingBar
@@ -179,6 +191,7 @@
             android:progressDrawable="@drawable/rating_bar_star"
             android:rating="0"
             android:stepSize="1"
+            android:layout_alignParentLeft="true"
             android:visibility="invisible" />
 
         <TextView
@@ -189,6 +202,7 @@
             android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textColor="#FF5A5454"
+            android:textAlignment="viewStart"
             android:textStyle="bold" />
 
         <RatingBar
@@ -209,6 +223,7 @@
             android:progressDrawable="@drawable/rating_bar_star"
             android:rating="0"
             android:stepSize="1"
+            android:layout_alignParentLeft="true"
             android:visibility="invisible" />
 
     </RelativeLayout>
