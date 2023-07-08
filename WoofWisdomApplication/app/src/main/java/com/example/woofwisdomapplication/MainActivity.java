@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.setProperty("IP", "192.168.1.224");
+        System.setProperty("IP", "192.168.1.11");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
