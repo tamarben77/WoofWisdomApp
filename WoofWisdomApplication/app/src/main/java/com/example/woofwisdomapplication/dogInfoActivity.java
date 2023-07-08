@@ -2,6 +2,9 @@ package com.example.woofwisdomapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
@@ -18,6 +21,7 @@ import org.json.JSONObject;
 
 public class dogInfoActivity extends AppCompatActivity {
     String selectedBreed;
+    DBHelper dbHelper;
     private static final String IP = System.getProperty("IP");
     private static final String URL = "http://" + IP + ":8091/dogBreed/breedsInfo/";
 
@@ -25,10 +29,83 @@ public class dogInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_breed_info);
-
         // Get the selected breed name from the intent
         selectedBreed = getIntent().getStringExtra("breedName");
-        String url = URL + selectedBreed;
+        dbHelper = new DBHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] projection = { // attributes you want to retrieve
+                "breedName",
+                "breedDescription",
+                "breedType",
+                "furColor",
+                "origin",
+                "adaptability",
+                "healthAndGrooming",
+                "trainability",
+                "exerciseNeeds",
+                "friendliness",
+        };
+        String selection = "breedName = ?";
+        String[] selectionArgs = {selectedBreed};
+        Cursor cursor = db.query(
+                "breedInfo",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+        String url = null;
+        if (cursor.moveToFirst()) {
+            do {
+                int breedDescriptionIndex = cursor.getColumnIndex("breedDescription");
+                String breedDescription = breedDescriptionIndex != -1 ? cursor.getString(breedDescriptionIndex) : null;
+                int breedTypeIndex = cursor.getColumnIndex("breedType");
+                String breedType = breedTypeIndex != -1 ? cursor.getString(breedTypeIndex) : null;
+                int breedNameIndex = cursor.getColumnIndex("breedName");
+                String breedName = breedNameIndex != -1 ? cursor.getString(breedNameIndex) : null;
+                int furColorIndex = cursor.getColumnIndex("furColor");
+                String furColor = furColorIndex != -1 ? cursor.getString(furColorIndex) : null;
+                int originIndex = cursor.getColumnIndex("origin");
+                String origin = originIndex != -1 ? cursor.getString(originIndex) : null;
+                int adaptabilityIndex = cursor.getColumnIndex("adaptability");
+                String adaptability = adaptabilityIndex != -1 ? cursor.getString(adaptabilityIndex) : null;
+                int healthAndGroomingIndex = cursor.getColumnIndex("adaptability");
+                String healthAndGrooming = healthAndGroomingIndex != -1 ? cursor.getString(adaptabilityIndex) : null;
+                int trainabilityIndex = cursor.getColumnIndex("trainability");
+                String trainability = trainabilityIndex != -1 ? cursor.getString(trainabilityIndex) : null;
+                int exerciseNeedsIndex = cursor.getColumnIndex("exerciseNeeds");
+                String exerciseNeeds = exerciseNeedsIndex != -1 ? cursor.getString(exerciseNeedsIndex) : null;
+                int friendlinessIndex = cursor.getColumnIndex("friendliness");
+                String friendliness = friendlinessIndex != -1 ? cursor.getString(friendlinessIndex) : null;
+
+
+                TextView descriptionTextView = findViewById(R.id.breed_description_value_textview);
+                descriptionTextView.setText(breedDescription != null ? "About: " + breedDescription : "No description available");
+                TextView breedTypeTextView = findViewById(R.id.breed_type_value_textview);
+                breedTypeTextView.setText(breedType != null ? "Type: " + breedType : "No type available");
+                TextView breedNameTextView = findViewById(R.id.breed_name_value_textview);
+                breedNameTextView.setText(breedType != null ? "Type: " + breedName : "No type available");
+                TextView furColorTextView = findViewById(R.id.fur_color_value_textview);
+                furColorTextView.setText(furColor != null ? "Type: " + furColor : "No type available");
+                TextView originTextView = findViewById(R.id.origin_value_textview);
+                originTextView.setText(origin != null ? "Type: " + origin : "No type available");
+                TextView adaptabilityTextView = findViewById(R.id.adaptability_textview);
+                adaptabilityTextView.setText(adaptability != null ? "Type: " + adaptability : "No type available");
+                TextView healthAndGroomingTextView = findViewById(R.id.health_and_grooming_textview);
+                healthAndGroomingTextView.setText(healthAndGrooming != null ? "Type: " + healthAndGrooming : "No type available");
+                TextView trainabilityTextView = findViewById(R.id.trainability_textview);
+                trainabilityTextView.setText(trainability != null ? "Type: " + trainability : "No type available");
+                TextView exerciseNeedsTextView = findViewById(R.id.exercise_needs_textview);
+                exerciseNeedsTextView.setText(exerciseNeeds != null ? "Type: " + exerciseNeeds : "No type available");
+                TextView friendlinessTextView = findViewById(R.id.friendliness_textview);
+                friendlinessTextView.setText(friendliness != null ? "Type: " + friendliness : "No type available");
+
+            } while (cursor.moveToNext());
+        } else {
+            url = URL + selectedBreed;
+        }
 
         RelativeLayout mainLayout = findViewById(R.id.main_layout);
         String breedName = selectedBreed;
@@ -54,6 +131,20 @@ public class dogInfoActivity extends AppCompatActivity {
                             String trainability = jsonObject.getString("trainability");
                             String exerciseNeeds = jsonObject.getString("exerciseNeeds");
                             String friendliness = jsonObject.getString("friendliness");
+
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+                            ContentValues values = new ContentValues();
+                            values.put("breedName", selectedBreed);
+                            values.put("breedDescription", breedDescription);
+                            values.put("breedType", breedType);
+                            values.put("furColor", breedType);
+                            values.put("origin", breedType);
+                            values.put("adaptability", breedType);
+                            values.put("healthAndGrooming", breedType);
+                            values.put("trainability", breedType);
+                            values.put("exerciseNeeds", breedType);
+                            values.put("friendliness", breedType);
+                            long newRowId = db.insert("breedInfo", null, values);
 
                             TextView nameTextView = findViewById(R.id.breed_name_value_textview);
                             TextView descriptionTextView = findViewById(R.id.breed_description_value_textview);
