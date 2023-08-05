@@ -10,12 +10,29 @@ import java.util.*;
 
 @Component
 public class MySQLConnector {
+/*
+    private static final String DB_URL = "jdbc:MySQL://localhost/shakira";//"jdbc:mysql://localhost:3306/WoofWisdomDB";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "AAAaaa123";
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        return conn;
+    }
+*/
     private static final String SSH_USER = "ubuntu";
-    private static final String SSH_KEY_FILE = "ssh-keys/woofwisdomkey.pem";
-    private static final String SSH_HOST = "ec2-174-129-143-139.compute-1.amazonaws.com";
+
+    //IMPORTANT - this location is only for local debugging
+    //TODO - when deploying the server, this should be in a comment / removed
+    private static final String SSH_KEY_FILE = "ssh-keys/woofWisdomKey.pem";
+
+    //IMPORTANT - the second SSH-FILE-KEY's location is for the ec2 instance,
+    // so it should be used only when running remote server
+    //TODO - activate this configuration when deploying the server
+    //private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
+    private static final String SSH_HOST = "ec2-16-171-144-38.eu-north-1.compute.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
-    private static final String DB_USER = "root";
+    private static final String DB_USER = "woof";
     private static final String DB_PASSWORD = "AAAaaa123";
     private static final String DB_NAME = "woofwisdom";
 
@@ -35,7 +52,6 @@ public class MySQLConnector {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException("Number of column names and values don't match");
         }
-        String host = SSH_HOST;
         try (Connection conn = getConnection()) {
             String sql = "INSERT INTO " + tableName + " (" + String.join(",", columnNames) + ") VALUES (" + String.join(",", Collections.nCopies(columnNames.length, "?")) + ")";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -48,7 +64,6 @@ public class MySQLConnector {
             ex.printStackTrace();
         }
     }
-
 
     public static List<Map<String, Object>> getTable(String tableName) {
         List<Map<String, Object>> data = new ArrayList<>();
@@ -91,6 +106,7 @@ public class MySQLConnector {
             return 1;
         }
     }
+
     public static boolean checkCredentials(String username, String password) {
         String query = "SELECT * FROM users WHERE Email=? AND password=?";
         try (Connection conn = getConnection();
@@ -229,7 +245,7 @@ public class MySQLConnector {
                 }
                 result.add(row);
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | JSchException ex) {
             throw ex;
         } catch (JSchException e) {
             throw new RuntimeException(e);

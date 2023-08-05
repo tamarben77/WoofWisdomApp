@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginwallpaper">
+    android:background="@drawable/login_wall_paper">
 
     <TextView
         android:id="@+id/loginTitle"
@@ -12,10 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="Login Now"
+        android:text="@string/title_activity_login"
         android:textSize="60sp"
         android:textColor="#EFBFBD"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="left" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -31,7 +32,8 @@
         android:padding="12dp"
         android:textColor="#070707"
         android:textColorHint="#000000"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:gravity="left" />
 
     <RelativeLayout
         android:id="@+id/passwordLayout"
@@ -52,7 +54,8 @@
             android:padding="12dp"
             android:textColor="#000000"
             android:textColorHint="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:gravity="left" />
 
         <ImageView
             android:id="@+id/eyeIcon"

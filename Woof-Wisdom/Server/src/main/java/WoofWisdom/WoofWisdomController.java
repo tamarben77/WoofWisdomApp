@@ -27,7 +27,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +35,6 @@ public class WoofWisdomController {
     private static final Logger log = LoggerFactory.getLogger(WoofWisdomController.class);
     @PostMapping(value = "/addToCalender")
     public ResponseEntity AddToGoogleCalender(@RequestBody String googleCalendarEvent) throws IOException, GeneralSecurityException {
-        System.out.println("got an add to calendar request...");
         Gson gson = new Gson();
         GoogleCalendarEvent Event = gson.fromJson(googleCalendarEvent, GoogleCalendarEvent.class);
         AddEventToGoogleCalendar add = new AddEventToGoogleCalendar(Event);
@@ -45,7 +43,7 @@ public class WoofWisdomController {
     }
 
     @PostMapping("/getNearestVet")
-    public ResponseEntity GetNearestVet(@RequestBody String client_location) throws Exception {
+    public ResponseEntity GetNearestVet(@RequestBody String client_location, @RequestParam int radius) throws Exception {
         System.out.println("Got a request to find nearest vets...");
         Gson gson = new Gson();
         ClientLocation clientLocation = gson.fromJson(client_location, ClientLocation.class);
@@ -71,7 +69,6 @@ public class WoofWisdomController {
 
     @PostMapping("/addVaccination")
     public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException, JsonProcessingException {
-        System.out.println("got a request to add vaccination...");
         Gson gson = new Gson();
         VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
         VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
@@ -96,25 +93,6 @@ public class WoofWisdomController {
         String tableName = "users";
         String[] columnNames = {"First_Name", "Last_Name", "Email", "Password"};
         String[] values = {firstName, lastName, email, password};
-        if (dogName != null) {
-            columnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
-            values = Arrays.copyOf(values, values.length + 1);
-            columnNames[columnNames.length - 1] = "Dog_Name";
-            values[values.length - 1] = dogName;
-        }
-        if (dogWeight != null) {
-            columnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
-            values = Arrays.copyOf(values, values.length + 1);
-            columnNames[columnNames.length - 1] = "Dog_Weight";
-            values[values.length - 1] = dogWeight;
-        }
-
-        if (dogAge != null) {
-            columnNames = Arrays.copyOf(columnNames, columnNames.length + 1);
-            values = Arrays.copyOf(values, values.length + 1);
-            columnNames[columnNames.length - 1] = "Dog_Age";
-            values[values.length - 1] = String.valueOf(dogAge);
-        }
         MySQLConnector.insertNewRow(tableName, columnNames, values);
         logMessage += ", user created successfully";
         log.info(logMessage);

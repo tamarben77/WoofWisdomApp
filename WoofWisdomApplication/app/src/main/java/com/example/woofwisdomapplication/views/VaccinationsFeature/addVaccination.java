@@ -5,9 +5,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,12 +49,17 @@ import okhttp3.Response;
 public class addVaccination extends AppCompatActivity {
 
     private static final String IP = System.getProperty("IP");//"192.168.10.57";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vaccination);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Processing request...");
+        progressDialog.setCancelable(false);
 
         Spinner vaccinationNameSpinner = findViewById(R.id.vaccinationNameSpinner);
         String[] vaccinationNames = {"Distemper", "Parvovirus", "Bordetella", "DHPP", "Influenza", "Leptospirosis", "Lyme Disease", "Rabies", "Coronavirus"}; // Replace this with your list of vaccination names
@@ -76,9 +83,10 @@ public class addVaccination extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
+
                 // Retrieve the entered details from the EditText views
                 String username = usernameEditText.getText().toString();
-                //String vaccinationName = vaccinationNameEditText.getText().toString();
                 String vaccinationName = vaccinationNameSpinner.getSelectedItem().toString();
 
                 Button datePickerButton = findViewById(R.id.datePickerButton);
@@ -129,7 +137,7 @@ public class addVaccination extends AppCompatActivity {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         // Handle any errors that occurred during the request
-                        int num = 8;
+                        hideProgressIndicator();
                     }
 
                     @Override
@@ -140,6 +148,8 @@ public class addVaccination extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    hideProgressIndicator();
+
                                     AlertDialog.Builder builder = new AlertDialog.Builder(addVaccination.this);
 
                                     // Set the title and message for the dialog
@@ -174,11 +184,21 @@ public class addVaccination extends AppCompatActivity {
 
                         } else {
                             // Handle any errors that occurred during the request
+                            hideProgressIndicator();
                         }
                     }
                 });
             }
         });
+    }
+    // Method to hide the progress indicator using a delay
+    private void hideProgressIndicator() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, 500); // Delay for 500 milliseconds before hiding the progress indicator
     }
 
 

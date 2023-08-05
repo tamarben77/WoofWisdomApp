@@ -5,12 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.woofwisdomapplication.API.VaccinationService;
 import com.example.woofwisdomapplication.DTO.Vaccination;
@@ -30,14 +34,19 @@ public class vaccinations extends AppCompatActivity {
     private RecyclerView recyclerView;
     private VaccinationAdapter adapter;
 
-    private ProgressBar loader;
+    private FrameLayout progressBarLayout;
+    private ProgressBar progressBarLoader;
+    private TextView progressDialogText;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaccinations);
-        loader=(ProgressBar)findViewById(R.id.progressBarLoader);
+
+        progressBarLoader = findViewById(R.id.progressBarLoader);
+        progressDialogText = findViewById(R.id.progressText);
+
         ImageButton add = (ImageButton) findViewById(R.id.floatingActionButton);
         add.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
@@ -62,13 +71,15 @@ public class vaccinations extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        progressBarLoader.setVisibility(View.VISIBLE);
+        //progressDialogText.setVisibility(View.VISIBLE);
+
         VaccinationService service = retrofit.create(VaccinationService.class);
         Call<List<Vaccination>> call = service.getVaccinations();
 
         call.enqueue(new Callback<List<Vaccination>>() {
             @Override
             public void onResponse(Call<List<Vaccination>> call, retrofit2.Response<List<Vaccination>> response) {
-                loader.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     List<Vaccination> vaccinations = response.body();
                     adapter.setVaccinations(vaccinations);

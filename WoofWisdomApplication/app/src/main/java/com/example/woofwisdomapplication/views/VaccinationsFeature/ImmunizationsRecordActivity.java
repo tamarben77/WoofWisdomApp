@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -127,13 +128,8 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     private void insertEvent() {
         String summary = etSummary.getText().toString().trim();
         String location = etLocation.getText().toString().trim();
-        //String dateString = etDate.getText().toString().trim();
         String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", selectedDateTime);
 
-
-/*        String summary = "bla";
-        String location = "bla";
-        String dateString = "2023-04-04 13:30";*/
 
         if (summary.isEmpty() || location.isEmpty() || formattedDateTime.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -289,7 +285,16 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
             Toast.makeText(ImmunizationsRecordActivity.this, "Event inserted successfully", Toast.LENGTH_SHORT).show();
             etSummary.setText("");
             etLocation.setText("");
-            etDate.setText("");
+            btnSelectDate.setText("select date");
+
+            // Close the activity
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ImmunizationsRecordActivity.this.finish();
+                }
+            }, 2000); // Adjust the delay as needed (in milliseconds)
         }
     }
 
