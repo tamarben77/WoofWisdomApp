@@ -22,7 +22,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
-        android:src="@drawable/vaccination_icon"
+        android:src="@drawable/dog_vaccination_logo"
         android:layout_below="@+id/dateTextView"
         tools:ignore="DuplicateIds" />
 

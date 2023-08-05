@@ -246,9 +246,7 @@ public class MySQLConnector {
                 result.add(row);
             }
         } catch (SQLException | JSchException ex) {
-            throw ex;
-        } catch (JSchException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(ex);
         } finally {
             if (rs != null) {
                 rs.close();
