@@ -24,12 +24,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    public static String BASE_URL;
     private SharedPreferences sharedPreferences;
     private TextView welcomeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.setProperty("IP", "192.168.1.17");
+        BASE_URL = System.getProperty("IP") + ":8091/";
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
