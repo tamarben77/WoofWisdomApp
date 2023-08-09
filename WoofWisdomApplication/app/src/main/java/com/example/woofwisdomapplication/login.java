@@ -42,6 +42,7 @@ public class login extends AppCompatActivity {
         Button loginButton = findViewById(R.id.loginButton);
         Button signUpButton = findViewById(R.id.signUpButton);
 
+        Log.d("mubi",URL);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

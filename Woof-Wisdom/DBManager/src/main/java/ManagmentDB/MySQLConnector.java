@@ -10,6 +10,15 @@ import java.util.*;
 
 @Component
 public class MySQLConnector {
+/*
+    private static final String DB_URL = "jdbc:MySQL://localhost/shakira";//"jdbc:mysql://localhost:3306/WoofWisdomDB";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "AAAaaa123";
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        return conn;
+    }
+*/
     private static final String SSH_USER = "ubuntu";
 
     //IMPORTANT - this location is only for local debugging
@@ -20,7 +29,7 @@ public class MySQLConnector {
     // so it should be used only when running remote server
     //TODO - activate this configuration when deploying the server
     //private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
-    private static final String SSH_HOST = "ec2-16-171-144-38.eu-north-1.compute.amazonaws.com";
+    private static final String SSH_HOST = "ec2-16-171-38-106.eu-north-1.compute.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "woof";
@@ -39,16 +48,15 @@ public class MySQLConnector {
         return conn;
     }
 
-    public static void insertNewRow(String tableName, String[] columnNames, String[] values) {
+    public static void insertNewRow(String tableName, String[] columnNames, Object[] values) {
         if (columnNames.length != values.length) {
             throw new IllegalArgumentException("Number of column names and values don't match");
         }
-        String host = SSH_HOST;
         try (Connection conn = getConnection()) {
             String sql = "INSERT INTO " + tableName + " (" + String.join(",", columnNames) + ") VALUES (" + String.join(",", Collections.nCopies(columnNames.length, "?")) + ")";
             PreparedStatement stmt = conn.prepareStatement(sql);
             for (int i = 0; i < values.length; i++) {
-                stmt.setString(i + 1, values[i]);
+                stmt.setString(i + 1, values[i].toString());
             }
             stmt.executeUpdate();
             System.out.println("Data inserted successfully");
@@ -74,8 +82,10 @@ public class MySQLConnector {
                 data.add(row);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             // handle exception
         } catch (JSchException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         return data;
@@ -116,6 +126,37 @@ public class MySQLConnector {
         } catch (SQLException | JSchException ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    public static int checkCredentials1(String username, String password) {
+        String query = "SELECT * FROM users WHERE Email=? AND password=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            // Set query parameters
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+
+            // Execute query
+            ResultSet rs = stmt.executeQuery();
+            ResultSetMetaData meta = rs.getMetaData();
+            int numColumns = meta.getColumnCount();
+            // Check if a record was found
+            if (rs.next()) {
+                int id=0;
+                Map<String, Object> row = new HashMap<>();
+                for (int i = 1; i <= numColumns; i++) {
+                    String columnName = meta.getColumnName(i);
+                    if(columnName.equals("userID")) {
+                        id = rs.getInt(i);
+                    }
+                }
+                return id;
+            }
+            return 0;
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+            return 0;
         }
     }
 
@@ -163,6 +204,49 @@ public class MySQLConnector {
             }
         } catch (SQLException | JSchException ex) {
             throw ex;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return result;
+    }
+
+    public static List<Map<String, Object>> selectDistinct(String columnName1,String tableName) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        try {
+            conn = getConnection();
+            String sql = "SELECT DISTINCT "+columnName1+" FROM " + "woofwisdom." +tableName;
+//            if (condition != null) {
+//                sql += " WHERE " + condition + "=" + "'" +whereValue+ "'";
+//            }
+            stmt = conn.prepareStatement(sql);
+            System.out.println("Executing SQL query: " + sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                ResultSetMetaData metaData = rs.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnName(i);
+                    Object columnValue = rs.getObject(i);
+                    row.put(columnName, columnValue);
+                }
+                result.add(row);
+            }
+        } catch (SQLException | JSchException ex) {
+            throw new RuntimeException(ex);
         } finally {
             if (rs != null) {
                 rs.close();

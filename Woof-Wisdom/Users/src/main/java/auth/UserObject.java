@@ -6,6 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserObject {
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    private int userID;
     private String firstName;
     private String lastName;
     private String email;

@@ -11,7 +11,9 @@
 		<module>Breeds</module>
 		<module>Vaccinations</module>
 		<module>Server</module>
-	</modules>
+		<module>Fourms</module>
+        <module>DogFood</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -42,6 +44,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -100,8 +108,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>

@@ -1,7 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="432744f1-5780-4788-b040-b674879af956" name="Changes" comment="" />
+    <list default="true" id="5f8a05cf-af83-47fe-ab6f-d66ead901f29" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Breeds/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Breeds/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Breeds/src/main/java/HandleBreedRequests/BreedController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Breeds/src/main/java/HandleBreedRequests/BreedController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Breeds/src/main/java/HandleBreedRequests/DogObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Breeds/src/main/java/HandleBreedRequests/DogObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Breeds/src/main/java/HandleBreedRequests/GetBreedsInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Breeds/src/main/java/HandleBreedRequests/GetBreedsInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Calendar/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Calendar/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Calendar/src/main/java/AddToCalender/AddEventToGoogleCalendar.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Calendar/src/main/java/AddToCalender/AddEventToGoogleCalendar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Calendar/src/main/java/AddToCalender/GoogleCalendarEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Calendar/src/main/java/AddToCalender/GoogleCalendarEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/DBManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/DBManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/DBManager/src/main/java/ManagmentDB/MySQLConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/DBManager/src/main/java/ManagmentDB/MySQLConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Fourms/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Fourms/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/ForumQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/ForumQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/Forums.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Fourms/src/main/java/HandleForumsRequests/Forums.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Maps/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Maps/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Maps/src/main/java/SearchGoogleMaps/ClientLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Maps/src/main/java/SearchGoogleMaps/ClientLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Maps/src/main/java/SearchGoogleMaps/VetFinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Maps/src/main/java/SearchGoogleMaps/VetFinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/ChangePort.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/ChangePort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/WoofWisdomApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/WoofWisdomApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/WoofWisdomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Server/src/main/java/WoofWisdom/WoofWisdomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Users/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Users/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Users/src/main/java/auth/UserManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Users/src/main/java/auth/UserManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Users/src/main/java/auth/UserObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Users/src/main/java/auth/UserObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Vaccinations/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Vaccinations/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Vaccinations/src/main/java/vaccinations/VaccinationDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Vaccinations/src/main/java/vaccinations/VaccinationDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/Vaccinations/src/main/java/vaccinations/VaccinationsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/Vaccinations/src/main/java/vaccinations/VaccinationsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/src/test/java/WoofWisdom/Woof/Wisdom/WoofWisdomApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/src/test/java/WoofWisdom/Woof/Wisdom/WoofWisdomApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Woof-Wisdom/ssh-keys/woofwisdomkey.pem" beforeDir="false" afterPath="$PROJECT_DIR$/Woof-Wisdom/ssh-keys/woofwisdomkey.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/androidTest/java/com/example/woofwisdomapplication/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/androidTest/java/com/example/woofwisdomapplication/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/API/VaccinationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/API/VaccinationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/DTO/GoogleCalendarEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/DTO/GoogleCalendarEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/DTO/Vaccination.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/DTO/Vaccination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/DogObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/DogObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/ViewListOfVets.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/ViewListOfVets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/addVaccination.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/addVaccination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/LoginDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/LoginDataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/LoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/LoginRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/model/LoggedInUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/data/model/LoggedInUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/dogBreedsInfoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/dogBreedsInfoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/dogInfoActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/dogInfoActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/findNearestVetActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/findNearestVetActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/forumsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/forumsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/forumsAddQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/forumsAddQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/immunizationsRecordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/immunizationsRecordActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/login.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/signUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/SignUpActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/stoolPukeAnalyzerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/stoolPukeAnalyzerActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/suspiciousFoodActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/suspiciousFoodActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/vaccinations.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/vaccinations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/views/VaccinationAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/java/com/example/woofwisdomapplication/views/VaccinationAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_add_vaccination.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_add_vaccination.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_dog_breed_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_dog_breed_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_dog_breeds_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_dog_breeds_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_find_nearest_vet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_find_nearest_vet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_forums.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_forums.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_forums_add_question.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_forums_add_question.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_immunizations_record.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_immunizations_record.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_sign_up.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_stool_puke_analyzer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_stool_puke_analyzer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_suspicious_food.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_suspicious_food.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_vaccinations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_vaccinations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_view_list_of_vets.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/activity_view_list_of_vets.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/vaccination_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/layout/vaccination_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-land/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-land/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-w1240dp/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-w1240dp/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-w600dp/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values-w600dp/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/xml/backup_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/xml/network_security_config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/app/src/test/java/com/example/woofwisdomapplication/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/app/src/test/java/com/example/woofwisdomapplication/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoofWisdomApplication/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/WoofWisdomApplication/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,56 +121,32 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2PMhKj9ID0SrBaz1AZXlE2IMnLv" />
+  <component name="ProjectId" id="2Q3gG36c0tnnVR9OGBfxa8HLCCi" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/netav/Desktop/Personal/WoofWisdomApp/Woof-Wisdom",
-    "nodejs_package_manager_path": "npm",
+    "last_opened_file_path": "/Users/ranamuneeb/Downloads/WoofWisdomApp",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="432744f1-5780-4788-b040-b674879af956" name="Changes" comment="" />
-      <created>1683272796062</created>
+      <changelist id="5f8a05cf-af83-47fe-ab6f-d66ead901f29" name="Changes" comment="" />
+      <created>1684587580102</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1683272796062</updated>
-      <workItem from="1683272797932" duration="29000" />
-      <workItem from="1683274908047" duration="130000" />
+      <updated>1684587580102</updated>
+      <workItem from="1684587581329" duration="61000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="com.vaadin.designer2.intellij.settings.SizePresetsSettingsComponent">
-    <option name="sizePresets">
-      <list>
-        <SizePreset>
-          <option name="caption" value="Phone" />
-          <option name="height" value="568" />
-          <option name="width" value="320" />
-        </SizePreset>
-        <SizePreset>
-          <option name="caption" value="Tablet" />
-          <option name="height" value="1024" />
-          <option name="width" value="768" />
-        </SizePreset>
-        <SizePreset>
-          <option name="caption" value="Desktop" />
-          <option name="height" value="900" />
-          <option name="width" value="1440" />
-        </SizePreset>
-      </list>
-    </option>
   </component>
 </project>

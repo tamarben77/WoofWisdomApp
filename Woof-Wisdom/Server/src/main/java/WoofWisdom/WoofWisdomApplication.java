@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"WoofWisdom", "HandleBreedRequests","user"})
+@ComponentScan(basePackages = {"WoofWisdom", "HandleBreedRequests","HandleForumsRequests","user"})
 public class WoofWisdomApplication {
 
 	public static void main(String[] args) {

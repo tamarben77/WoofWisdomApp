@@ -1,5 +1,63 @@
 <resources>
-    <string name="app_name">WoofWisdomApplication</string>
+    <string name="app_name">WoofWisdom App</string>
+
+   <!-- Splash Activity Text :- -->
+    <string name="splash_text">WoofWisdom Application</string>
+
+    <!-- Welcome Activity Text :- -->
+    <string name="welcome">Welcome Back !</string>
+
+    <!-- Login Activity Text :- -->
+    <string name="login_form">Login Here!</string>
+    <string name="forget">Forget Password ?</string>
+    <string name="no_account">I have no Account ?</string>
+    <string name="link_signup"><u>SignUp</u></string>
+    <string name="link_login"><u>LogIn</u></string>
+
+    <!-- Signup Activity Text :- -->
+    <string name="create_account">Create Account</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="have_account">Already have Account</string>
+
+    <!-- Form Fragment :- -->
+    <string name="form">Forms</string>
+    <string name="search">Search here...</string>
+    <string name="comment">Comment</string>
+
+    <!-- Food Fragment :- -->
+    <string name="food_fragment">Foods Safe/Toxic</string>
+    <string name="measure">Measure Food</string>
+    <string name="fragment">Food Fragment</string>
+
+    <!-- Comment Activity Text :- -->
+    <string name="message">Type Your Message</string>
+    <string name="user">User Name</string>
+
+    <!-- Food Measure Activity Text :- -->
+    <string name="food_measure">Measure Your Food Here !</string>
+    <string name="weight">Dog Weight</string>
+    <string name="food">Food Type</string>
+    <string name="grams">Food Weight</string>
+    <string name="enter_grams">Enter Grams</string>
+    <string name="enter_weight">Enter Weight</string>
+    <string name="result">Calculate Result</string>
+    <string name="calculate">Calculate</string>
+
+    <!-- Food Details Activity Text :- -->
+    <string name="healthy">Healthy</string>
+    <string name="dangerous">Dangerous</string>
+
+    <!--Combine Activities Text :- -->
+    <string name="login">Login</string>
+    <string name="signup">SignUp</string>
+    <string name="username">Gmail</string>
+    <string name="password">Password</string>
+    <string name="add_title">Add Title</string>
+    <string name="date">00/00/00</string>
+    <string name="detail">Welcome in Best Dogs Selling Point.Here you find every Variety of Dogs and their Accessories.</string>
+
+    <!-- Extra Texts -->
     <string name="title_activity_login"> </string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -13,7 +71,9 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+<!--
     <string name="welcome">"Welcome !"</string>
+-->
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>

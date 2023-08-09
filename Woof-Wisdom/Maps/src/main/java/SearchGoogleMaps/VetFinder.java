@@ -12,7 +12,7 @@ public class VetFinder {
     //TODO - check that the new api key works
     private static final String API_KEY = "AIzaSyC9K2MxvVTHmwPEeLCX2V2zidoTfMaqK8s";
 
-    public static String getVetLocations(double client_latitude, double client_longitude, int radius) throws Exception {
+    public static String getVetLocations(Double client_latitude, Double client_longitude, int radius) throws Exception {
         String urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                 + client_latitude + "," + client_longitude + "&radius=" + radius + "&type=veterinary_care&key=" + API_KEY;
 
