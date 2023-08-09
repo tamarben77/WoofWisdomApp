@@ -94,10 +94,19 @@
             android:name=".dogBreedsInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".forumsActivity"
+            android:name=".FormActivity"
+            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".suspiciousFoodActivity"-->
+<!--            android:exported="false" />-->
+        <activity
+            android:name=".FoodActivity"
             android:exported="false" />
         <activity
-            android:name=".suspiciousFoodActivity"
+            android:name=".views.FoodMeasureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.FoodDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".stoolPukeAnalyzerActivity"
