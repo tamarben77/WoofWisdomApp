@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WoofWisdom App</string>
 
-   <!-- Splash Activity Text :- -->
+    <!-- Splash Activity Text :- -->
     <string name="splash_text">WoofWisdom Application</string>
 
     <!-- Welcome Activity Text :- -->
@@ -71,7 +71,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-<!--
+    <!--
     <string name="welcome">"Welcome !"</string>
 -->
     <string name="invalid_username">Not a valid username</string>

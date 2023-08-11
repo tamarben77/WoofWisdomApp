@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.woofwisdomapplication"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.woofwisdomapplication" >
     <!--
          Required only when requesting background location access on
          Android 10 (API level 29) and higher.
@@ -13,22 +13,24 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
-
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
-
-
-<!--    <meta-data
+    <!--
+    <meta-data
         android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />-->
+        android:value="@integer/google_play_services_version" />
+    -->
     <meta-data
         android:name="com.google.android.gms.car.application"
         android:value="true" />
-<!--    <meta-data
+    <!--
+    <meta-data
         android:name="com.google.android.gms.car.notification.SmallIcon"
-        android:resource="@drawable/ic_notification" />-->
-<!--    <meta-data
+        android:resource="@drawable/ic_notification" />
+    -->
+    <!--
+    <meta-data
         android:name="com.google.android.gms.car.notification.LargeIcon"
         android:resource="@drawable/ic_notification_large" />
     <meta-data
@@ -39,19 +41,17 @@
         android:resource="@string/notification_text" />
     <meta-data
         android:name="com.google.android.gms.car.notification.Action"
-        android:resource="@string/notification_action" />-->
+        android:resource="@string/notification_action" />
+    -->
     <meta-data
         android:name="com.google.android.gms.car.notification.Image"
-        android:resource="@drawable/notification_bg" />
-
-    <!-- Replace [YOUR_CLIENT_ID] with your generated client ID -->
+        android:resource="@drawable/notification_bg" /> <!-- Replace [YOUR_CLIENT_ID] with your generated client ID -->
     <meta-data
         android:name="com.google.android.gms.wallet.api.enabled"
         android:value="true" />
     <meta-data
         android:name="com.google.android.gms.wallet.api.enabledEnvironment"
-        android:value="593298902212-bcv0nnl1pn56e3edjcs4g0r2raf4dmsn.apps.googleusercontent.com
-" />
+        android:value="593298902212-bcv0nnl1pn56e3edjcs4g0r2raf4dmsn.apps.googleusercontent.com " />
 
     <application
         android:allowBackup="true"
@@ -64,6 +64,12 @@
         android:theme="@style/Theme.WoofWisdomApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
+        <activity
+            android:name=".testActivity3"
+            android:exported="false" />
+        <activity
+            android:name=".testActivity2"
+            android:exported="false" />
         <activity
             android:name=".views.VaccinationsFeature.NextVaccinationsActivity"
             android:exported="false" />
@@ -95,10 +101,9 @@
             android:exported="false" />
         <activity
             android:name=".FormActivity"
-            android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".suspiciousFoodActivity"-->
-<!--            android:exported="false" />-->
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".suspiciousFoodActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".FoodActivity"
             android:exported="false" />
