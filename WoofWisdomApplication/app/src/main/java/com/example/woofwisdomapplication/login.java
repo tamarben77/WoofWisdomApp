@@ -73,7 +73,7 @@ public class login extends AppCompatActivity {
                                 }
                                 editor.apply();
                                 Log.d("LoginActivity", "Starting MainActivity");
-                                Intent intent = new Intent(login.this, MainActivity.class);
+                                Intent intent = new Intent(login.this, oldMainActivity.class);
                                 Log.d("login", "Starting Main Activity");
                                 startActivity(intent);
                                 Log.d("login", "Main Activity started");

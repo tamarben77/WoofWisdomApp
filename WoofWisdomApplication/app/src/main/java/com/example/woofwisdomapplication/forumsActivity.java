@@ -22,6 +22,5 @@ public class forumsActivity extends AppCompatActivity {
                 startActivity(new Intent(forumsActivity.this, forumsAddQuestion.class));
             }
         });
-
     }
 }

@@ -5,7 +5,6 @@ import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,8 +19,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.woofwisdomapplication.Adapters.FoodAdapter;
@@ -98,6 +95,7 @@ public class FoodActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        System.out.println(error.getMessage());
                     }
                 });
 

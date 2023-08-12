@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,12 +13,14 @@
         android:layout_height="63dp"
         android:backgroundTint="#D7E6739A"
         android:fontFamily="sans-serif-medium"
-        android:text="Ask the vet "
+        android:text="Ask the vet"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/black"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="276dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="276dp" />
 
     <Button
         android:id="@+id/forumTrainerButton"
@@ -29,8 +32,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/black"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="386dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="386dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -38,8 +43,10 @@
         android:layout_height="38dp"
         android:text="(Trainer forum for training questions and behavior problems)"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="449dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="449dp" />
 
     <TextView
         android:id="@+id/textViewDogSitter"
@@ -47,8 +54,10 @@
         android:layout_height="46dp"
         android:text="(Dog sitter forum for boarding and dog walking)"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="574dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="574dp" />
 
     <Button
         android:id="@+id/forumDogSitterrButton"
@@ -60,8 +69,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/black"
         android:textSize="19sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="499dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="499dp" />
 
     <TextView
         android:id="@+id/textViewVet"
@@ -69,8 +80,10 @@
         android:layout_height="21dp"
         android:text="(vet forum for medical questions)"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="339dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="339dp" />
 
     <Button
         android:id="@+id/buttonNewQuestion"
@@ -78,23 +91,27 @@
         android:layout_height="49dp"
         android:backgroundTint="#F4EDB0"
         android:fontFamily="sans-serif-black"
-        android:text="➕ Added a question "
+        android:text="➕ Added a question"
         android:textAlignment="center"
         android:textColor="#0C0909"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="641dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="641dp" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="341dp"
         android:layout_height="150dp"
-        android:text="This forum is the place for dog owners and those who want to adopt a new friend into their lives. Here you can consult with veterinarians, trainers and dog sitters on topics such as vaccinations for dogs, spaying and neutering, training, fur, calving, puppies, fleas, ticks, rabies and even a boarding house for looking after your four-legged friend when you are busy."
+        android:text="This forum is the place for dog owners and those who want to adopt a new friend into their lives. Here you can consult with veterinarians, trainers, and dog sitters on topics such as vaccinations for dogs, spaying and neutering, training, fur, calving, puppies, fleas, ticks, rabies, and even a boarding house for looking after your four-legged friend when you are busy."
         android:textAlignment="center"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="116dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="116dp" />
 
     <TextView
         android:id="@+id/dogforum"
@@ -106,15 +123,19 @@
         android:textColor="#100D0D"
         android:textSize="38sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="29dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="29dp" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="158dp"
         android:layout_height="100dp"
         app:srcCompat="@drawable/dodforum"
-        tools:layout_editor_absoluteX="227dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="227dp"
+        android:layout_marginTop="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

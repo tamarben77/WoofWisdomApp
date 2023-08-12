@@ -1,14 +1,13 @@
 package com.example.woofwisdomapplication;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
-import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
+import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +28,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.woofwisdomapplication.Adapters.CommentsAdapter;
 import com.example.woofwisdomapplication.data.model.CommentsModel;
-import com.example.woofwisdomapplication.data.model.ForumModel;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;

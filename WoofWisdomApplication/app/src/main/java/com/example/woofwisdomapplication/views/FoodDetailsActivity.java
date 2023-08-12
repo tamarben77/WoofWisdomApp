@@ -1,6 +1,6 @@
 package com.example.woofwisdomapplication.views;
 
-import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
+import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,20 +18,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.woofwisdomapplication.Adapters.FoodDetailsAdapter;
-import com.example.woofwisdomapplication.FoodActivity;
 import com.example.woofwisdomapplication.R;
-import com.example.woofwisdomapplication.data.model.FoodCategoryModel;
 import com.example.woofwisdomapplication.data.model.FoodModel;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FoodDetailsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
