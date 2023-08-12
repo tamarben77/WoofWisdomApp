@@ -10,6 +10,9 @@
         android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:backgroundTint="#818EDE"
+        android:fontFamily="@font/prosto_one"
         android:text="Sign In with Google" />
 
     <EditText
@@ -31,6 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etLocation"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/prosto_one"
         android:text="Select Date" />
 
 
@@ -39,6 +44,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnSelectDate"
+        android:background="@drawable/button_background"
+        android:fontFamily="@font/prosto_one"
+        android:layout_marginTop="10dp"
         android:text="Insert Event" />
 
 </RelativeLayout>

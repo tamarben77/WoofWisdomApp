@@ -31,7 +31,7 @@ Animation slide_up;
                     e.printStackTrace();
                 }
                 finally {
-                    startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                    startActivity(new Intent(SplashActivity.this, oldMainActivity.class));
                 }
             }
         });td.start();

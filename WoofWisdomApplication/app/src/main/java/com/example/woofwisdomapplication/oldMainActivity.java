@@ -2,7 +2,6 @@ package com.example.woofwisdomapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,40 +10,25 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class testActivity2 extends AppCompatActivity {
+public class oldMainActivity extends AppCompatActivity {
     public static String BASE_URL;
     private SharedPreferences sharedPreferences;
     private TextView welcomeTextView;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.setProperty("IP", "192.168.1.212");
+        System.setProperty("IP", "192.168.1.15");
         BASE_URL ="http://" + System.getProperty("IP") + ":8091/";
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test2);
+        setContentView(R.layout.activity_main_old);
 
-        welcomeTextView = findViewById(R.id.welcome_text);
+        welcomeTextView = findViewById(R.id.welcomeTextView);
         UserUtils.displayWelcomeMessage(this, welcomeTextView);
 
-        TextView buttonNearestVet = (TextView) findViewById(R.id.findVetButton);
-        TextView buttonsuspiciousFoodBtn = (TextView) findViewById(R.id.suspiciousFoodButton);
-        TextView buttonforumsBtn = (TextView) findViewById(R.id.forumsButton);
+        ImageButton buttonNearestVet = (ImageButton) findViewById(R.id.mapsBtn);
+        ImageButton buttonsuspiciousFoodBtn = (ImageButton) findViewById(R.id.suspiciousFoodBtn);
+        ImageButton buttonforumsBtn = (ImageButton) findViewById(R.id.forumsBtn);
         buttonNearestVet.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), findNearestVetActivity.class
@@ -66,7 +50,7 @@ public class testActivity2 extends AppCompatActivity {
             }
         });
 
-        TextView vaccinations = (TextView) findViewById(R.id.vaccinationsButton);
+        ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
         vaccinations.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.vaccinations.class
@@ -74,7 +58,39 @@ public class testActivity2 extends AppCompatActivity {
             startActivity(secondActivityIntent);
         });
 
-        TextView dogBreedsInfo = (TextView) findViewById(R.id.dogInfoButton);
+/*        ImageButton vaccinations = (ImageButton) findViewById(R.id.vaccinationsBtn);
+        vaccinations.setOnClickListener(view -> {
+            Intent secondActivityIntent = new Intent(
+                    getApplicationContext(), com.example.woofwisdomapplication.views.VaccinationsFeature.ImmunizationsRecordActivity.class
+            );
+            startActivity(secondActivityIntent);
+        });*/
+
+        ImageButton stoolPukeAnalyzer = (ImageButton) findViewById(R.id.cameraAnalyzer);
+        stoolPukeAnalyzer.setOnClickListener(view -> {
+            Intent secondActivityIntent = new Intent(
+                    getApplicationContext(), stoolPukeAnalyzerActivity.class
+            );
+            startActivity(secondActivityIntent);
+        });
+
+//        ImageButton suspiciousFood = (ImageButton) findViewById(R.id.suspiciousFoodBtn);
+//        suspiciousFood.setOnClickListener(view -> {
+//            Intent secondActivityIntent = new Intent(
+//                    getApplicationContext(), suspiciousFoodActivity.class
+//            );
+//            startActivity(secondActivityIntent);
+//        });
+
+//        ImageButton forums = (ImageButton) findViewById(R.id.forumsBtn);
+//        forums.setOnClickListener(view -> {
+//            Intent secondActivityIntent = new Intent(
+//                    getApplicationContext(), forumsActivity.class
+//            );
+//            startActivity(secondActivityIntent);
+//        });
+
+        ImageButton dogBreedsInfo = (ImageButton) findViewById(R.id.dogBreedsInfoBtn);
         dogBreedsInfo.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), dogBreedsInfoActivity.class
@@ -82,7 +98,7 @@ public class testActivity2 extends AppCompatActivity {
             startActivity(secondActivityIntent);
         });
 
-        Button login = (Button) findViewById(R.id.login_button);
+        Button login = (Button) findViewById(R.id.buttonLogin);
         login.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
                     getApplicationContext(), login.class

@@ -20,5 +20,8 @@
     <size
         android:height="60dp"
         android:width="270dp" />
+    <text
+        android:fontFamily="@font/prosto_one"
+        android:textSize="16sp" />
 
 </shape>

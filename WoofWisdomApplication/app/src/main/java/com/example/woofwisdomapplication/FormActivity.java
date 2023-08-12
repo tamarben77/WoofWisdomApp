@@ -4,7 +4,6 @@ import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.woofwisdomapplication.Adapters.ForumAdapter;
-import com.example.woofwisdomapplication.data.model.FoodCategoryModel;
 import com.example.woofwisdomapplication.data.model.ForumModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -130,6 +128,7 @@ public class FormActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        System.out.println(error.getMessage());
                     }
                 });
 
