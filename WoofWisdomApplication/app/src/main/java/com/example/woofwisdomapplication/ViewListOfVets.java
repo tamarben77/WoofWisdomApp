@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.woofwisdomapplication.CacheManager.CacheManager;
 import com.example.woofwisdomapplication.DTO.Vet;
 import com.example.woofwisdomapplication.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -26,6 +27,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.common.reflect.TypeToken;
 
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -40,12 +42,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ViewListOfVets extends AppCompatActivity {
+    private CacheManager cacheManager;
     private FusedLocationProviderClient fusedLocationClient;
     private Double latitude, longitude;
     private int radius;
@@ -56,6 +60,8 @@ public class ViewListOfVets extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list_of_vets);
+
+        cacheManager = new CacheManager(this);
 
         if (getIntent().hasExtra("radius")) {
             radius = getIntent().getIntExtra("radius", 0);
@@ -94,8 +100,17 @@ public class ViewListOfVets extends AppCompatActivity {
                         headers.put("Content-Type", "application/json");
                         RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/json"));
 
+                        Type dataType = new TypeToken<List<Vet>>(){}.getType();
+                        List<Vet> cachedData = cacheManager.getData("vet_list", dataType);
+                        if (cachedData.size() != 0) {
+                            displayVets(cachedData);
+                        } else {
+                            // Fetch data from the server and save it in the cache
+                            new NetworkCallAsyncTask(headers, body).execute(URL);
+                            //fetchDataFromServer();
+                        }
+
                         // Run the network call in an AsyncTask
-                        new NetworkCallAsyncTask(headers, body).execute(URL);
                     }
                 }
             }, Looper.getMainLooper());
@@ -117,7 +132,7 @@ public class ViewListOfVets extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
             HttpUrl.Builder urlBuilder = HttpUrl.parse(urls[0]).newBuilder();
-            urlBuilder.addQueryParameter("radius", String.valueOf(radius));
+            urlBuilder.addQueryParameter("radius", String.valueOf(radius*1000));
             String urlWithParams = urlBuilder.build().toString();
 
             OkHttpClient client = new OkHttpClient();
@@ -157,6 +172,9 @@ public class ViewListOfVets extends AppCompatActivity {
                     }
 
                     displayVets(vetList); // Call a method to display the vets
+                    // Save the fetched data in the cache
+                    Type dataType = new TypeToken<List<Vet>>(){}.getType();
+                    cacheManager.saveData("vet_list", vetList, dataType);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
