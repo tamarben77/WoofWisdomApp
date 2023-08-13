@@ -17,9 +17,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.woofwisdomapplication.API.VaccinationService;
+import com.example.woofwisdomapplication.CacheManager.CacheManager;
 import com.example.woofwisdomapplication.DTO.Vaccination;
 import com.example.woofwisdomapplication.R;
+import com.google.common.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +33,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class vaccinations extends AppCompatActivity {
+
+    private CacheManager cacheManager;
 
     private RecyclerView recyclerView;
     private VaccinationAdapter adapter;
@@ -60,6 +65,19 @@ public class vaccinations extends AppCompatActivity {
         adapter = new VaccinationAdapter();
         recyclerView.setAdapter(adapter);
 
+        cacheManager = new CacheManager(this);
+
+        Type dataType = new TypeToken<List<Vaccination>>(){}.getType();
+        List<Vaccination> cachedData = cacheManager.getData("all_vaccinations", dataType);
+        if (cachedData != null) {
+            adapter.setVaccinations(cachedData);
+        } else {
+            // Fetch data from the server and save it in the cache
+            fetchDataFromServer();
+        }
+            }
+
+    private void fetchDataFromServer() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(60, TimeUnit.SECONDS);
         builder.readTimeout(60, TimeUnit.SECONDS);
@@ -72,7 +90,6 @@ public class vaccinations extends AppCompatActivity {
                 .build();
 
         progressBarLoader.setVisibility(View.VISIBLE);
-        //progressDialogText.setVisibility(View.VISIBLE);
 
         VaccinationService service = retrofit.create(VaccinationService.class);
         Call<List<Vaccination>> call = service.getVaccinations();
@@ -81,6 +98,8 @@ public class vaccinations extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Vaccination>> call, retrofit2.Response<List<Vaccination>> response) {
                 if (response.isSuccessful()) {
+                    Type dataType = new TypeToken<List<Vaccination>>(){}.getType();
+                    cacheManager.saveData("all_vaccinations", response.body(), dataType);
                     List<Vaccination> vaccinations = response.body();
                     adapter.setVaccinations(vaccinations);
                 } else {
@@ -93,8 +112,5 @@ public class vaccinations extends AppCompatActivity {
                 Log.e("VaccinationsActivity", "Failed to get vaccinations", t);
             }
         });
-
-
-
     }
 }
