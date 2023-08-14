@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.woofwisdomapplication.CacheManager.NetworkUtils;
 import com.google.gson.Gson;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -106,6 +107,7 @@ public class forumsAddQuestion extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Toast.makeText(getApplicationContext(), "Question added successfully", Toast.LENGTH_SHORT).show();
                                     finish();
+                                    updateForumsData();
                                     progressDialog.dismiss();
                                 }
                             },
@@ -130,4 +132,17 @@ public class forumsAddQuestion extends AppCompatActivity {
 
 
     }
+
+    private void updateForumsData(){
+        fetchDataFromServer(BASE_URL + "dogForums/showAllForumsPost", "all_forums");
+    }
+    private void fetchDataFromServer(String serverUrl, final String cacheKey) {
+        NetworkUtils.fetchDataAsync(this, serverUrl, new NetworkUtils.DataCallback() {
+            @Override
+            public void onDataFetched(String data) {
+                // Data has been fetched and stored in the cache with the given key
+            }
+        });
+    }
+
 }

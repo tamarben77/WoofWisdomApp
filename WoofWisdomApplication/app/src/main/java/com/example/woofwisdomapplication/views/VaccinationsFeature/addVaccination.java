@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.woofwisdomapplication.CacheManager.CacheManager;
 import com.example.woofwisdomapplication.DTO.NextVaccination;
 import com.example.woofwisdomapplication.DTO.Vaccination;
 import com.example.woofwisdomapplication.R;
@@ -50,6 +51,8 @@ public class addVaccination extends AppCompatActivity {
 
     private static final String IP = System.getProperty("IP");
     private ProgressDialog progressDialog;
+    private CacheManager cacheManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,8 @@ public class addVaccination extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Processing request...");
         progressDialog.setCancelable(false);
+
+        cacheManager = new CacheManager(this);
 
         Spinner vaccinationNameSpinner = findViewById(R.id.vaccinationNameSpinner);
         String[] vaccinationNames = {"Distemper", "Parvovirus", "Bordetella", "DHPP", "Influenza", "Leptospirosis", "Lyme Disease", "Rabies", "Coronavirus"}; // Replace this with your list of vaccination names
@@ -144,8 +149,11 @@ public class addVaccination extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         if (response.isSuccessful()) {
                             String responseBody = response.body().string();
-                                int statusCode = response.code();
-                                runOnUiThread(new Runnable() {
+                            Type dataType = new TypeToken<String>() {
+                            }.getType();
+                            cacheManager.saveData("all_vaccinations", responseBody, dataType);
+                            int statusCode = response.code();
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     hideProgressIndicator();
@@ -191,6 +199,7 @@ public class addVaccination extends AppCompatActivity {
             }
         });
     }
+
     // Method to hide the progress indicator using a delay
     private void hideProgressIndicator() {
         new Handler().postDelayed(new Runnable() {

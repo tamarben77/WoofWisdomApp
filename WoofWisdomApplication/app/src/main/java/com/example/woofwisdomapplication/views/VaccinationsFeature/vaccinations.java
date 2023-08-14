@@ -35,7 +35,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class vaccinations extends AppCompatActivity {
 
     private CacheManager cacheManager;
-
     private RecyclerView recyclerView;
     private VaccinationAdapter adapter;
 
@@ -75,7 +74,7 @@ public class vaccinations extends AppCompatActivity {
             // Fetch data from the server and save it in the cache
             fetchDataFromServer();
         }
-            }
+    }
 
     private void fetchDataFromServer() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();

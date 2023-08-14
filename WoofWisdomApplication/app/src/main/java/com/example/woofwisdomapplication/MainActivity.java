@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.woofwisdomapplication.CacheManager.NetworkUtils;
+
 public class MainActivity extends AppCompatActivity {
     public static String BASE_URL;
     private SharedPreferences sharedPreferences;
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fillCache();
 
         welcomeTextView = findViewById(R.id.welcome_text);
         UserUtils.displayWelcomeMessage(this, welcomeTextView);
@@ -73,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
                     getApplicationContext(), login.class
             );
             startActivity(secondActivityIntent);
+        });
+    }
+
+    private void fillCache(){
+        fetchDataFromServer(BASE_URL + "showDogFoodCategories", "food_categories");
+        fetchDataFromServer(BASE_URL + "showVaccinations", "all_vaccinations");
+        fetchDataFromServer(BASE_URL + "showDogFoodItemsByCategory", "food_items");
+        fetchDataFromServer(BASE_URL + "dogForums/showAllForumsPost", "all_forums");
+        fetchDataFromServer(BASE_URL + "dogBreed/breedsList", "all_breeds");
+    }
+
+    private void fetchDataFromServer(String serverUrl, final String cacheKey) {
+        NetworkUtils.fetchDataAsync(this, serverUrl, new NetworkUtils.DataCallback() {
+            @Override
+            public void onDataFetched(String data) {
+                // Data has been fetched and stored in the cache with the given key
+            }
         });
     }
 }

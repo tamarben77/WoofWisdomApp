@@ -22,27 +22,31 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.woofwisdomapplication.Adapters.FoodAdapter;
+import com.example.woofwisdomapplication.CacheManager.CacheManager;
 import com.example.woofwisdomapplication.data.model.FoodCategoryModel;
 import com.example.woofwisdomapplication.views.FoodMeasureActivity;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
-    private static final String URL = BASE_URL+"showDogFoodCategories";
+    private static final String URL = BASE_URL + "showDogFoodCategories";
     ProgressDialog progressDialog;
     RecyclerView recyclerView;
-    List<FoodCategoryModel>food_list;
+    List<FoodCategoryModel> food_list;
     GridLayoutManager layoutManager;
     FoodAdapter myAdapter;
     Button button;
+    private CacheManager cacheManager;
 
 
     @SuppressLint("MissingInflatedId")
@@ -50,8 +54,9 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
-        button=(Button)findViewById(R.id.measure_food);
 
+        cacheManager = new CacheManager(this);
+        button = (Button) findViewById(R.id.measure_food);
 
         /* ArrayList :- */
         food_list = new ArrayList<>();
@@ -67,26 +72,58 @@ public class FoodActivity extends AppCompatActivity {
         }
 
 
-        progressDialog =new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
+        recyclerView = (RecyclerView) findViewById(R.id.food_fragment);
+        layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+        layoutManager.setOrientation(layoutManager.VERTICAL);
+        myAdapter = new FoodAdapter(food_list, getApplicationContext());
+        recyclerView.setAdapter(myAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+
+        Type dataType = new TypeToken<String>() {
+        }.getType();
+        String cachedData = cacheManager.getData("food_categories", dataType);
+        if (cachedData != null) {
+            handleData(cachedData);
+        } else {
+            // Fetch data from the server and save it in the cache
+            fetchDataFromServer();
+        }
+
+        /* Measure Food Activity :- */
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), FoodMeasureActivity.class));
+            }
+        });
+    }
+
+    private void handleData(String response) {
+        try {
+            JSONArray array = new JSONArray(response);
+            for (int i = 0; i < array.length(); i++) {
+                food_list.add(new FoodCategoryModel(FoodActivity.this, array.getJSONObject(i).getString("foodCategory")));
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        progressDialog.dismiss();
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    private void fetchDataFromServer() {
         StringRequest request = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                      Log.d("mubi",response.toString());
-                        try {
-                            JSONArray array=new JSONArray(response);
-                            for(int i=0;i<array.length();i++)
-                            {
-                                food_list.add(new FoodCategoryModel(FoodActivity.this,array.getJSONObject(i).getString("foodCategory")));
-                            }
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        progressDialog.dismiss();
-                        recyclerView.getAdapter().notifyDataSetChanged();
+                        Log.d("mubi", response.toString());
+                        handleData(response);
+                        Type dataType = new TypeToken<String>(){}.getType();
+                        cacheManager.saveData("food_categories", response.toString(), dataType);
                     }
                 },
                 new Response.ErrorListener() {
@@ -103,20 +140,5 @@ public class FoodActivity extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(timeout,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getApplicationContext()).add(request);
-
-        recyclerView = (RecyclerView) findViewById(R.id.food_fragment);
-        layoutManager = new GridLayoutManager(getApplicationContext(),2);
-        layoutManager.setOrientation(layoutManager.VERTICAL);
-        myAdapter=new FoodAdapter(food_list,getApplicationContext());
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(layoutManager);
-
-       /* Measure Food Activity :- */
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), FoodMeasureActivity.class));
-            }
-        });
     }
 }
