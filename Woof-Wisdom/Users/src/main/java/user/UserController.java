@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +35,26 @@ public class UserController {
         String email = user.getEmail();
         String password = user.getPassword();
 
-        boolean isValidCredentials = MySQLConnector.checkCredentials(email, password);
+        String loginStatus = MySQLConnector.checkCredentials(email, password);
         String logMessage = "Sign-in request received for email: " + email;
-        if (!isValidCredentials) {
-            logMessage +=", authentication failed";
+
+        UserObject response = new UserObject();
+
+        if (!loginStatus.equals("valid")) {
+            logMessage += ", authentication failed due to " + loginStatus;
             log.warn(logMessage);
-            UserObject response = new UserObject();
-            response.setMessage("Invalid email or password");
+
+            if (loginStatus.equals("invalid_email")) {
+                response.setMessage("Email address not registered");
+            } else if (loginStatus.equals("invalid_password")) {
+                response.setMessage("Incorrect password");
+            } else {
+                response.setMessage("Unknown error occurred");
+            }
+
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
+
         logMessage += ", authentication successful";
         log.info(logMessage);
 
@@ -61,7 +73,6 @@ public class UserController {
                 updateStmt.setString(2, email);
                 updateStmt.executeUpdate();
 
-                UserObject response = new UserObject();
                 response.setEmail(email);
                 response.setSessionId(sessionId);
                 response.setMessage("Login successful");
@@ -70,6 +81,7 @@ public class UserController {
         } catch (SQLException | JSchException ex) {
             ex.printStackTrace();
         }
+
         // Insert a new row for the user's session in the database
         String sessionId = session.getId();
         session.setAttribute("user", user);
@@ -79,7 +91,6 @@ public class UserController {
         String[] values = {email, sessionId};
         MySQLConnector.insertNewRow(tableName, columnNames, values);
 
-        UserObject response = new UserObject();
         response.setEmail(email);
         response.setSessionId(sessionId);
         response.setMessage("Login successful");
@@ -190,4 +201,48 @@ public class UserController {
         response.setMessage("User created successfully");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @PostMapping("/requestPasswordReset")
+    public ResponseEntity<String> requestPasswordReset(@RequestParam String email) {
+        // Check if email is registered
+        if (!MySQLConnector.checkIfUserExists(email)) {
+            return new ResponseEntity<>("Email not registered.", HttpStatus.NOT_FOUND);
+        }
+
+        // Retrieve the session ID for the email from the database
+        String token = MySQLConnector.getSessionIdByEmail(email);
+        if (token == null || token.isEmpty()) {
+            return new ResponseEntity<>("Failed to retrieve session. Please try again.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // Store the token in the database with an expiration time
+        MySQLConnector.storeTokenInDB(email, token, LocalDateTime.now().plusHours(1));
+
+        // Send email to user with the reset link
+        String resetLink = "http://woofwisdomapplication.local/auth/resetPassword?token=" + token;
+        userService.sendResetEmail(email, resetLink); // Implement this function using an email library
+
+        return new ResponseEntity<>("Reset link sent to email.", HttpStatus.OK);
+    }
+
+
+    @PostMapping("/resetPassword")
+    public ResponseEntity<String> resetPassword(@RequestParam String token, @RequestParam String newPassword) {
+        // Check if token is valid and not expired
+        String email = MySQLConnector.getEmailFromToken(token);
+        if (email == null || MySQLConnector.isTokenExpired(token)) {
+            return new ResponseEntity<>("Invalid or expired token.", HttpStatus.BAD_REQUEST);
+        }
+
+        // Update user password
+        userService.updateUserPassword(email, newPassword);  // You'll need to create this method to update the user's password in the DB
+
+        // Invalidate the token so it can't be reused
+        userService.invalidateToken(token);  // Implement a method to delete or invalidate the token in the DB
+
+        return new ResponseEntity<>("Password updated successfully.", HttpStatus.OK);
+    }
+
+
+
 }

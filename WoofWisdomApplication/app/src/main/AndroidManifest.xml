@@ -126,6 +126,19 @@
         <activity
             android:name=".findNearestVetActivity"
             android:exported="false" />
+        <activity android:name=".ResetPasswordActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="woofwisdomapplication.local"
+                    android:scheme="http"
+                    android:pathPrefix="/auth/resetPassword" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".oldMainActivity"
             android:exported="true" >
@@ -135,6 +148,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+
+
 
         <meta-data
             android:name="preloaded_fonts"

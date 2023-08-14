@@ -6,6 +6,7 @@ import com.jcraft.jsch.Session;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -107,27 +108,43 @@ public class MySQLConnector {
         }
     }
 
-    public static boolean checkCredentials(String username, String password) {
-        String query = "SELECT * FROM users WHERE Email=? AND password=?";
+    public static String checkCredentials(String username, String password) {
+        // First check if the email exists
+        String emailQuery = "SELECT * FROM users WHERE Email=?";
         try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            // Set query parameters
-            stmt.setString(1, username);
-            stmt.setString(2, password);
+             PreparedStatement emailStmt = conn.prepareStatement(emailQuery)) {
 
-            // Execute query
-            ResultSet rs = stmt.executeQuery();
+            emailStmt.setString(1, username);
+            ResultSet rsEmail = emailStmt.executeQuery();
 
-            // Check if a record was found
-            if (!rs.next()) {
-                return false;
+            // If email doesn't exist, return specific error
+            if (!rsEmail.next()) {
+                return "invalid_email";
             }
-            return true;
+
+            // If email exists, check for correct password
+            String passwordQuery = "SELECT * FROM users WHERE Email=? AND password=?";
+            PreparedStatement passwordStmt = conn.prepareStatement(passwordQuery);
+
+            passwordStmt.setString(1, username);
+            passwordStmt.setString(2, password);
+
+            ResultSet rsPassword = passwordStmt.executeQuery();
+
+            // If no record found with the given password, return specific error
+            if (!rsPassword.next()) {
+                return "invalid_password";
+            }
+
+            // If both email and password are correct, return valid
+            return "valid";
+
         } catch (SQLException | JSchException ex) {
             ex.printStackTrace();
-            return false;
+            return "error"; // represent unknown errors
         }
     }
+
 
     public static int checkCredentials1(String username, String password) {
         String query = "SELECT * FROM users WHERE Email=? AND password=?";
@@ -262,6 +279,91 @@ public class MySQLConnector {
         return result;
     }
 
+    public static LocalDateTime getTokenExpiration(String token) {
+        LocalDateTime expirationTime = null;
 
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT expiration_time FROM tokens WHERE token = ?"; // Assuming your table name is "tokens" and the column name is "expiration_time"
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
 
+            if (rs.next()) {
+                Timestamp timestamp = rs.getTimestamp("expiration_time");
+                expirationTime = timestamp.toLocalDateTime();
+            }
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+        }
+        return expirationTime;
+    }
+
+    public static void storeTokenInDB(String email, String token, LocalDateTime expirationTime) {
+        try (Connection conn = getConnection()) {
+            String sql = "UPDATE sessions SET SessionId = ?, expiration_date  = ? WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, token);
+            stmt.setTimestamp(2, Timestamp.valueOf(expirationTime));  // Convert LocalDateTime to Timestamp
+            stmt.setString(3, email);
+            stmt.executeUpdate();
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static boolean isTokenExpired(String token) {
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT expiration_date FROM session WHERE SessionId = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Timestamp expirationTimestamp = rs.getTimestamp("EXPERTION_DATE");
+                LocalDateTime expirationTime = expirationTimestamp.toLocalDateTime();
+                return expirationTime.isBefore(LocalDateTime.now());
+            }
+            return true;  // Token not found, hence consider it expired
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static String getEmailFromToken(String token) {
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT email FROM sessions WHERE SessionId = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, token);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("email");
+            }
+            return null;  // No email found for this token
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static String getSessionIdByEmail(String email) {
+        String sessionId = null;
+
+        try (Connection conn = getConnection()) {
+            String query = "SELECT SessionId FROM sessions WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+            stmt.setString(1, email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    sessionId = rs.getString("SESSIONID");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();  // For simplicity; consider proper logging or throwing a custom exception.
+        }
+
+        return sessionId;
+    }
 }

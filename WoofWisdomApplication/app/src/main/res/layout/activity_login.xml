@@ -93,4 +93,18 @@
         android:textSize="18sp"
         android:background="@drawable/button_background" />
 
+    <TextView
+        android:id="@+id/forgotPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordLayout"
+        android:layout_marginTop="248dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Forgot Password?"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp" />
+    <!--        android:underlineText="true" />-->
+
+
 </RelativeLayout>
