@@ -25,14 +25,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.woofwisdomapplication.Adapters.ForumAdapter;
+import com.example.woofwisdomapplication.CacheManager.CacheManager;
+import com.example.woofwisdomapplication.DTO.Vaccination;
 import com.example.woofwisdomapplication.data.model.ForumModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,12 +51,14 @@ public class FormActivity extends AppCompatActivity {
     ForumAdapter myAdapter;
     FloatingActionButton floatingActionButton;
     EditText searchEdt;
+    private CacheManager cacheManager;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+        cacheManager = new CacheManager(this);
         floatingActionButton=(FloatingActionButton) findViewById(R.id.floatingActionButton);
         searchEdt=(EditText) findViewById(R.id.searchEdt);
         searchEdt.addTextChangedListener(new TextWatcher() {
@@ -98,28 +104,57 @@ public class FormActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
         progressDialog =new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
+        forum_list = new ArrayList<>();
+        copy_list = new ArrayList<>();
+
+        recyclerview_list =(RecyclerView) findViewById(R.id.list);
+        //recyclerview_list.getAdapter().notifyDataSetChanged();
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(layoutManager.VERTICAL);
+        myAdapter=new ForumAdapter(forum_list,copy_list,this);
+        recyclerview_list.setAdapter(myAdapter);
+        recyclerview_list.setLayoutManager(layoutManager);
+        Type dataType = new TypeToken<String>(){}.getType();
+        String cachedData = cacheManager.getData("all_forums", dataType);
+        if (cachedData != null) {
+            handleData(cachedData);
+            myAdapter.notifyDataSetChanged(); // Move this line here
+        } else {
+            // Fetch data from the server and save it in the cache
+            fetchDataFromServer();
+        }
+
+        Log.d("list",""+forum_list.size());
+
+    }
+    private void handleData(String response){
+        try {
+            JSONArray array=new JSONArray(response);
+            for(int i=0;i<array.length();i++)
+            {
+                forum_list.add(new ForumModel(FormActivity.this,array.getJSONObject(i).getInt("ifNewQuery"),array.getJSONObject(i).getString("questionTitle"),array.getJSONObject(i).getString("questionDetails"),array.getJSONObject(i).getInt("userID"),array.getJSONObject(i).getString("userType"),array.getJSONObject(i).getInt("upvotes"),array.getJSONObject(i).getInt("views"),array.getJSONObject(i).getString("category"),array.getJSONObject(i).getInt("questionID"),array.getJSONObject(i).getString("dateandTime")));
+                copy_list.add(new ForumModel(FormActivity.this,array.getJSONObject(i).getInt("ifNewQuery"),array.getJSONObject(i).getString("questionTitle"),array.getJSONObject(i).getString("questionDetails"),array.getJSONObject(i).getInt("userID"),array.getJSONObject(i).getString("userType"),array.getJSONObject(i).getInt("upvotes"),array.getJSONObject(i).getInt("views"),array.getJSONObject(i).getString("category"),array.getJSONObject(i).getInt("questionID"),array.getJSONObject(i).getString("dateandTime")));
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        progressDialog.dismiss();
+    }
+
+    private void fetchDataFromServer(){
         StringRequest request = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("mubi",response.toString());
-                        try {
-                            JSONArray array=new JSONArray(response);
-                            for(int i=0;i<array.length();i++)
-                            {
-                                forum_list.add(new ForumModel(FormActivity.this,array.getJSONObject(i).getInt("ifNewQuery"),array.getJSONObject(i).getString("questionTitle"),array.getJSONObject(i).getString("questionDetails"),array.getJSONObject(i).getInt("userID"),array.getJSONObject(i).getString("userType"),array.getJSONObject(i).getInt("upvotes"),array.getJSONObject(i).getInt("views"),array.getJSONObject(i).getString("category"),array.getJSONObject(i).getInt("questionID"),array.getJSONObject(i).getString("dateandTime")));
-                                copy_list.add(new ForumModel(FormActivity.this,array.getJSONObject(i).getInt("ifNewQuery"),array.getJSONObject(i).getString("questionTitle"),array.getJSONObject(i).getString("questionDetails"),array.getJSONObject(i).getInt("userID"),array.getJSONObject(i).getString("userType"),array.getJSONObject(i).getInt("upvotes"),array.getJSONObject(i).getInt("views"),array.getJSONObject(i).getString("category"),array.getJSONObject(i).getInt("questionID"),array.getJSONObject(i).getString("dateandTime")));
-                            }
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        progressDialog.dismiss();
-                        recyclerview_list.getAdapter().notifyDataSetChanged();
+                        handleData(response);
+
+                        Type dataType = new TypeToken<String>(){}.getType();
+                        cacheManager.saveData("all_forums", response.toString(), dataType);
                     }
                 },
                 new Response.ErrorListener() {
@@ -136,18 +171,5 @@ public class FormActivity extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(timeout,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(getApplicationContext()).add(request);
-
-       /* Array List :- */
-        forum_list = new ArrayList<>();
-        copy_list = new ArrayList<>();
-
-        Log.d("list",""+forum_list.size());
-
-        recyclerview_list =(RecyclerView) findViewById(R.id.list);
-        layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(layoutManager.VERTICAL);
-        myAdapter=new ForumAdapter(forum_list,copy_list,this);
-        recyclerview_list.setAdapter(myAdapter);
-        recyclerview_list.setLayoutManager(layoutManager);
     }
 }
