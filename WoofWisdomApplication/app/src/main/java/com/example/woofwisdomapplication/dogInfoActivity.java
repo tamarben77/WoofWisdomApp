@@ -32,7 +32,7 @@ public class dogInfoActivity extends AppCompatActivity {
 
         RelativeLayout mainLayout = findViewById(R.id.main_layout);
         String breedName = selectedBreed;
-        String imageName = "breed_" + breedName.toLowerCase();
+        String imageName = "breed_" + breedName.toLowerCase().replace(" ", "_");
         int resourceId = getResources().getIdentifier(imageName, "drawable", getPackageName());
         if (resourceId != 0) {
             mainLayout.setBackgroundResource(resourceId);
