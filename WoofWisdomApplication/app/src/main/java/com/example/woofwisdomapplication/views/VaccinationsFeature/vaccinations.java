@@ -1,6 +1,7 @@
 package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import com.example.woofwisdomapplication.API.VaccinationService;
 import com.example.woofwisdomapplication.CacheManager.CacheManager;
 import com.example.woofwisdomapplication.DTO.Vaccination;
+import com.example.woofwisdomapplication.MainActivity;
 import com.example.woofwisdomapplication.R;
 import com.google.common.reflect.TypeToken;
 
@@ -47,6 +51,9 @@ public class vaccinations extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaccinations);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         progressBarLoader = findViewById(R.id.progressBarLoader);
         progressDialogText = findViewById(R.id.progressText);
@@ -111,5 +118,30 @@ public class vaccinations extends AppCompatActivity {
                 Log.e("VaccinationsActivity", "Failed to get vaccinations", t);
             }
         });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_home) {
+            // Handle "Home" click here, maybe go to the main activity or dashboard
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.action_return) {
+            // Handle "Return" click, maybe just close the current activity
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
