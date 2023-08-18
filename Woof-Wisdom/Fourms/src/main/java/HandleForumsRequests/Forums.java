@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static ManagmentDB.MySQLConnector.insertNewRow;
 
@@ -60,6 +61,9 @@ public class Forums {
         String[] columnNames = {"commentTitle",  "commentDesc", "userName", "userID", "questionID"};
         Object[] values = {query.getCommentTitle(), query.getCommentDesc(), query.getUserName(), query.getUserID(), query.getQuestionID()};
         insertNewRow(tableName, columnNames, values);
+
+        // Increment comment_num in forums
+        MySQLConnector.incrementCommentCountForQuestion(query.getQuestionID());
     }
 
     public static String getTableDataJson(String tableName) throws JsonProcessingException {
@@ -69,5 +73,27 @@ public class Forums {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // configure to write dates as ISO-8601 strings
         return mapper.writeValueAsString(data);
     }
+
+    @GetMapping("/getCommentCountsForAllQuestions")
+    public ResponseEntity<Map<String, Integer>> getCommentCountsForAllQuestions() {
+        try {
+            Map<Integer, Integer> originalCommentCounts = MySQLConnector.getCommentCountsForAllQuestions();
+
+            // Convert the keys from Integer to String
+            Map<String, Integer> stringKeyedCommentCounts = originalCommentCounts.entrySet()
+                    .stream()
+                    .collect(Collectors.toMap(
+                            entry -> entry.getKey().toString(), // Convert key to String
+                            Map.Entry::getValue
+                    ));
+
+            return new ResponseEntity<>(stringKeyedCommentCounts, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }

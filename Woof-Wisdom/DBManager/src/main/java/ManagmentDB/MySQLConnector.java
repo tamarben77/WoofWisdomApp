@@ -358,4 +358,47 @@ public class MySQLConnector {
 
         return sessionId;
     }
+
+    public static void incrementCommentCountForQuestion(int questionId) {
+        try (Connection conn = getConnection()) {
+            // Assuming the table for questions is called "questions" and the column for comment count is "comment_count"
+            String sql = "UPDATE forums SET comment_count = comment_count + 1 WHERE question_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, questionId);
+            int affectedRows = stmt.executeUpdate();
+
+            if(affectedRows == 0) {
+                throw new SQLException("Failed to increment comment count. No rows affected.");
+            }
+
+            System.out.println("Comment count incremented successfully for question ID: " + questionId);
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public static Map<Integer, Integer> getCommentCountsForAllQuestions() {
+        Map<Integer, Integer> resultMap = new HashMap<>();
+
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT question_id, COUNT(*) as comment_count FROM comments GROUP BY question_id";  // Replace 'comments' and 'question_id' with actual table and column names.
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int questionId = rs.getInt("question_id");
+                    int commentCount = rs.getInt("comment_count");
+                    resultMap.put(questionId, commentCount);
+                }
+            }
+        } catch (SQLException | JSchException ex) {
+            ex.printStackTrace();
+        }
+
+        return resultMap;
+    }
+
+
+
 }
