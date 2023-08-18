@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".activity_comment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -107,6 +115,14 @@
             android:background="@color/dark_pink"
             android:clickable="true"
             android:src="@drawable/ic_send" />
+
+        <TextView
+            android:id="@+id/comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 Comments"
+            android:layout_marginTop="16dp"/>
+
 
     </LinearLayout>
 
