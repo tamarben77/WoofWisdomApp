@@ -5,9 +5,12 @@ import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,11 +56,17 @@ public class CommentActivity extends AppCompatActivity {
     ImageView add_comment;
     int questionId_st;
 
+    TextView commentCountTextView;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+        // Setting up the Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         Log.d("inside","true");
         recyclerView = (RecyclerView) findViewById(R.id.user_comment);
 
@@ -69,6 +79,8 @@ public class CommentActivity extends AppCompatActivity {
 
         title.setText(title_st);
         date.setText(date_st);
+
+        commentCountTextView = findViewById(R.id.comment_count);
 
 
         /* ArrayList :- */
@@ -162,22 +174,55 @@ public class CommentActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
-        progressDialog =new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         progressDialog.show();
 
+        // Fetching comment count
+        String URL_COUNT = BASE_URL + "dogForums/getCommentCountsForAllQuestions";
+        StringRequest countRequest = new StringRequest(Request.Method.GET, URL_COUNT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int commentCount = jsonObject.getInt(String.valueOf(questionId_st));
+                            commentCountTextView.setText(commentCount + " Comments");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Error fetching comment count: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        Volley.newRequestQueue(getApplicationContext()).add(countRequest);
+
+        // Fetching comments for the question
         comments_list.clear();
         StringRequest request = new StringRequest(Request.Method.GET, URL+"?questionId="+questionId_st,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("mubi",response.toString());
+                        Log.d("mubi", response.toString());
                         try {
-                            JSONArray array=new JSONArray(response);
-                            for(int i=0;i<array.length();i++)
-                            {
-                                comments_list.add(new CommentsModel(CommentActivity.this,array.getJSONObject(i).getString("commentTitle"),array.getJSONObject(i).getString("commentDesc"),array.getJSONObject(i).getString("userName"),array.getJSONObject(i).getInt("userID"),array.getJSONObject(i).getInt("questionID"),array.getJSONObject(i).getString("dateandTime"),array.getJSONObject(i).getInt("commentId")));
+                            JSONArray array = new JSONArray(response);
+                            for (int i = 0; i < array.length(); i++) {
+                                comments_list.add(new CommentsModel(
+                                        CommentActivity.this,
+                                        array.getJSONObject(i).getString("commentTitle"),
+                                        array.getJSONObject(i).getString("commentDesc"),
+                                        array.getJSONObject(i).getString("userName"),
+                                        array.getJSONObject(i).getInt("userID"),
+                                        array.getJSONObject(i).getInt("questionID"),
+                                        array.getJSONObject(i).getString("dateandTime"),
+                                        array.getJSONObject(i).getInt("commentId")
+                                ));
                             }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -189,18 +234,48 @@ public class CommentActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+        );
 
         int timeout = 60000;
-        request.setRetryPolicy(new DefaultRetryPolicy(timeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                timeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
         Volley.newRequestQueue(getApplicationContext()).add(request);
     }
     public ActionBar getSupportActionBar() {
         return null;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_home) {
+            // Handle "Home" click here, maybe go to the main activity or dashboard
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.action_return) {
+            // Handle "Return" click, maybe just close the current activity
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
