@@ -7,6 +7,14 @@
     android:padding="16dp"
     tools:context=".views.VaccinationsFeature.vaccinations">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="match_parent"
@@ -52,5 +60,4 @@
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_input_add" />
     </FrameLayout>
-
 </LinearLayout>
