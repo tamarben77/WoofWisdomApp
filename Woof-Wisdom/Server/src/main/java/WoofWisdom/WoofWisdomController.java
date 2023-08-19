@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vaccinations.NextVaccinations;
@@ -24,6 +23,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class WoofWisdomController {
@@ -63,21 +63,21 @@ public class WoofWisdomController {
     }
 
     @PostMapping("/addVaccination")
-    public ResponseEntity<?> addVaccination(@RequestBody String vaccination_details) {
-        // Return a 200 OK response immediately
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+    public ResponseEntity<String> addVaccination(@RequestBody String vaccination_details) {
+        // Return 200 OK response immediately
+        CompletableFuture.runAsync(() -> {
+            try {
+                Gson gson = new Gson();
+                VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
+                VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
+                        vaccinationDetails.getDate(), vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
+            } catch (Exception e) {
+                // Handle any exceptions
+                e.printStackTrace();
+            }
+        });
 
-    @Async // This annotation marks the method for asynchronous processing
-    public void addNewVaccinationRecordInBackground(VaccinationDetails vaccinationDetails) {
-        try {
-            System.out.println("adding this new vaccination: " + vaccinationDetails.getVaccination_name());
-            VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(),
-                    vaccinationDetails.getVaccination_name(), vaccinationDetails.getDate(),
-                    vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
-        } catch (SQLException e) {
-            // Handle exception if needed
-        }
+        return ResponseEntity.ok().build();
     }
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(
