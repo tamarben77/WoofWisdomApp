@@ -1,9 +1,6 @@
 package HandleBreedRequests;
 
-import ManagmentDB.MySQLConnector;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jcraft.jsch.JSchException;
-import org.jsoup.Jsoup;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,16 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -43,7 +31,6 @@ public class BreedController {
         // do something with the response
         return ResponseEntity.ok(responseBody);
     }
-
     @GetMapping("/breedsInfo/{breedName}")
     public ResponseEntity<?> breedInfo(@PathVariable String breedName) throws JsonProcessingException {
         String url = API_BASE_URL;
@@ -57,6 +44,4 @@ public class BreedController {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
     }
-
-
 }

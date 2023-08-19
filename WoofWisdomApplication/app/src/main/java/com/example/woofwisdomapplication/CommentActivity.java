@@ -1,7 +1,7 @@
 package com.example.woofwisdomapplication;
 
 import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
-import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;

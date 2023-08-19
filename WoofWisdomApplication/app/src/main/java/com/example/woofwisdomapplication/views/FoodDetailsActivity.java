@@ -1,6 +1,6 @@
 package com.example.woofwisdomapplication.views;
 
-import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

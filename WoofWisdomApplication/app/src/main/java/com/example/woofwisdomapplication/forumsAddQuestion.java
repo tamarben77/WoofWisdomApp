@@ -1,6 +1,6 @@
 package com.example.woofwisdomapplication;
 
-import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
 
 import androidx.appcompat.app.AppCompatActivity;
 

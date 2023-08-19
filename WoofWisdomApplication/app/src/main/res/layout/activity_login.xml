@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_wall_paper">
+    android:background="@drawable/loginwallpaper">
 
     <TextView
         android:id="@+id/loginTitle"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="@string/title_activity_login"
+        android:text="LOGIN"
         android:textSize="60sp"
         android:textColor="#EFBFBD"
         android:textStyle="bold"
@@ -95,16 +95,18 @@
 
     <TextView
         android:id="@+id/forgotPasswordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/passwordLayout"
-        android:layout_marginTop="248dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/signUpButton"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="@drawable/button_background"
         android:clickable="true"
         android:focusable="true"
         android:text="Forgot Password?"
+        android:gravity="center"
         android:textColor="#FFFFFF"
-        android:textSize="14sp" />
-    <!--        android:underlineText="true" />-->
-
+        android:textSize="18sp" />
 
 </RelativeLayout>

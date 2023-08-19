@@ -19,20 +19,25 @@
         android:id="@+id/txtVaccinationName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/prosto_one"
         android:layout_weight="1"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtVaccinationDetails"
         android:layout_width="wrap_content"
+        android:fontFamily="@font/prosto_one"
         android:layout_height="wrap_content"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/btnSetReminder"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
+        android:fontFamily="@font/prosto_one"
+        android:textSize="10sp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
         android:text="Set Reminder" />
 
 </LinearLayout>
