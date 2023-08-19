@@ -142,16 +142,23 @@ public class addVaccination extends AppCompatActivity {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         // Handle any errors that occurred during the request
-                        hideProgressIndicator();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                hideProgressIndicator();
+                                // You can also handle any UI updates or error messages related to the failure here
+                            }
+                        });
+                        //hideProgressIndicator();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         if (response.isSuccessful()) {
-                            String responseBody = response.body().string();
-                            Type dataType = new TypeToken<String>() {
+                            //String responseBody = response.body().string();
+                            /*Type dataType = new TypeToken<String>() {
                             }.getType();
-                            cacheManager.saveData("all_vaccinations", responseBody, dataType);
+                            cacheManager.saveData("all_vaccinations", responseBody, dataType);*/
                             int statusCode = response.code();
                             runOnUiThread(new Runnable() {
                                 @Override

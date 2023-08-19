@@ -1,6 +1,6 @@
 package com.example.woofwisdomapplication;
 
-import static com.example.woofwisdomapplication.oldMainActivity.BASE_URL;
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 editor.apply();
                                 Log.d("LoginActivity", "Starting MainActivity");
-                                Intent intent = new Intent(getApplicationContext(), oldMainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 Log.d("login", "Starting Main Activity");
                                 startActivity(intent);
                                 Log.d("login", "Main Activity started");
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void onErrorResponse(VolleyError error) {
                                 Log.d("login", "login Failed");
                                 Toast.makeText(getApplicationContext(), "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), oldMainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
                         });
                 int timeout = 60000;

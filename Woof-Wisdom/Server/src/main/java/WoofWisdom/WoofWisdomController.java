@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import vaccinations.NextVaccinations;
@@ -62,12 +63,21 @@ public class WoofWisdomController {
     }
 
     @PostMapping("/addVaccination")
-    public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException, JsonProcessingException {
-        Gson gson = new Gson();
-        VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
-        VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
-                vaccinationDetails.getDate(), vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
-        return VaccinationsManager.showAllVaccinations();
+    public ResponseEntity<?> addVaccination(@RequestBody String vaccination_details) {
+        // Return a 200 OK response immediately
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @Async // This annotation marks the method for asynchronous processing
+    public void addNewVaccinationRecordInBackground(VaccinationDetails vaccinationDetails) {
+        try {
+            System.out.println("adding this new vaccination: " + vaccinationDetails.getVaccination_name());
+            VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(),
+                    vaccinationDetails.getVaccination_name(), vaccinationDetails.getDate(),
+                    vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
+        } catch (SQLException e) {
+            // Handle exception if needed
+        }
     }
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(

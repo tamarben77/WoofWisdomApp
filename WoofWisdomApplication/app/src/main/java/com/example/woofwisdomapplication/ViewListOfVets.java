@@ -102,7 +102,7 @@ public class ViewListOfVets extends AppCompatActivity {
 
                         Type dataType = new TypeToken<List<Vet>>(){}.getType();
                         List<Vet> cachedData = cacheManager.getData("vet_list", dataType);
-                        if (cachedData.size() != 0) {
+                        if (cachedData != null) {
                             displayVets(cachedData);
                         } else {
                             // Fetch data from the server and save it in the cache

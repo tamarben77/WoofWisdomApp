@@ -137,7 +137,7 @@ public class signUp extends AppCompatActivity {
                    throw new RuntimeException(e);
                }
                // Redirect to MainActivity and display welcome message
-               Intent intent = new Intent(signUp.this, oldMainActivity.class);
+               Intent intent = new Intent(signUp.this, MainActivity.class);
                startActivity(intent);
                finish();
            }
