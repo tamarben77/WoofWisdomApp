@@ -154,12 +154,8 @@ public class addVaccination extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        // Check if the response is successful (HTTP 200 OK)
                         if (response.isSuccessful()) {
-                            String responseBody = response.body().string();
-                            Type dataType = new TypeToken<String>() {
-                            }.getType();
-                            cacheManager.saveData("all_vaccinations", responseBody, dataType);
-                            int statusCode = response.code();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -196,7 +192,6 @@ public class addVaccination extends AppCompatActivity {
                                     dialog.show();
                                 }
                             });
-
                         } else {
                             // Handle any errors that occurred during the request
                             hideProgressIndicator();

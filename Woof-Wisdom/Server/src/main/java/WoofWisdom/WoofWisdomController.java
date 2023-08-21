@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class WoofWisdomController {
@@ -62,12 +63,21 @@ public class WoofWisdomController {
     }
 
     @PostMapping("/addVaccination")
-    public ResponseEntity AddVaccination(@RequestBody String vaccination_details) throws SQLException, JsonProcessingException {
-        Gson gson = new Gson();
-        VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
-        VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
-                vaccinationDetails.getDate(), vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
-        return VaccinationsManager.showAllVaccinations();
+    public ResponseEntity<String> addVaccination(@RequestBody String vaccination_details) {
+        // Return 200 OK response immediately
+        CompletableFuture.runAsync(() -> {
+            try {
+                Gson gson = new Gson();
+                VaccinationDetails vaccinationDetails = gson.fromJson(vaccination_details, VaccinationDetails.class);
+                VaccinationsManager.addNewVaccinationRecord(vaccinationDetails.getUsername(), vaccinationDetails.getVaccination_name(),
+                        vaccinationDetails.getDate(), vaccinationDetails.getDescription(), vaccinationDetails.getLocation());
+            } catch (Exception e) {
+                // Handle any exceptions
+                e.printStackTrace();
+            }
+        });
+
+        return ResponseEntity.ok().build();
     }
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(
