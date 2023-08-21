@@ -38,7 +38,7 @@ public class WoofWisdomController {
 
     @PostMapping("/getNearestVet")
     public ResponseEntity GetNearestVet(@RequestBody String client_location, @RequestParam int radius) throws Exception {
-        System.out.println("Got a request to find nearest vets...");
+        System.out.println("Got a request to find nearest vets in the radius: " + radius);
         Gson gson = new Gson();
         ClientLocation clientLocation = gson.fromJson(client_location, ClientLocation.class);
         String response = VetFinder.getVetLocations(Double.valueOf(clientLocation.getClient_latitude()), Double.valueOf(clientLocation.getClient_longitude()), radius);

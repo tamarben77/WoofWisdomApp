@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.setProperty("IP", "192.168.1.212");
+        System.setProperty("IP", "192.168.1.23");
         BASE_URL ="http://" + System.getProperty("IP") + ":8091/";
 
         super.onCreate(savedInstanceState);
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         TextView buttonforumsBtn = (TextView) findViewById(R.id.forumsButton);
         buttonNearestVet.setOnClickListener(view -> {
             Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), findNearestVetActivity.class
+                    getApplicationContext(), ViewListOfVets.class
             );
             startActivity(secondActivityIntent);
         });
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void fillCache(){
         fetchDataFromServer(BASE_URL + "showDogFoodCategories", "food_categories");
         fetchDataFromServer(BASE_URL + "showVaccinations", "all_vaccinations");
-        fetchDataFromServer(BASE_URL + "showDogFoodItemsByCategory", "food_items");
+        //fetchDataFromServer(BASE_URL + "showDogFoodItemsByCategory", "food_items");
         fetchDataFromServer(BASE_URL + "dogForums/showAllForumsPost", "all_forums");
         fetchDataFromServer(BASE_URL + "dogBreed/breedsList", "all_breeds");
     }
