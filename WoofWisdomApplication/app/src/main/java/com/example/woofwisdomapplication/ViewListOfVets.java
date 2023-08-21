@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,9 +57,11 @@ public class ViewListOfVets extends AppCompatActivity {
     private CacheManager cacheManager;
     private FusedLocationProviderClient fusedLocationClient;
     private Double latitude, longitude;
-    private int radius;
+    private int radius = 5;
     private static String URL = "http://" + System.getProperty("IP") + ":8091/getNearestVet";
     private ProgressBar loader;
+    private SeekBar radiusSeekBar;
+    private TextView radiusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +71,57 @@ public class ViewListOfVets extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        radiusSeekBar = findViewById(R.id.radiusSeekBar);
+        radiusText = findViewById(R.id.radiusText);
+        loader=(ProgressBar)findViewById(R.id.loader);
+
+        // Set initial text based on default radius value
+        radiusText.setText(radius + " km");
+
         cacheManager = new CacheManager(this);
 
         if (getIntent().hasExtra("radius")) {
-            radius = getIntent().getIntExtra("radius", 0);
+            radius = getIntent().getIntExtra("radius", 5);
         }
 
-        loader=(ProgressBar)findViewById(R.id.loader);
+        // Set listener to update the radius text as the SeekBar is changed
+        radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                radius = progress + 1; // Increment by 1 since progress starts from 0
+                radiusText.setText(radius + " km");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // When user stops dragging the SeekBar, make the server request
+                loader.setVisibility(View.VISIBLE);
+                makeServerRequest();
+            }
+        });
+
         loader.setVisibility(View.VISIBLE);
 
-        // Initialize fusedLocationClient
+        Type dataType = new TypeToken<List<Vet>>(){}.getType();
+        List<Vet> cachedData = cacheManager.getData("vet_list", dataType);
+        if (cachedData.size() != 0) {
+            displayVets(cachedData);
+        } else {
+            makeServerRequest();
+        }
+    }
+
+    private void makeServerRequest() {
+        // ... (existing server request logic)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Create location request object
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10000); // 10 seconds
+        locationRequest.setInterval(100000); // 100 seconds
 
         // Check if user has granted location permissions
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -107,17 +145,8 @@ public class ViewListOfVets extends AppCompatActivity {
                         headers.put("Content-Type", "application/json");
                         RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/json"));
 
-                        Type dataType = new TypeToken<List<Vet>>(){}.getType();
-                        List<Vet> cachedData = cacheManager.getData("vet_list", dataType);
-                        if (cachedData != null) {
-                            displayVets(cachedData);
-                        } else {
                             // Fetch data from the server and save it in the cache
                             new NetworkCallAsyncTask(headers, body).execute(URL);
-                            //fetchDataFromServer();
-                        }
-
-                        // Run the network call in an AsyncTask
                     }
                 }
             }, Looper.getMainLooper());
@@ -126,7 +155,11 @@ public class ViewListOfVets extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
 
+        // Use the updated radius value for the request
+
+        // ... (execute the request)
     }
+
 
     private class NetworkCallAsyncTask extends AsyncTask<String, Void, String> {
         private Map<String, String> headers;
@@ -179,10 +212,11 @@ public class ViewListOfVets extends AppCompatActivity {
                         vetList.add(vet);
                     }
 
-                    displayVets(vetList); // Call a method to display the vets
                     // Save the fetched data in the cache
                     Type dataType = new TypeToken<List<Vet>>(){}.getType();
                     cacheManager.saveData("vet_list", vetList, dataType);
+                    loader.setVisibility(View.GONE);
+                    displayVets(vetList); // Call a method to display the vets
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
