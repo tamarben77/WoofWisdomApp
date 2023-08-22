@@ -124,6 +124,9 @@
             android:name=".views.VaccinationsFeature.ImmunizationsRecordActivity"
             android:exported="false" />
         <activity
+            android:name=".CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".findNearestVetActivity"
             android:exported="false" />
         <activity android:name=".ResetPasswordActivity"
