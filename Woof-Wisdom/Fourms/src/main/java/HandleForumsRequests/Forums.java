@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
+import java.util.stream.Collectors;
 
 
 import java.sql.SQLException;
@@ -60,6 +61,7 @@ public class Forums {
         String[] columnNames = {"commentTitle",  "commentDesc", "userName", "userID", "questionID"};
         Object[] values = {query.getCommentTitle(), query.getCommentDesc(), query.getUserName(), query.getUserID(), query.getQuestionID()};
         insertNewRow(tableName, columnNames, values);
+        MySQLConnector.incrementCommentCountForQuestion(query.getQuestionID());
     }
 
     public static String getTableDataJson(String tableName) throws JsonProcessingException {
@@ -70,4 +72,23 @@ public class Forums {
         return mapper.writeValueAsString(data);
     }
 
+    @GetMapping("/getCommentCountsForAllQuestions")
+    public ResponseEntity<Map<String, Integer>> getCommentCountsForAllQuestions() {
+        try {
+            Map<Integer, Integer> originalCommentCounts = MySQLConnector.getCommentCountsForAllQuestions();
+
+            // Convert the keys from Integer to String
+            Map<String, Integer> stringKeyedCommentCounts = originalCommentCounts.entrySet()
+                    .stream()
+                    .collect(Collectors.toMap(
+                            entry -> entry.getKey().toString(), // Convert key to String
+                            Map.Entry::getValue
+                    ));
+
+            return new ResponseEntity<>(stringKeyedCommentCounts, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
