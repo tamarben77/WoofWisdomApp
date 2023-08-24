@@ -1,10 +1,19 @@
 <!-- activity_immunizations_record.xml -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".ImmunizationsRecordActivity">
+    android:id="@+id/relativeLayout"
+    tools:context=".views.VaccinationsFeature.ImmunizationsRecordActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <Button
         android:id="@+id/btnSignIn"

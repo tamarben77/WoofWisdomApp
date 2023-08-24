@@ -3,6 +3,7 @@ package com.example.woofwisdomapplication.views.VaccinationsFeature;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,17 +12,24 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.woofwisdomapplication.MainActivity;
 import com.example.woofwisdomapplication.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -65,13 +73,28 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     private GoogleApiClient mGoogleApiClient;
     private EditText etSummary, etLocation, etDate;
     private Button btnSelectDate;
+    String vaccinationName;
+    private Integer inWeeks, inGeneral;
 
+    private RelativeLayout relativeLayout;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_immunizations_record);
 
-        // Initialize Google Sign-In options
+        relativeLayout = findViewById(R.id.relativeLayout);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            vaccinationName = intent.getStringExtra("vaccinationName");
+            inWeeks = intent.getIntExtra("inWeeks", 0); // Default value is 0
+            inGeneral = intent.getIntExtra("inGeneral", 0); // Default value is 0
+        }
+
+            // Initialize Google Sign-In options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("593298902212-bcv0nnl1pn56e3edjcs4g0r2raf4dmsn.apps.googleusercontent.com")
                 .requestEmail()
@@ -89,12 +112,29 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
                 .setBackOff(new ExponentialBackOff());
 
         etSummary = findViewById(R.id.etSummary);
+
+        etSummary.setText("WoofWisdon Reminders: " + vaccinationName + " Vaccination");
+
         etLocation = findViewById(R.id.etLocation);
-        //etDate = findViewById(R.id.etDate);
+        etLocation.setText("My Favorite Vet!");
 
         selectedDateTime = java.util.Calendar.getInstance();
 
         btnSelectDate = findViewById(R.id.btnSelectDate);
+        final java.util.Calendar currentDateTime = selectedDateTime;
+        if (inWeeks > 0) {
+            currentDateTime.add(java.util.Calendar.WEEK_OF_YEAR, inWeeks);
+        } else {
+            currentDateTime.add(java.util.Calendar.YEAR, inGeneral);
+        }
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Update the text of the date selection button
+        String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", currentDateTime);
+        btnSelectDate.setText(formattedDateTime);
+
         btnSelectDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -300,6 +340,15 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
 
     private void showDateTimePicker() {
         final java.util.Calendar currentDateTime = selectedDateTime;
+        if (inWeeks > 0) {
+            currentDateTime.add(java.util.Calendar.WEEK_OF_YEAR, inWeeks);
+        } else {
+            currentDateTime.add(java.util.Calendar.YEAR, inGeneral);
+        }
+
+        // Update the text of the date selection button
+        String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", currentDateTime);
+        btnSelectDate.setText(formattedDateTime);
         int year = currentDateTime.get(java.util.Calendar.YEAR);
         int month = currentDateTime.get(java.util.Calendar.MONTH);
         int day = currentDateTime.get(java.util.Calendar.DAY_OF_MONTH);
@@ -330,6 +379,32 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
         }, year, month, day);
 
         datePickerDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_home) {
+            // Handle "Home" click here, maybe go to the main activity or dashboard
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.action_return) {
+            // Handle "Return" click, maybe just close the current activity
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

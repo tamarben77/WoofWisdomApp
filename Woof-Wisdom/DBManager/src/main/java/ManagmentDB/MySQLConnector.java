@@ -22,7 +22,7 @@ public class MySQLConnector {
     // so it should be used only when running remote server
     //TODO - activate this configuration when deploying the server
     //private static final String SSH_KEY_FILE = "/home/ubuntu/woofWisdomKey.pem";
-    private static final String SSH_HOST = "ec2-13-49-49-27.eu-north-1.compute.amazonaws.com";
+    private static final String SSH_HOST = "ec2-16-170-226-89.eu-north-1.compute.amazonaws.com";
     private static final int SSH_PORT = 22;
     private static final int DB_PORT = 3306;
     private static final String DB_USER = "woof";

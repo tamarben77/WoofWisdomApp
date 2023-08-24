@@ -1,5 +1,7 @@
 package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -20,7 +23,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.woofwisdomapplication.CacheManager.CacheManager;
+import com.example.woofwisdomapplication.CacheManager.NetworkUtils;
 import com.example.woofwisdomapplication.DTO.NextVaccination;
+import com.example.woofwisdomapplication.DTO.UserObject;
 import com.example.woofwisdomapplication.DTO.Vaccination;
 import com.example.woofwisdomapplication.MainActivity;
 import com.example.woofwisdomapplication.R;
@@ -80,6 +85,22 @@ public class addVaccination extends AppCompatActivity {
         vaccinationNameSpinner.setAdapter(adapter);
 
         EditText usernameEditText = (EditText) findViewById(R.id.usernameEditText);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
+        String userJson = sharedPreferences.getString("user", null);
+
+        if (userJson != null) {
+            // Deserialize the JSON string back into a UserObject
+            UserObject user = new Gson().fromJson(userJson, UserObject.class);
+
+            // Extract and set the first name and last name
+            String firstName = user.getFirstName();
+            String lastName = user.getLastName();
+
+            usernameEditText.setText(firstName + " " + lastName);
+            usernameEditText.setEnabled(false);
+        }
+
         EditText descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         EditText locationEditText = (EditText) findViewById(R.id.locationEditText);
 
@@ -160,6 +181,7 @@ public class addVaccination extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     hideProgressIndicator();
+                                    fetchDataFromServer(BASE_URL + "showVaccinations", "all_vaccinations");
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(addVaccination.this);
 
@@ -198,6 +220,14 @@ public class addVaccination extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+    }
+    private void fetchDataFromServer(String serverUrl, final String cacheKey) {
+        NetworkUtils.fetchDataAsync(this, serverUrl, new NetworkUtils.DataCallback() {
+            @Override
+            public void onDataFetched(String data) {
+                // Data has been fetched and stored in the cache with the given key
             }
         });
     }

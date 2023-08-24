@@ -2,16 +2,24 @@ package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.woofwisdomapplication.DTO.NextVaccination;
+import com.example.woofwisdomapplication.DTO.UserObject;
+import com.example.woofwisdomapplication.MainActivity;
 import com.example.woofwisdomapplication.R;
 import com.example.woofwisdomapplication.findNearestVetActivity;
 import com.google.gson.Gson;
@@ -42,7 +50,24 @@ public class NextVaccinationsActivity extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linearLayout);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String userJson = sharedPreferences.getString("user", null);
+
         int dogAgeInWeeks = 12;
+
+        if (userJson != null) {
+            // Deserialize the JSON string back into a UserObject
+            UserObject user = new Gson().fromJson(userJson, UserObject.class);
+            Integer dogAge = user.getDogAge();
+            // Extract and set the first name and last name
+            if (dogAge != null){
+                dogAgeInWeeks = dogAge * 52;
+            }
+        }
+
         // Create a Retrofit instance and interface for making the API call
         String url = "http://" + IP + ":8091/" +
                 "next-vaccinations?dogAgeInWeeks=" +
@@ -107,6 +132,9 @@ public class NextVaccinationsActivity extends AppCompatActivity {
                                         Intent secondActivityIntent = new Intent(
                                                 getApplicationContext(), ImmunizationsRecordActivity.class
                                         );
+                                        secondActivityIntent.putExtra("vaccinationName", vac.getName());
+                                        secondActivityIntent.putExtra("inWeeks", vac.getInWeeks());
+                                        secondActivityIntent.putExtra("inGeneral", vac.getInGeneral());
                                         startActivity(secondActivityIntent);
                                     }
                                 });
@@ -121,5 +149,31 @@ public class NextVaccinationsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_home) {
+            // Handle "Home" click here, maybe go to the main activity or dashboard
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.action_return) {
+            // Handle "Return" click, maybe just close the current activity
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

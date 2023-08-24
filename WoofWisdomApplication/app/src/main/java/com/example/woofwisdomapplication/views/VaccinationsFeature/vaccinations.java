@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,12 +19,15 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.woofwisdomapplication.API.VaccinationService;
 import com.example.woofwisdomapplication.CacheManager.CacheManager;
 import com.example.woofwisdomapplication.DTO.Vaccination;
+import com.example.woofwisdomapplication.FormActivity;
 import com.example.woofwisdomapplication.MainActivity;
 import com.example.woofwisdomapplication.R;
+import com.example.woofwisdomapplication.forumsAddQuestion;
 import com.google.common.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -60,10 +64,13 @@ public class vaccinations extends AppCompatActivity {
 
         ImageButton add = (ImageButton) findViewById(R.id.floatingActionButton);
         add.setOnClickListener(view -> {
-            Intent secondActivityIntent = new Intent(
-                    getApplicationContext(), addVaccination.class
-            );
-            startActivity(secondActivityIntent);
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            if(sharedPreferences.getString("sessionID","").equals(""))
+            {
+                Toast.makeText(vaccinations.this,"You need to login first",Toast.LENGTH_SHORT).show();
+            }else{
+                startActivity(new Intent(getApplicationContext(), addVaccination.class));
+            }
         });
 
         recyclerView = findViewById(R.id.recyclerView);

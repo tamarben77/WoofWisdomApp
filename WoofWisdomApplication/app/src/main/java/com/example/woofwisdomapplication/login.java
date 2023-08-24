@@ -1,5 +1,7 @@
 package com.example.woofwisdomapplication;
 
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.woofwisdomapplication.DTO.UserObject;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -72,6 +75,40 @@ public class login extends AppCompatActivity {
                                     throw new RuntimeException(e);
                                 }
                                 editor.apply();
+
+                                // Asynchronous request to get user info
+                                JsonObjectRequest userRequest = null;
+                                try {
+                                    userRequest = new JsonObjectRequest(
+                                            Request.Method.GET,
+                                            BASE_URL + "auth/getUserInfo?sessionID=" + response.getString("sessionID"),
+                                            null,
+                                            new Response.Listener<JSONObject>() {
+                                                @Override
+                                                public void onResponse(JSONObject userResponse) {
+                                                    // Parse the userResponse and create a UserObject instance
+                                                    UserObject user = new Gson().fromJson(userResponse.toString(), UserObject.class);
+
+                                                    // Save the UserObject in SharedPreferences
+                                                    editor.putString("user", new Gson().toJson(user));
+                                                    editor.apply();
+                                                }
+                                            },
+                                            new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    Log.d("getUserInfo", "Failed to get user info: " + error.getMessage());
+                                                }
+                                            }
+                                    );
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                int timeout = 60000;
+                                userRequest.setRetryPolicy(new DefaultRetryPolicy(timeout,
+                                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                                Volley.newRequestQueue(login.this).add(userRequest);
+
                                 Log.d("LoginActivity", "Starting MainActivity");
                                 Intent intent = new Intent(login.this, MainActivity.class);
                                 Log.d("login", "Starting Main Activity");
