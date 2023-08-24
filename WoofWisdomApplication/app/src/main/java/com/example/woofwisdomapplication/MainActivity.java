@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.setProperty("IP", "192.168.1.212");
+        System.setProperty("IP", "192.168.1.23");
         BASE_URL ="http://" + System.getProperty("IP") + ":8091/";
 
         super.onCreate(savedInstanceState);

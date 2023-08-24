@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -107,7 +108,7 @@ public class ViewListOfVets extends AppCompatActivity {
 
         Type dataType = new TypeToken<List<Vet>>(){}.getType();
         List<Vet> cachedData = cacheManager.getData("vet_list", dataType);
-        if (cachedData.size() != 0) {
+        if (cachedData!= null && cachedData.size() != 0) {
             displayVets(cachedData);
         } else {
             makeServerRequest();
@@ -183,6 +184,7 @@ public class ViewListOfVets extends AppCompatActivity {
                     .post(requestBody)
                     .build();
             try {
+                Log.d("ViewListOfVetsActivity", "sent a request to get list of vets at url: " + urlWithParams);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     return response.body().string();

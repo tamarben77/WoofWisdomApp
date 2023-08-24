@@ -65,13 +65,22 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     private GoogleApiClient mGoogleApiClient;
     private EditText etSummary, etLocation, etDate;
     private Button btnSelectDate;
+    String vaccinationName;
+    private Integer inWeeks, inGeneral;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_immunizations_record);
 
-        // Initialize Google Sign-In options
+        Intent intent = getIntent();
+        if (intent != null) {
+            vaccinationName = intent.getStringExtra("vaccinationName");
+            inWeeks = intent.getIntExtra("inWeeks", 0); // Default value is 0
+            inGeneral = intent.getIntExtra("inGeneral", 0); // Default value is 0
+        }
+
+            // Initialize Google Sign-In options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("593298902212-bcv0nnl1pn56e3edjcs4g0r2raf4dmsn.apps.googleusercontent.com")
                 .requestEmail()
@@ -89,12 +98,26 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
                 .setBackOff(new ExponentialBackOff());
 
         etSummary = findViewById(R.id.etSummary);
+
+        etSummary.setText("WoofWisdon Reminders: " + vaccinationName + " Vaccination");
+
         etLocation = findViewById(R.id.etLocation);
-        //etDate = findViewById(R.id.etDate);
+        etLocation.setText("My Favorite Vet!");
 
         selectedDateTime = java.util.Calendar.getInstance();
 
         btnSelectDate = findViewById(R.id.btnSelectDate);
+        final java.util.Calendar currentDateTime = selectedDateTime;
+        if (inWeeks > 0) {
+            currentDateTime.add(java.util.Calendar.WEEK_OF_YEAR, inWeeks);
+        } else {
+            currentDateTime.add(java.util.Calendar.YEAR, inGeneral);
+        }
+
+        // Update the text of the date selection button
+        String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", currentDateTime);
+        btnSelectDate.setText(formattedDateTime);
+
         btnSelectDate.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -300,6 +323,15 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
 
     private void showDateTimePicker() {
         final java.util.Calendar currentDateTime = selectedDateTime;
+        if (inWeeks > 0) {
+            currentDateTime.add(java.util.Calendar.WEEK_OF_YEAR, inWeeks);
+        } else {
+            currentDateTime.add(java.util.Calendar.YEAR, inGeneral);
+        }
+
+        // Update the text of the date selection button
+        String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", currentDateTime);
+        btnSelectDate.setText(formattedDateTime);
         int year = currentDateTime.get(java.util.Calendar.YEAR);
         int month = currentDateTime.get(java.util.Calendar.MONTH);
         int day = currentDateTime.get(java.util.Calendar.DAY_OF_MONTH);

@@ -107,6 +107,9 @@ public class NextVaccinationsActivity extends AppCompatActivity {
                                         Intent secondActivityIntent = new Intent(
                                                 getApplicationContext(), ImmunizationsRecordActivity.class
                                         );
+                                        secondActivityIntent.putExtra("vaccinationName", vac.getName());
+                                        secondActivityIntent.putExtra("inWeeks", vac.getInWeeks());
+                                        secondActivityIntent.putExtra("inGeneral", vac.getInGeneral());
                                         startActivity(secondActivityIntent);
                                     }
                                 });
