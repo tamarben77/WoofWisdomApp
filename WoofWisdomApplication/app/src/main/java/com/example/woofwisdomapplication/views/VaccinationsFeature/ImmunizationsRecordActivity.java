@@ -3,6 +3,7 @@ package com.example.woofwisdomapplication.views.VaccinationsFeature;
 import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,17 +12,24 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.woofwisdomapplication.MainActivity;
 import com.example.woofwisdomapplication.R;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -68,10 +76,16 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
     String vaccinationName;
     private Integer inWeeks, inGeneral;
 
+    private RelativeLayout relativeLayout;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_immunizations_record);
+
+        relativeLayout = findViewById(R.id.relativeLayout);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -113,6 +127,9 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
         } else {
             currentDateTime.add(java.util.Calendar.YEAR, inGeneral);
         }
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Update the text of the date selection button
         String formattedDateTime = String.format(Locale.getDefault(), "%1$tY-%1$tm-%1$td %1$tH:%1$tM", currentDateTime);
@@ -362,6 +379,32 @@ public class ImmunizationsRecordActivity extends AppCompatActivity implements Go
         }, year, month, day);
 
         datePickerDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_home) {
+            // Handle "Home" click here, maybe go to the main activity or dashboard
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.action_return) {
+            // Handle "Return" click, maybe just close the current activity
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
