@@ -1,5 +1,7 @@
 package com.example.woofwisdomapplication.views.VaccinationsFeature;
 
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.woofwisdomapplication.CacheManager.CacheManager;
+import com.example.woofwisdomapplication.CacheManager.NetworkUtils;
 import com.example.woofwisdomapplication.DTO.NextVaccination;
 import com.example.woofwisdomapplication.DTO.UserObject;
 import com.example.woofwisdomapplication.DTO.Vaccination;
@@ -178,6 +181,7 @@ public class addVaccination extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     hideProgressIndicator();
+                                    fetchDataFromServer(BASE_URL + "showVaccinations", "all_vaccinations");
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(addVaccination.this);
 
@@ -216,6 +220,14 @@ public class addVaccination extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+    }
+    private void fetchDataFromServer(String serverUrl, final String cacheKey) {
+        NetworkUtils.fetchDataAsync(this, serverUrl, new NetworkUtils.DataCallback() {
+            @Override
+            public void onDataFetched(String data) {
+                // Data has been fetched and stored in the cache with the given key
             }
         });
     }
