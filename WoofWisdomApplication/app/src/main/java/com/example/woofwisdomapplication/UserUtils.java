@@ -1,5 +1,7 @@
 package com.example.woofwisdomapplication;
 
+import static com.example.woofwisdomapplication.MainActivity.BASE_URL;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ public class UserUtils {
         String sessionId = sharedPreferences.getString("sessionID", null);
 
         if (sessionId != null) {
-            String url = "http://192.168.1.212:8091/auth/getUserInfo?sessionID=" + sessionId;
+            String url = BASE_URL + "auth/getUserInfo?sessionID=" + sessionId;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                     new Response.Listener<JSONObject>() {
